@@ -411,11 +411,13 @@
           	console.log("Directions response");
           	console.log(response);
           	miles = metersToMiles(response.routes[0].legs[0].distance.value);
-          	
-          	start_lat = response.routes[0].legs[0].start_location.kb;
-          	start_lng = response.routes[0].legs[0].start_location.lb;
-          	end_lat = response.routes[0].legs[0].end_location.kb;
-          	end_lng = response.routes[0].legs[0].end_location.lb;
+          	if(response.routes)
+          	{
+	          	start_lat = response.routes[0].legs[0].start_location.kb;
+	          	start_lng = response.routes[0].legs[0].start_location.lb;
+	          	end_lat = response.routes[0].legs[0].end_location.kb;
+	          	end_lng = response.routes[0].legs[0].end_location.lb;
+	        }
           	
           	
             if (status == google.maps.DirectionsStatus.OK) {
@@ -439,27 +441,27 @@
         	if(!$("input[name='mpg']").val())
         	{
         		errors++;
-        		console.log(errors);
+        		console.log("Error: mpgs empty");
         	}
         	if(!$("input[name='people']").val())
         	{
         		errors++;
-        		console.log(errors);
+        		console.log("Error: people empty");
         	}
         	if(!$("input[name='start-location']").val())
         	{
         		errors++;
-        		console.log(errors);
+        		console.log("Error: start-location empty");
         	}
         	if(!$("input[name='end-location']").val())
         	{
         		errors++;
-        		console.log(errors);
+        		console.log("Error: end-location empty");
         	}
         	if(!price)
         	{
         		errors++;
-        		console.log(errors);
+        		console.log("Error: price empty");
         	}
         	if(errors == 1)
         	{
