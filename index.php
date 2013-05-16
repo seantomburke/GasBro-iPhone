@@ -466,7 +466,7 @@
         	}
         	if(errors == 1)
         	{
-        		History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people);
+        		History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location);
         		//setURLParameter('people',people);
         		//setURLParameter('start-location',start_location);
         		//setURLParameter('end-location',end_location);
