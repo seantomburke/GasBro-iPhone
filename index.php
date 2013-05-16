@@ -201,6 +201,8 @@
           if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(location){
             	getCurrentLocation(location, function(){
+            			start_lat = location.coords.latitude;
+            			start_lng = location.coords.longitude;
             			console.log("resetting button");
             			$("#current-location").button("reset");
             			getAddress(location, function(result){
@@ -210,6 +212,7 @@
             			$("#current-location-group").addClass("info");
             			$("#current-location").addClass("btn-primary");
             			$("#current-location i").addClass("icon-white");
+            			calculateGasPrice(start_lat, start_lng);
             	});
             }, function(){
             	handleNoGeolocation(true)}
@@ -223,22 +226,22 @@
         }
         
         function getCurrentLocation(position, callback){
-              var pos = new google.maps.LatLng(position.coords.latitude,
-                                               position.coords.longitude);
-              console.log("position.coords.latitude:"+position.coords.latitude);
-              console.log("position.coords.longitude:"+position.coords.longitude);                             
-        		icon = new google.maps.Marker();
-        	  var marker = new google.maps.Marker({
-        	  map:map,
-        	  position: pos,
-        	  icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-        	  });
-        		
+			var pos = new google.maps.LatLng(position.coords.latitude,
+			                               position.coords.longitude);
+			console.log("position.coords.latitude:"+position.coords.latitude);
+			console.log("position.coords.longitude:"+position.coords.longitude);                             
+			icon = new google.maps.Marker();
+			var marker = new google.maps.Marker({
+				map:map,
+				position: pos,
+				icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+			});
+			
 			console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
-			                                 position.coords.longitude);
-              map.setCenter(pos);
-              
-              callback();
+			                             position.coords.longitude);
+			map.setCenter(pos);
+			
+			callback();
         };
         
         function handleNoGeolocation(errorFlag) {
@@ -249,21 +252,13 @@
           }
         }
         
-        
-        
-        $("#directions").click(function(event){
-        	event.preventDefault();
-        	calcRoute();
-        	calculateCost();
-        });
-        
         $("input[name='start-location']").focusout(function(event){
         	//event.preventDefault();
         	getGPS($(this).val(), function(location){
         		console.log("location");
         		console.log(location);
-        		start_lat = location.kb;
-        		start_lng = location.lb;
+        		start_lat = location.lat();
+        		start_lng = location.lng();
         		calculateGasPrice(start_lat, start_lng);
         		
         		var marker = new google.maps.Marker({
@@ -278,7 +273,9 @@
         
         $("input[name='end-location']").focusout(function(event){
         	//event.preventDefault();
-        	calcRoute();
+        	calcRoute(function(){
+        		calculateGasPrice(start_lat, start_lng);
+        	});
         });
         
         
@@ -303,9 +300,12 @@
         
         $("#calculate").click(function(event){
         	event.preventDefault();
-        	calcRoute();
-        	calculateGasPrice(start_lat, start_lng);
-        	calculateCost();
+        	calcRoute(function(){
+        		calculateGasPrice(start_lat, start_lng, function(){
+        			calculateCost();
+        		})        		
+        		
+        	});
         });
          
         
@@ -399,7 +399,7 @@
 	        );
         }
         
-        function calcRoute() {
+        function calcRoute(callback) {
           start_location = $("input[name='start-location']").val();
           end_location = $("input[name='end-location']").val();
           var request = {
@@ -413,10 +413,10 @@
           	miles = metersToMiles(response.routes[0].legs[0].distance.value);
           	if(response.routes)
           	{
-	          	start_lat = response.routes[0].legs[0].start_location.kb;
-	          	start_lng = response.routes[0].legs[0].start_location.lb;
-	          	end_lat = response.routes[0].legs[0].end_location.kb;
-	          	end_lng = response.routes[0].legs[0].end_location.lb;
+	          	start_lat = response.routes[0].legs[0].start_location.lat();
+	          	start_lng = response.routes[0].legs[0].start_location.lng();
+	          	end_lat = response.routes[0].legs[0].end_location.lat();
+	          	end_lng = response.routes[0].legs[0].end_location.lng();
 	        }
           	
           	
@@ -426,6 +426,7 @@
           });
           
           directionsDisplay.setMap(map);
+          callback();
         }
          	 
          	 
@@ -480,32 +481,56 @@
           return cost;
         }
         
-        function calculateGasPrice(lat, lng)
+        function calculateGasPrice(lat, lng, callback)
         {
-        	$.ajax({
-        		type: 'GET',
-        		url: 'gas.php',
-        		dataType: "json",
-        		data: {
-        		 latitude: lat,
-        		 longitude: lng,
-        		 gas_type: 'reg',
-        		 sort_by: 'price'
-        		 
-        		}, 
-        		success: function(data){
-        			calculateCost();
-        			console.log(data);
-        			price = data.stations[0].price;
-        			$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
-        			$("#gas").html("$" + data.stations[0].price);
-        		},
-        		error: function(data){
-        			console.log(data);
-        			$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
-        			$("#gas").html("$" + "ERROR");
-        		}
-        	});
+        	var errors = 1
+        	if(!lat)
+        	{
+        		errors++;
+        		console.log("error: lat empty");
+        	}
+        	if(!lng)
+        	{
+        		errors++;
+        		console.log("error: lng empty");
+        	}
+        	
+        	if(errors === 1)
+        	{
+	        	$.ajax({
+	        		type: 'GET',
+	        		url: 'gas.php',
+	        		dataType: "json",
+	        		data: {
+	        		 latitude: lat,
+	        		 longitude: lng,
+	        		 gas_type: 'reg',
+	        		 sort_by: 'price'
+	        		 
+	        		}, 
+	        		success: function(data, status, response){
+	        			calculateCost();
+	        			if(data.status.error == "YES")
+	        			{
+		        			price = data.stations[0].price;
+		        			$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
+		        			$("#gas").html("$" + data.stations[0].price);
+		        		}
+		        		else
+		        		{
+	        				price = data.stations[0].price;
+	        				$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
+	        				$("#gas").html("$" + data.stations[0].price);
+		        		}
+	        		},
+	        		error: function(data){
+	        			console.log(data);
+	        			$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
+	        			$("#gas").html("$" + "ERROR");
+	        		}
+	        	});
+	        	callback();
+        	}
         }
         
         function getURLParameter(name) {
