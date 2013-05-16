@@ -213,6 +213,7 @@
             			$("#current-location").addClass("btn-primary");
             			$("#current-location i").addClass("icon-white");
             			calculateGasPrice(start_lat, start_lng);
+            			calcRoute();
             	});
             }, function(){
             	handleNoGeolocation(true)}
@@ -260,7 +261,7 @@
         		start_lat = location.lat();
         		start_lng = location.lng();
         		calculateGasPrice(start_lat, start_lng);
-        		
+        		calcRoute();
         		var marker = new google.maps.Marker({
         		  map:map,
         		  position: location,
@@ -466,7 +467,7 @@
         	}
         	if(errors == 1)
         	{
-        		History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location);
+        		updateHistory();
         		//setURLParameter('people',people);
         		//setURLParameter('start-location',start_location);
         		//setURLParameter('end-location',end_location);
@@ -552,7 +553,10 @@
         }
          	 
          	 
-        
+        function updateHistory()
+        {
+        	History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roadtrip='+roadtrip);
+        }
         
         
         
