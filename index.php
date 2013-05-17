@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>RoadTrip</title>
+        <title>RoadTripr</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -70,8 +70,8 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="container">
-                <h1>Roadtrip Calculator</h1>
-                <p class="lead">Easily calculate the cost of your Trip</p>
+                <h1>Roadtripr</h1>
+                <p class="lead">Easliy split the cost of gas with friends</p>
             </div>
 		</header>
 		<div>
@@ -139,7 +139,7 @@
             </div>
             <hr>
             <footer>
-                <p>Developed by <a href="http://www.seantburke.com/?r=roadtrip">Sean Thomas Burke</a> &copy;RoadTrip 2013</p>
+                <p>Developed by <a href="http://www.seantburke.com/?r=roadtrip">Sean Thomas Burke</a> &copy;RoadTripr 2013</p>
             </footer>
 
         </div> <!-- /container -->
