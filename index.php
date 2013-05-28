@@ -80,42 +80,47 @@
 	           <div class="span4 sidebar" >
 		            <form class="form">
                         <div class="controls">
-                        <span for="start-location">Start Location</span>
-	                    <div class="input-append">
-	                      <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
-	                      <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
-	                        data-loading-text="<i class='icon-refresh'></i>">
-	                        	<i class="icon-map-marker"></i>
-	                      </button>
-	                    </div>
+                            <span for="start-location">Start Location</span>
+    	                    <div class="input-append">
+    	                      <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
+    	                      <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
+    	                        data-loading-text="<i class='icon-refresh'></i>">
+    	                        	<i class="icon-map-marker"></i>
+    	                      </button>
+    	                    </div>
                         </div>
 
                         <div class="controls">
-	                    <span for="end-location">End Destination</span>
-	                    <input type="text" id="end" name="end-location" placeholder="Destination" >
+    	                    <span for="end-location">End Destination</span>
+    	                    <input type="text" id="end" name="end-location" placeholder="Destination" >
                         </div>
 
                         <div class="controls">
-	                    <span for="people">Number of People</span>
-	                    <input placeholder="Number of People" type="number" name="people"/>
+    	                    <span for="people">Number of People</span>
+    	                    <input placeholder="Number of People" type="number" name="people"/>
                         </div>
 
                         <div class="controls">
-		              	<span for="mpg">Miles Per Gallon</span>
-		                <input placeholder="MPG" type="number" name="mpg"/>
+    		              	<span for="mpg">Miles Per Gallon</span>
+    		                <input placeholder="MPG" type="number" name="mpg"/>
                         </div>
 
                         <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="roundtrip"> Roundtrip?
-                        </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="roundtrip"> Roundtrip?
+                            </label>
                         </div>
 
-                        <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
-	                    <span id="gas_span"></span>
-			            <h1 id="gas" class=""></h1>
-			            <span>Cost per Person:</span>
-		                <h1 id="cost" class=""></h1>
+                        <div class="controls">
+                            <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
+                        </div>
+                            <div class="controls">
+    	                    <span id="gas_span"></span>
+    			            <h1 id="gas" class=""></h1>
+                        </div>
+    			            <span>Cost per Person:</span>
+    		                <h1 id="cost" class=""></h1>
+                        </div>
 		           </form>
 	            </div>
                 <div class="span8">
