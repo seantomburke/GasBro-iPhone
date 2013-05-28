@@ -74,64 +74,51 @@
                 <p class="lead">Easliy split the cost of gas with friends</p>
             </div>
 		</header>
-		<div>
+		<div class="container">
             <!-- Example row of columns -->
             <div class="row">
-	           <div class="span4 affix-top sidebar" >
-		               <form class="form-horizontal">
-		                 <div id="current-location-group" class="control-group ">
-		                 	<label class="control-label" for="start-location">Start Location</label>
-		                    <div class="controls">
-		                      <div class="input-append">
-		                        <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
-		                        <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
-		                        data-loading-text="<i class='icon-refresh'></i>">
-		                        	<i class="icon-map-marker"></i>
-		                        </button>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div class="control-group ">
-		                    <label class="control-label" for="end-location">End Destination</label>
-		                    <div class="controls">
-		                      <input type="text" id="end" name="end-location" placeholder="Destination" >
-		                  	</div>
-		                  </div>
-		                  <div class="control-group ">
-		                    <label class="control-label" for="people">Number of People</label>
-		                    <div class="controls">
-		                      <input placeholder="Number of People" type="number" name="people"/>
-			                </div>
-			              </div>
-			              <div class="control-group ">
-			              	<label class="control-label " for="mpg">MPG</label>
-			                <div class="controls ">
-			                  <input placeholder="MPG" type="number" name="mpg"/>
-			                </div>
-			              </div>
-			              <div class="control-group ">
-			                  <div class="controls">
-			                	  <label class="checkbox">
-				    				  <input type="checkbox" name="roundtrip"> Roundtrip?
-			                	  </label>
-		                	      <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
-		                      </div>
-		                  </div>
-		                  <div class="control-group ">
-		                    <label id="gas_label" class="control-label"></label>
-		                      <div class="controls">
-				                <h1 id="gas" class=""></h1>
-				              </div>
-				          </div>
-				          <div class="control-group ">
-				            <label class="control-label">Cost per Person:</label>
-			                <div class="controls">
-			                	<h1 id="cost" class=""></h1>
-			                </div>
-				          </div>
+	           <div class="span4 sidebar" >
+		            <form class="form">
+                        <div class="controls">
+                        <span for="start-location">Start Location</span>
+	                    <div class="input-append">
+	                      <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
+	                      <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
+	                        data-loading-text="<i class='icon-refresh'></i>">
+	                        	<i class="icon-map-marker"></i>
+	                      </button>
+	                    </div>
+                        </div>
+
+                        <div class="controls">
+	                    <span for="end-location">End Destination</span>
+	                    <input type="text" id="end" name="end-location" placeholder="Destination" >
+                        </div>
+
+                        <div class="controls">
+	                    <span for="people">Number of People</span>
+	                    <input placeholder="Number of People" type="number" name="people"/>
+                        </div>
+
+                        <div class="controls">
+		              	<span for="mpg">Miles Per Gallon</span>
+		                <input placeholder="MPG" type="number" name="mpg"/>
+                        </div>
+
+                        <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="roundtrip"> Roundtrip?
+                        </label>
+                        </div>
+
+                        <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
+	                    <span id="gas_span"></span>
+			            <h1 id="gas" class=""></h1>
+			            <span>Cost per Person:</span>
+		                <h1 id="cost" class=""></h1>
 		           </form>
 	            </div>
-                <div class="span8 pull-right">
+                <div class="span8">
                 	<div id="map-frame" class="hidden-phone" style="height:450px;">
                     	<div id="map-canvas" style="height:100%;"></div>
                     </div>
@@ -514,19 +501,19 @@
 	        			if(data.status.error == "YES")
 	        			{
 		        			price = data.stations[0].price;
-		        			$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
+		        			$("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
 		        			$("#gas").html("$" + data.stations[0].price);
 		        		}
 		        		else
 		        		{
 	        				price = data.stations[0].price;
-	        				$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
+	        				$("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
 	        				$("#gas").html("$" + data.stations[0].price);
 		        		}
 	        		},
 	        		error: function(data){
 	        			console.log(data);
-	        			$("#gas_label").html("Cost of gas in "+data.stations[0].city +":");
+	        			$("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
 	        			$("#gas").html("$" + "ERROR");
 	        		}
 	        	});
