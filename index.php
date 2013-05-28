@@ -139,7 +139,7 @@
             </div>
             <hr>
             <footer>
-                <p>Developed by <a href="http://www.seantburke.com/?r=roadtrip">Sean Thomas Burke</a> &copy;RoadTripr 2013</p>
+                <p>Developed by <a href="http://www.seantburke.com/?r=roadtripr">Sean Thomas Burke</a> &copy;RoadTripr 2013</p>
             </footer>
 
         </div> <!-- /container -->
@@ -555,7 +555,7 @@
          	 
         function updateHistory()
         {
-        	History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roadtrip='+roadtrip);
+        	History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roundtrip='+roundtrip);
         }
         
         

@@ -12,7 +12,7 @@ function get($url)
 	return $api_response;
 }
 
-$api_key = 'rfej9napna';
+//$api_key = 'rfej9napna';
 $api_key = 'wf55k72cc3';
 
 $longitude = $_GET['longitude'];
