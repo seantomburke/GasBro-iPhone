@@ -114,10 +114,12 @@
                         <div class="controls">
                             <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
                         </div>
-                            <div class="controls">
+
+                        <div class="controls">
     	                    <span id="gas_span"></span>
     			            <h1 id="gas" class=""></h1>
                         </div>
+                        <div class="controls">
     			            <span>Cost per Person:</span>
     		                <h1 id="cost" class=""></h1>
                         </div>
