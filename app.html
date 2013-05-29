@@ -117,7 +117,7 @@
 		           </form>
 	            </div>
                 <div class="span8">
-                	<div id="map-frame" class="hidden-phone" style="height:450px;">
+                	<div id="map-frame" class="hidden-phone" style="height:320px;">
                     	<div id="map-canvas" style="height:100%;"></div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
         
           var mapOptions = {
             zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644),
+            center: new google.maps.LatLng(37.714242, -121.744868),
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
           map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -260,22 +260,29 @@
         
         $("input[name='start-location']").focusout(function(event){
         	//event.preventDefault();
-        	getGPS($(this).val(), function(location){
-        		console.log("location");
-        		console.log(location);
-        		start_lat = location.lat();
-        		start_lng = location.lng();
-        		calculateGasPrice(start_lat, start_lng);
-        		calcRoute();
-        		var marker = new google.maps.Marker({
-        		  map:map,
-        		  position: location,
-        		  icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-        		  });
-        		  
-        		  map.setCenter(location);
+        	setStart();
         	});
         });
+
+        $("")
+
+        function setStart(){
+            getGPS($(this).val(), function(location){
+                console.log("location");
+                console.log(location);
+                start_lat = location.lat();
+                start_lng = location.lng();
+                calculateGasPrice(start_lat, start_lng);
+                calcRoute();
+                var marker = new google.maps.Marker({
+                  map:map,
+                  position: location,
+                  icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                  });
+                  
+                  map.setCenter(location);
+
+        }
         
         $("input[name='end-location']").focusout(function(event){
         	//event.preventDefault();
