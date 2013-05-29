@@ -278,7 +278,7 @@
                   });
                   
                   map.setCenter(location);
-
+                });
         }
         
         $("input[name='end-location']").focusout(function(event){

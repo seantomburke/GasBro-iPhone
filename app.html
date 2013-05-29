@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>-->
-		<header class="jumbotron subhead">
+        <header class="jumbotron subhead">
         
 
             <!-- Main hero unit for a primary marketing message or call to action -->
@@ -73,36 +73,36 @@
                 <h1>Roadtripr</h1>
                 <p class="lead">Easliy split the cost of gas with friends</p>
             </div>
-		</header>
-		<div class="container">
+        </header>
+        <div class="container">
             <!-- Example row of columns -->
             <div class="row">
-	           <div class="span4 sidebar" >
-		            <form class="form">
+               <div class="span4 sidebar" >
+                    <form class="form">
                         <div class="controls">
                             <span for="start-location">Start Location</span>
-    	                    <div class="input-append">
-    	                      <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
-    	                      <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
-    	                        data-loading-text="<i class='icon-refresh'></i>">
-    	                        	<i class="icon-map-marker"></i>
-    	                      </button>
-    	                    </div>
+                            <div class="input-append">
+                              <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
+                              <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
+                                data-loading-text="<i class='icon-refresh'></i>">
+                                    <i class="icon-map-marker"></i>
+                              </button>
+                            </div>
                         </div>
 
                         <div class="controls">
-    	                    <span for="end-location">End Destination</span>
-    	                    <input type="text" id="end" name="end-location" placeholder="Destination" >
+                            <span for="end-location">End Destination</span>
+                            <input type="text" id="end" name="end-location" placeholder="Destination" >
                         </div>
 
                         <div class="controls">
-    	                    <span for="people">Number of People</span>
-    	                    <input placeholder="Number of People" type="number" name="people"/>
+                            <span for="people">Number of People</span>
+                            <input placeholder="Number of People" type="number" name="people"/>
                         </div>
 
                         <div class="controls">
-    		              	<span for="mpg">Miles Per Gallon</span>
-    		                <input placeholder="MPG" type="number" name="mpg"/>
+                            <span for="mpg">Miles Per Gallon</span>
+                            <input placeholder="MPG" type="number" name="mpg"/>
                         </div>
 
                         <div class="controls">
@@ -114,11 +114,11 @@
                         <div class="controls">
                             <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
                         </div>
-		           </form>
-	            </div>
+                   </form>
+                </div>
                 <div class="span8">
-                	<div id="map-frame" class="hidden-phone" style="height:320px;">
-                    	<div id="map-canvas" style="height:100%;"></div>
+                    <div id="map-frame" class="hidden-phone" style="height:320px;">
+                        <div id="map-canvas" style="height:100%;"></div>
                     </div>
                 </div>
             </div>
@@ -164,11 +164,11 @@
         var start_lat;
         var start_lng;
         var end_lat;
-		var end_lng;
-		
-		var start_location;
-		var end_location;
-		        
+        var end_lng;
+        
+        var start_location;
+        var end_location;
+                
         var miles;
         var people;
         var price;
@@ -205,23 +205,23 @@
           // Try HTML5 geolocation
           if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(location){
-            	getCurrentLocation(location, function(){
-            			start_lat = location.coords.latitude;
-            			start_lng = location.coords.longitude;
-            			console.log("resetting button");
-            			$("#current-location").button("reset");
-            			getAddress(location, function(result){
-            				$("input[name='start-location']").val(result);
-            			});
-            			$("input[name='start-location']").addClass("input-primary");
-            			$("#current-location-group").addClass("info");
-            			$("#current-location").addClass("btn-primary");
-            			$("#current-location i").addClass("icon-white");
-            			calculateGasPrice(start_lat, start_lng);
-            			calcRoute();
-            	});
+                getCurrentLocation(location, function(){
+                        start_lat = location.coords.latitude;
+                        start_lng = location.coords.longitude;
+                        console.log("resetting button");
+                        $("#current-location").button("reset");
+                        getAddress(location, function(result){
+                            $("input[name='start-location']").val(result);
+                        });
+                        $("input[name='start-location']").addClass("input-primary");
+                        $("#current-location-group").addClass("info");
+                        $("#current-location").addClass("btn-primary");
+                        $("#current-location i").addClass("icon-white");
+                        calculateGasPrice(start_lat, start_lng);
+                        calcRoute();
+                });
             }, function(){
-            	handleNoGeolocation(true)}
+                handleNoGeolocation(true)}
             );
             console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
                                              position.coords.longitude);
@@ -232,22 +232,22 @@
         }
         
         function getCurrentLocation(position, callback){
-			var pos = new google.maps.LatLng(position.coords.latitude,
-			                               position.coords.longitude);
-			console.log("position.coords.latitude:"+position.coords.latitude);
-			console.log("position.coords.longitude:"+position.coords.longitude);                             
-			icon = new google.maps.Marker();
-			var marker = new google.maps.Marker({
-				map:map,
-				position: pos,
-				icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-			});
-			
-			console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
-			                             position.coords.longitude);
-			map.setCenter(pos);
-			
-			callback();
+            var pos = new google.maps.LatLng(position.coords.latitude,
+                                           position.coords.longitude);
+            console.log("position.coords.latitude:"+position.coords.latitude);
+            console.log("position.coords.longitude:"+position.coords.longitude);                             
+            icon = new google.maps.Marker();
+            var marker = new google.maps.Marker({
+                map:map,
+                position: pos,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+            });
+            
+            console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
+                                         position.coords.longitude);
+            map.setCenter(pos);
+            
+            callback();
         };
         
         function handleNoGeolocation(errorFlag) {
@@ -259,8 +259,8 @@
         }
         
         $("input[name='start-location']").focusout(function(event){
-        	//event.preventDefault();
-        	setStart();
+            //event.preventDefault();
+            setStart();
         });
 
         function setStart(){
@@ -278,93 +278,93 @@
                   });
                   
                   map.setCenter(location);
-
+                });
         }
         
         $("input[name='end-location']").focusout(function(event){
-        	//event.preventDefault();
-        	calcRoute(function(){
-        		calculateGasPrice(start_lat, start_lng);
-        	});
+            //event.preventDefault();
+            calcRoute(function(){
+                calculateGasPrice(start_lat, start_lng);
+            });
         });
         
         
         
         $("input[name='people']").change(function(event){
-        	//event.preventDefault();
-        	people = $(this).val();
-        	if($("input[name='mpg']").val())
-        	{
-        		calculateCost();
-        	}
+            //event.preventDefault();
+            people = $(this).val();
+            if($("input[name='mpg']").val())
+            {
+                calculateCost();
+            }
         });
         
         $("input[name='mpg']").change(function(event){
-        	//event.preventDefault();
-        	mpg = $(this).val();
-        	if($("input[name='people']").val())
-        	{
-        		calculateCost();
-        	}
+            //event.preventDefault();
+            mpg = $(this).val();
+            if($("input[name='people']").val())
+            {
+                calculateCost();
+            }
         });
         
         $("#calculate").click(function(event){
-        	event.preventDefault();
-        	calcRoute(function(){
-        		calculateGasPrice(start_lat, start_lng, function(){
-        			calculateCost();
-        		})        		
-        		
-        	});
+            event.preventDefault();
+            calcRoute(function(){
+                calculateGasPrice(start_lat, start_lng, function(){
+                    calculateCost();
+                })              
+                
+            });
         });
          
         
         $("input[name='roundtrip']").on('click', function(event){
-        	//event.preventDefault();
-        	if($("input[name='roundtrip']:checked").length == 1)
-        	{
-        		roundtrip = 2;
-        	}
-        	else
-        	{
-        		roundtrip = 1;
-        	}
-        	calculateCost();
+            //event.preventDefault();
+            if($("input[name='roundtrip']:checked").length == 1)
+            {
+                roundtrip = 2;
+            }
+            else
+            {
+                roundtrip = 1;
+            }
+            calculateCost();
         });
         
         
         $("#current-location").popover({trigger: 'hover', delay: { show: 900, hide: 10 }});
         $("#current-location").click(function (){
-        	$("#current-location").button("loading");
-        	google.maps.event.addDomListener(window, 'load', mapCurrentLocation());
+            $("#current-location").button("loading");
+            google.maps.event.addDomListener(window, 'load', mapCurrentLocation());
         });
         
         $('#end').on('change', function(event) {
-        		event.preventDefault();
-        		console.log("loading");
-        		
-        		$("#menu-map").slideDown();
+                event.preventDefault();
+                console.log("loading");
+                
+                $("#menu-map").slideDown();
               var address = $('#location').val();
               geocoder.geocode( { 'address': address}, function(results, status) 
               {
                 if (status == google.maps.GeocoderStatus.OK) 
                 {
-                	var mapRow = $("#map");
-                	mapRow.show("normal", function()
-                	{
-                		scroll("#map");
-                		TweenMax.to(mapRow, 1, {
-                    		height:"400px", ease:Elastic.easeOut, onComplete: function()
-                    		{
-                    			google.maps.event.trigger(gmap, 'resize');
-                    			gmap.setZoom( gmap.getZoom() );
-                    			gmap.setCenter(results[0].geometry.location);
-                    			var marker = new google.maps.Marker({
-                    			    map: gmap,
-                    			    position: results[0].geometry.location
-                    			});
-                    			$("#q1").slideDown();
-                        	}});
+                    var mapRow = $("#map");
+                    mapRow.show("normal", function()
+                    {
+                        scroll("#map");
+                        TweenMax.to(mapRow, 1, {
+                            height:"400px", ease:Elastic.easeOut, onComplete: function()
+                            {
+                                google.maps.event.trigger(gmap, 'resize');
+                                gmap.setZoom( gmap.getZoom() );
+                                gmap.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: gmap,
+                                    position: results[0].geometry.location
+                                });
+                                $("#q1").slideDown();
+                            }});
                    });       
                 
                 }
@@ -373,40 +373,40 @@
                   console.log(status);
                 }
               console.log(address);
-             	 });
-         	 });
-         	 
+                 });
+             });
+             
         function getGPS(address, output){
-	        geocoder.geocode( { 'address': address}, function(results, status) 
-		        {
-		          if (status == google.maps.GeocoderStatus.OK) 
-		          {
-		          	
-		          	output(results[0].geometry.location);
-		          }
-		          else 
-		          {
-		              console.log(status);
-		          }
-		        }
-		    );
-		}
+            geocoder.geocode( { 'address': address}, function(results, status) 
+                {
+                  if (status == google.maps.GeocoderStatus.OK) 
+                  {
+                    
+                    output(results[0].geometry.location);
+                  }
+                  else 
+                  {
+                      console.log(status);
+                  }
+                }
+            );
+        }
         
         function getAddress(location, output){
-        	var lat = location.coords.latitude;
-        	var lng = location.coords.longitude;
-	        geocoder.geocode( { 'address': lat +"," + lng }, function(results, status)
-		        {
-		          if (status == google.maps.GeocoderStatus.OK)
-		          {
-			          	output(results[0].formatted_address);
-		          }
-		          else
-		          {
-		          		console.log(status);
-		          }
-		        }
-	        );
+            var lat = location.coords.latitude;
+            var lng = location.coords.longitude;
+            geocoder.geocode( { 'address': lat +"," + lng }, function(results, status)
+                {
+                  if (status == google.maps.GeocoderStatus.OK)
+                  {
+                        output(results[0].formatted_address);
+                  }
+                  else
+                  {
+                        console.log(status);
+                  }
+                }
+            );
         }
         
         function calcRoute(callback) {
@@ -418,18 +418,18 @@
             travelMode: google.maps.TravelMode.DRIVING
           };
           directionsService.route(request, function(response, status) {
-          	console.log("Directions response");
-          	console.log(response);
-          	miles = metersToMiles(response.routes[0].legs[0].distance.value);
-          	if(response.routes)
-          	{
-	          	start_lat = response.routes[0].legs[0].start_location.lat();
-	          	start_lng = response.routes[0].legs[0].start_location.lng();
-	          	end_lat = response.routes[0].legs[0].end_location.lat();
-	          	end_lng = response.routes[0].legs[0].end_location.lng();
-	        }
-          	
-          	
+            console.log("Directions response");
+            console.log(response);
+            miles = metersToMiles(response.routes[0].legs[0].distance.value);
+            if(response.routes)
+            {
+                start_lat = response.routes[0].legs[0].start_location.lat();
+                start_lng = response.routes[0].legs[0].start_location.lng();
+                end_lat = response.routes[0].legs[0].end_location.lat();
+                end_lng = response.routes[0].legs[0].end_location.lng();
+            }
+            
+            
             if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
             }
@@ -438,8 +438,8 @@
           directionsDisplay.setMap(map);
           callback();
         }
-         	 
-         	 
+             
+             
         function metersToMiles(input)
         {
         output = input/1613.84193424;
@@ -448,101 +448,101 @@
         
         function calculateCost()
         {
-        	var errors = 1;
-        	if(!$("input[name='mpg']").val())
-        	{
-        		errors++;
-        		console.log("Error: mpgs empty");
-        	}
-        	if(!$("input[name='people']").val())
-        	{
-        		errors++;
-        		console.log("Error: people empty");
-        	}
-        	if(!$("input[name='start-location']").val())
-        	{
-        		errors++;
-        		console.log("Error: start-location empty");
-        	}
-        	if(!$("input[name='end-location']").val())
-        	{
-        		errors++;
-        		console.log("Error: end-location empty");
-        	}
-        	if(!price)
-        	{
-        		errors++;
-        		console.log("Error: price empty");
-        	}
-        	if(errors == 1)
-        	{
-        		updateHistory();
-        		//setURLParameter('people',people);
-        		//setURLParameter('start-location',start_location);
-        		//setURLParameter('end-location',end_location);
-        		//setURLParameter('price',price);
-        		//setURLParameter('miles',miles);
-        		//setURLParameter('roundtrip',roundtrip);
-        		console.log(History);
-	        	var cost = ((((miles/mpg)*price)*roundtrip)/people);
+            var errors = 1;
+            if(!$("input[name='mpg']").val())
+            {
+                errors++;
+                console.log("Error: mpgs empty");
+            }
+            if(!$("input[name='people']").val())
+            {
+                errors++;
+                console.log("Error: people empty");
+            }
+            if(!$("input[name='start-location']").val())
+            {
+                errors++;
+                console.log("Error: start-location empty");
+            }
+            if(!$("input[name='end-location']").val())
+            {
+                errors++;
+                console.log("Error: end-location empty");
+            }
+            if(!price)
+            {
+                errors++;
+                console.log("Error: price empty");
+            }
+            if(errors == 1)
+            {
+                updateHistory();
+                //setURLParameter('people',people);
+                //setURLParameter('start-location',start_location);
+                //setURLParameter('end-location',end_location);
+                //setURLParameter('price',price);
+                //setURLParameter('miles',miles);
+                //setURLParameter('roundtrip',roundtrip);
+                console.log(History);
+                var cost = ((((miles/mpg)*price)*roundtrip)/people);
                 var total = (((miles/mpg)*price)*roundtrip);
-	        	$("#cost").html("$" + (cost).toFixed(2));
+                $("#cost").html("$" + (cost).toFixed(2));
                 $("#total").html("$" + (total).toFixed(2));
-        	}
-        	
+            }
+            
           return cost;
         }
         
         function calculateGasPrice(lat, lng, callback)
         {
-        	var errors = 1
-        	if(!lat)
-        	{
-        		errors++;
-        		console.log("error: lat empty");
-        	}
-        	if(!lng)
-        	{
-        		errors++;
-        		console.log("error: lng empty");
-        	}
-        	
-        	if(errors === 1)
-        	{
-	        	$.ajax({
-	        		type: 'GET',
-	        		url: 'gas.php',
-	        		dataType: "json",
-	        		data: {
-	        		 latitude: lat,
-	        		 longitude: lng,
-	        		 gas_type: 'reg',
-	        		 sort_by: 'price'
-	        		 
-	        		}, 
-	        		success: function(data, status, response){
-	        			calculateCost();
-	        			if(data.status.error == "YES")
-	        			{
-		        			price = data.stations[0].price;
-		        			$("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
-		        			$("#gas").html("$" + data.stations[0].price);
-		        		}
-		        		else
-		        		{
-	        				price = data.stations[0].price;
-	        				$("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
-	        				$("#gas").html("$" + data.stations[0].price);
-		        		}
-	        		},
-	        		error: function(data){
-	        			console.log(data);
-	        			$("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
-	        			$("#gas").html("$" + "ERROR");
-	        		}
-	        	});
-	        	callback();
-        	}
+            var errors = 1
+            if(!lat)
+            {
+                errors++;
+                console.log("error: lat empty");
+            }
+            if(!lng)
+            {
+                errors++;
+                console.log("error: lng empty");
+            }
+            
+            if(errors === 1)
+            {
+                $.ajax({
+                    type: 'GET',
+                    url: 'gas.php',
+                    dataType: "json",
+                    data: {
+                     latitude: lat,
+                     longitude: lng,
+                     gas_type: 'reg',
+                     sort_by: 'price'
+                     
+                    }, 
+                    success: function(data, status, response){
+                        calculateCost();
+                        if(data.status.error == "YES")
+                        {
+                            price = data.stations[0].price;
+                            $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                            $("#gas").html("$" + data.stations[0].price);
+                        }
+                        else
+                        {
+                            price = data.stations[0].price;
+                            $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                            $("#gas").html("$" + data.stations[0].price);
+                        }
+                    },
+                    error: function(data){
+                        console.log(data);
+                        $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                        $("#gas").html("$" + "ERROR");
+                    }
+                });
+                callback();
+            }
         }
         
         function getURLParameter(name) {
@@ -552,21 +552,21 @@
         }
         
         function setURLParameter(name,value){
-        	var search;
-        	if(getURLParameter(name)){
-        		search =location.search.replace(new RegExp('([?|&]'+name + '=)' + '(.+?)(&|$)'),"$1"+encodeURIComponent(value)+"$3"); 
-        	}else if(location.search.length){
-        		search = location.search +'&'+name + '=' +encodeURIComponent(value);
-        	}else{
-        		search = '?'+name + '=' +encodeURIComponent(value);
-        	}
-        	History.pushState({state:History.getStateId()+1},document.title,search);
+            var search;
+            if(getURLParameter(name)){
+                search =location.search.replace(new RegExp('([?|&]'+name + '=)' + '(.+?)(&|$)'),"$1"+encodeURIComponent(value)+"$3"); 
+            }else if(location.search.length){
+                search = location.search +'&'+name + '=' +encodeURIComponent(value);
+            }else{
+                search = '?'+name + '=' +encodeURIComponent(value);
+            }
+            History.pushState({state:History.getStateId()+1},document.title,search);
         }
-         	 
-         	 
+             
+             
         function updateHistory()
         {
-        	History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roundtrip='+roundtrip);
+            History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roundtrip='+roundtrip);
         }
         
         
