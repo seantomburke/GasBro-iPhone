@@ -734,6 +734,9 @@
         	    }
         	    console.log("#roundtrip = " + result.get("roundtrip"));
         	    
+        	    price = result.price;
+        	    console.log("#price = " + result.get("price"));
+        	    
         	    calculateCost();
         	  },
         	
