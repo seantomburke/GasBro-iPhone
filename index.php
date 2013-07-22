@@ -222,8 +222,11 @@
         
         $(document).ready(function(){
         	id = getURLParameter("id");
-        	console.log(id);
-        	loadTrip(id);
+        	if(id)
+        	{
+	        	console.log(id);
+	        	loadTrip(id);
+	        }
         })
         
         function initialize() {
