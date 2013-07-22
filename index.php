@@ -79,14 +79,26 @@
         
         
         <!-- Modal -->
-        <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="share" aria-hidden="true">
+        <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="shareModalHeader">Share</h3>
           </div>
           <div class="modal-body">
             <input id="url" name="url" type="text"/>
-            <div class="row">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+            <a class="addthis_button_preferred_1"></a>
+            <a class="addthis_button_preferred_2"></a>
+            <a class="addthis_button_preferred_3"></a>
+            <a class="addthis_button_preferred_4"></a>
+            <a class="addthis_button_compact"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
+            <!-- AddThis Button END -->
+            <div class="row-fluid">
                 <div class="span4">
                     <div class="controls">
                         <span id="gas_span2"></span>
@@ -109,7 +121,7 @@
           </div>
           <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button class="btn btn-primary">Save changes</button>
+            <button class="btn btn-primary">Share</button>
           </div>
         </div>
         
@@ -153,7 +165,6 @@
 
                         <div class="controls">
                             <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
-                            <button id="share" class="btn btn-large btn-info" data-toggle="modal">Share</button>
                         </div>
                    </form>
                 </div>
@@ -384,13 +395,11 @@
                 })              
                 
             });
-        });
-         
-        $("#share").click(function(event){
+            
             $('#shareModal').modal('show');
             $("#url").val(location.href);
         });
-        
+         
         $("input[name='roundtrip']").on('click', function(event){
             //event.preventDefault();
             if($("input[name='roundtrip']:checked").length == 1)
@@ -722,7 +731,7 @@
         	
         	  error: function(object, error) {
         	    // error is an instance of Parse.Error.
-        	    alert("Error: This url did not return a result");
+        	    console.log("error occurred");
         	  }
         	});
         }
