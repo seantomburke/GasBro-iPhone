@@ -584,30 +584,28 @@
         function updateHistory()
         {
             History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roundtrip='+roundtrip);
+            Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
+            
+            var Trip = Parse.Object.extend("Trip");
+            var trip = new Trip();
+              trip.save(
+              	{
+              		mpg: mpg,
+              		people: people,
+              		start_location:start_location,
+              		end_location:end_location,
+              		roundtrip:roundtrip
+              	}, {
+              success: function(object) {
+                $(".success").show();
+              },
+              error: function(model, error) {
+                $(".error").show();
+              }
+            });
         }
         
         
-        </script>
-        <script type="text/javascript">
-          Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
-          
-          var Trip = Parse.Object.extend("Trip");
-          var trip = new Trip();
-            trip.save(
-            	{
-            		mpg: mpg,
-            		people: people,
-            		start_location:start_location,
-            		end_location:end_location,
-            		roundtrip:roundtrip
-            	}, {
-            success: function(object) {
-              $(".success").show();
-            },
-            error: function(model, error) {
-              $(".error").show();
-            }
-          });
         </script>
 
         <script>
