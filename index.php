@@ -201,6 +201,7 @@
         <script src="js/jquery.history.js"></script>
         <script>
         
+        var id;
         var map; 
         var start_lat;
         var start_lng;
@@ -215,6 +216,13 @@
         var price;
         var mpg;
         var roundtrip = 1;
+        
+        
+        $.ready(function(){
+        	id = getURLParameter("id");
+        	console.log(id);
+        	loadTrip(id);
+        })
         
         function initialize() {
         
@@ -637,10 +645,7 @@
         var trip = new Trip();
                   
         function updateHistory()
-        {
-            History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roundtrip='+roundtrip);
-            
-            
+        {    
               trip.save(
               	{
               		mpg: mpg,
@@ -650,7 +655,7 @@
               		roundtrip:roundtrip
               	}, {
               success: function(result) {
-                alert("New trip saved! Id: "+ result.id);
+                History.pushState({id:result.id}, 'mpg','?id='+result.id);
               },
               error: function(model, error) {
                 $(".error").show();
