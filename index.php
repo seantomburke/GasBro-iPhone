@@ -85,24 +85,24 @@
             <h3 id="shareModalHeader">Share</h3>
           </div>
           <div class="modal-body">
-            <input type="text" placeholder="url" />
+            <input id="url" name="url" type="text"/>
             <div class="row">
                 <div class="span4">
                     <div class="controls">
-                        <span id="gas_span"></span>
-                        <h1 id="gas" class=""></h1>
+                        <span id="gas_span2"></span>
+                        <h1 id="gas2" class=""></h1>
                     </div>
                 </div>
                 <div class="span4">
                     <div class="controls">
                         <span>Cost per Person:</span>
-                        <h1 id="cost" class=""></h1>
+                        <h1 id="cost2" class=""></h1>
                     </div>
                 </div>
                 <div class="span4">
                     <div class="controls">
                         <span>Total Cost:</span>
-                        <h1 id="total" class=""></h1>
+                        <h1 id="total2" class=""></h1>
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@
         
         $(document).ready(function(){
         	id = getURLParameter("id");
-        	if(id != null)
+        	if(id != "null")
         	{
 	        	console.log(id);
 	        	loadTrip(id);
@@ -387,16 +387,9 @@
         });
          
         $("#share").click(function(event){
-        
             $('#shareModal').modal('show');
-        
-                    calcRoute(function(){
-                        calculateGasPrice(start_lat, start_lng, function(){
-                            calculateCost();
-                        })              
-                        
-                    });
-                });
+            $("#url").val(location.href);
+        });
         
         $("input[name='roundtrip']").on('click', function(event){
             //event.preventDefault();
@@ -574,6 +567,8 @@
         	cost_total = (((miles/mpg)*price)*roundtrip).toFixed(2);
         	$("#cost").html("$" + cost_per);
         	$("#total").html("$" + cost_total);
+        	$("#cost2").html("$" + cost_per);
+        	$("#total2").html("$" + cost_total);
         }
         
         function calculateGasPrice(lat, lng, callback)
@@ -609,20 +604,26 @@
                         {
                             price = data.stations[0].price;
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                            $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
+                            $("#gas2").html("$" + data.stations[0].price);
                         }
                         else
                         {
                             price = data.stations[0].price;
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                            $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
+                            $("#gas2").html("$" + data.stations[0].price);
                         }
                         callback();
                     },
                     error: function(data){
                         console.log(data);
                         $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                        $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                         $("#gas").html("$" + "ERROR");
+                        $("#gas2").html("$" + "ERROR");
                         callback();
                     }
                 });
@@ -716,13 +717,7 @@
         	    }
         	    console.log("#roundtrip = " + result.get("roundtrip"));
         	    
-        	    
-        	    
-        	    
-        	    
-        	    
-        	    
-        	    compute();
+        	    calculateCost();
         	  },
         	
         	  error: function(object, error) {
