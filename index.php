@@ -693,7 +693,7 @@
         	    end_location = result.end_location;
         	    roundtrip = result.roundtrip;
         	    
-        	    calculateCost();
+        	    compute();
         	  },
         	
         	  error: function(object, error) {
