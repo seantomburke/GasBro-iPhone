@@ -586,9 +586,30 @@
         
         
         </script>
+        <script type="text/javascript">
+          Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
+          
+          var Trip = Parse.Object.extend("Trip");
+          var trip = new Trip();
+            trip.save(
+            	{
+            		mpg: mpg,
+            		people: people,
+            		start_location:start_location,
+            		end_location:end_location,
+            		roundtrip:roundtrip
+            	}, {
+            success: function(object) {
+              $(".success").show();
+            },
+            error: function(model, error) {
+              $(".error").show();
+            }
+          });
+        </script>
 
         <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
