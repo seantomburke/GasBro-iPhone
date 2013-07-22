@@ -596,8 +596,8 @@
               		end_location:end_location,
               		roundtrip:roundtrip
               	}, {
-              success: function(object) {
-                $(".success").show();
+              success: function(result) {
+                alert("New trip saved! Id: "+ result.id);
               },
               error: function(model, error) {
                 $(".error").show();
