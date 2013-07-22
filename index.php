@@ -222,7 +222,7 @@
         
         $(document).ready(function(){
         	id = getURLParameter("id");
-        	if(id)
+        	if(id != null)
         	{
 	        	console.log(id);
 	        	loadTrip(id);
