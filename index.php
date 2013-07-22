@@ -122,7 +122,7 @@
                         <div class="controls">
                             <span for="start-location">Start Location</span>
                             <div class="input-append">
-                              <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
+                              <input id="start" type="text" name="start-location" placeholder="Start Location">
                               <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
                                 data-loading-text="<i class='icon-refresh'></i>">
                                     <i class="icon-map-marker"></i>
@@ -137,17 +137,17 @@
 
                         <div class="controls">
                             <span for="people">Number of People</span>
-                            <input placeholder="Number of People" type="number" name="people"/>
+                            <input id="people" placeholder="Number of People" type="number" name="people"/>
                         </div>
 
                         <div class="controls">
                             <span for="mpg">Miles Per Gallon</span>
-                            <input placeholder="MPG" type="number" name="mpg"/>
+                            <input id="mpg" placeholder="MPG" type="number" name="mpg"/>
                         </div>
 
                         <div class="controls">
                             <label class="checkbox">
-                                <input type="checkbox" name="roundtrip"> Roundtrip?
+                                <input id="roundtrip" type="checkbox" name="roundtrip"> Roundtrip?
                             </label>
                         </div>
 
@@ -216,6 +216,8 @@
         var price;
         var mpg;
         var roundtrip = 1;
+        var cost_per;
+        var cost_total;
         
         
         $(document).ready(function(){
@@ -559,13 +561,16 @@
                 //setURLParameter('miles',miles);
                 //setURLParameter('roundtrip',roundtrip);
                 console.log(History);
-                var cost = ((((miles/mpg)*price)*roundtrip)/people);
-                var total = (((miles/mpg)*price)*roundtrip);
-                $("#cost").html("$" + (cost).toFixed(2));
-                $("#total").html("$" + (total).toFixed(2));
+                compute();
             }
-            
-          return cost;
+        }
+        
+        function compute()
+        {
+        	cost_per = ((((miles/mpg)*price)*roundtrip)/people).toFixed(2);
+        	cost_total = (((miles/mpg)*price)*roundtrip).toFixed(2);
+        	$("#cost").html("$" + cost_per);
+        	$("#total").html("$" + cost_total);
         }
         
         function calculateGasPrice(lat, lng, callback)
@@ -652,10 +657,17 @@
               		people: people,
               		start_location:start_location,
               		end_location:end_location,
-              		roundtrip:roundtrip
+              		roundtrip:roundtrip,
+              		cost:cost,
+              		start_lat:start_lat,
+              		start_lng:start_lng,
+              		end_lat:end_lat,
+              		end_lng:end_lng,
+              		miles:miles,
+              		price:price
               	}, {
               success: function(result) {
-                History.pushState({id:result.id}, 'mpg','?id='+result.id);
+                History.pushState({id:result.id}, document.title,'?id='+result.id);
               },
               error: function(model, error) {
                 $(".error").show();
