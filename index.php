@@ -681,16 +681,16 @@
         	query.get(id, {
         	  success: function(result) {
         	    // object is an instance of Parse.Object.
-        	    $("#mpg").val(result.mpg);
-        	    console.log("#mpg = " + result.mpg);
-        	    $("#people").val(result.people);
-        	    console.log("#people = " + result.people);
-        	    $("#start-location").val(result.start_location);
-        	    console.log("#start = " + result.start);
-        	    $("#end-location").val(result.end_location);
-        	    console.log("#end = " + result.end);
-        	    $("#roundtrip").val(result.roundtrip);
-        	    console.log("#roundtrip = " + result.roundtrip);
+        	    $("#mpg").val(result.get("mpg"));
+        	    console.log("#mpg = " + result.get("mpg"));
+        	    $("#people").val(result.get("people"));
+        	    console.log("#people = " + result.get("people"));
+        	    $("#start-location").val(result.get("start_location"));
+        	    console.log("#start = " + result.get("start_location"));
+        	    $("#end-location").val(result.get("end_location"));
+        	    console.log("#end = " + result.get("end_location"));
+        	    $("#roundtrip").val(result.get("roundtrip"));
+        	    console.log("#roundtrip = " + result.get("roundtrip"));
         	    
         	    mpg = result.mpg;
         	    people = result.people;
