@@ -218,7 +218,7 @@
         var roundtrip = 1;
         
         
-        $.ready(function(){
+        $(document).ready(function(){
         	id = getURLParameter("id");
         	console.log(id);
         	loadTrip(id);
