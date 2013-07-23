@@ -723,27 +723,27 @@
         	query.get(id, {
         	  success: function(result) {
         	    // object is an instance of Parse.Object.
-        	    mpg = result.mpg;
+        	    mpg = result.get("mpg");
         	    $("#mpg").val(result.get("mpg"));
         	    console.log("#mpg = " + result.get("mpg"));
         	    
-        	    people = result.people;
+        	    people = result.get("people");
         	    $("#people").val(result.get("people"));
         	    console.log("#people = " + result.get("people"));
         	    
-        	    start_location = result.start_location;
-        	    start_lat = result.start_lat;
-        	    start_lng = result.start_lng;
+        	    start_location = result.get("start_location");
+        	    start_lat = result.get("start_lat");
+        	    start_lng = result.get("start_lng");
         	    $("#start").val(result.get("start_location"));
         	    console.log("#start = " + result.get("start_location"));
         	    
         	    end_location = result.end_location;
-        	    end_lat = result.end_lat;
-        	    end_lng = result.end_lng;
+        	    end_lat = result.get("end_lat");
+        	    end_lng = result.get("end_lng");
         	    $("#end").val(result.get("end_location"));
         	    console.log("#end = " + result.get("end_location"));
         	    
-        	    roundtrip = result.roundtrip;
+        	    roundtrip = result.get("roundtrip");
         	    if(result.get("roundtrip") == "2")
         	    {
         	    	$('#roundtrip').prop('checked', true);
@@ -754,7 +754,7 @@
         	    }
         	    console.log("#roundtrip = " + result.get("roundtrip"));
         	    
-        	    price = result.price;
+        	    price = result.get("price");
         	    console.log("#price = " + result.get("price"));
         	    
         	    calculateCost();
