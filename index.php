@@ -72,13 +72,13 @@
           		<div id="prices2" style="display:none" class="row-fluid">
 	          		<div class="span3">
 	          		    <div class="controls">
-	          		        # of People:
+	          		        <span># of People:</span>
 	          		        <h1 id="num_people" class=""></h1>
 	          		    </div>
 	          		</div>
           		    <div class="span3">
           		        <div class="controls">
-          		            Cost of gas in <span id="gas_span2"></span>:
+          		            <span>Cost of gas in <div id="gas_span2"></div>:</span>
           		            <h1 id="gas2" class=""></h1>
           		        </div>
           		    </div>
