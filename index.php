@@ -186,8 +186,8 @@
             <div id="prices" class="row">
             	<div class="span3">
             	    <div class="controls">
-            	        # of People:
-            	        <h1 id="num_people" class=""></h1>
+            	        Number of People:
+            	        <h1 id="num_people2" class=""></h1>
             	    </div>
             	</div>
                 <div class="span3">
