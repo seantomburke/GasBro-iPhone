@@ -748,10 +748,10 @@
         	    $("#people").val(result.get("people"));
         	    $("#start").val(result.get("start_location"));
         	    $("#end").val(result.get("end_location"));
-        	    $("#cost").html("$" + cost_per);
-        	    $("#total").html("$" + cost_total);
-        	    $("#cost2").html("$" + cost_per);
-        	    $("#total2").html("$" + cost_total);
+        	    $("#cost").html("$" + result.get("cost_per"));
+        	    $("#total").html("$" + result.get("cost_total"));
+        	    $("#cost2").html("$" + result.get("cost_per"));
+        	    $("#total2").html("$" + result.get("cost_total"));
         	    
         	    $('#shareModal').modal('show');
         	    $("#prices").slideDown();
