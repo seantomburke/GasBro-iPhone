@@ -626,20 +626,71 @@
         	var errors = 1; 
         	if(mpg == undefined)
         	{
-        		alert("mpg: "+mpg);
+        		
         		errors++;
         	}
-        	if(people == "")
+        	if(people == undefined)
         	{
-        		alert("mpg: "+mpg);
+        		
         		errors++;
         	}
-        	if(person == "")
+        	if(start_location == undefined)
         	{
-        		alert("mpg: "+mpg);
+        		
+        		errors++;
+        	}
+        	if(end_location == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(roundtrip == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(cost_total == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(cost_per == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	,
+        	if(start_lat == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(start_lng == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(end_lat == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(end_lng == undefined)
+        	{
+        		
+        		errors++;
+        	}
+        	if(miles == undefined)
+        	{
+        		
         		errors++;
         	}
         	
+        	if(price == undefined)
+        	{
+        		
+        		errors++;
+        	}
         	if(errors == 1)
         	{	
 	              trip.save(
