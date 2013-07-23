@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>RoadTripr</title>
-        <meta name="description" content="">
+        <meta name="description" content="Easliy split the cost of gas with friends">
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,6 +19,8 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
@@ -74,6 +76,64 @@
                 <p class="lead">Easliy split the cost of gas with friends</p>
             </div>
         </header>
+        
+        
+        <!-- Modal -->
+        <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="shareModalHeader">Share</h3>
+          </div>
+          <div class="modal-body">
+          	<div class="row-fluid">
+	            <div class="input-append">
+	              <input id="url" class="span12" type="text">
+	              <button class="btn" type="button">Copy<i class="icon-download"></i></button>
+	              <button class="btn" type="button">Share</button>
+	            </div>
+	         <div class="row-fluid">
+	         </div>
+	            <!-- AddThis Button BEGIN -->
+	            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+	            <a class="addthis_button_preferred_1"></a>
+	            <a class="addthis_button_preferred_2"></a>
+	            <a class="addthis_button_preferred_3"></a>
+	            <a class="addthis_button_preferred_4"></a>
+	            <a class="addthis_button_compact"></a>
+	            <a class="addthis_counter addthis_bubble_style"></a>
+	            </div>
+	            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+	            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
+	            <!-- AddThis Button END -->
+	        </div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="controls">
+                        <span id="gas_span2"></span>
+                        <h1 id="gas2" class=""></h1>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="controls">
+                        <span>Cost per Person:</span>
+                        <h1 id="cost2" class=""></h1>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="controls">
+                        <span>Total Cost:</span>
+                        <h1 id="total2" class=""></h1>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary">Share</button>
+          </div>
+        </div>
+        
+        
         <div class="container">
             <!-- Example row of columns -->
             <div class="row">
@@ -82,7 +142,7 @@
                         <div class="controls">
                             <span for="start-location">Start Location</span>
                             <div class="input-append">
-                              <input id="appendedInputButton" type="text" name="start-location" placeholder="Start Location">
+                              <input id="start" type="text" name="start-location" placeholder="Start Location">
                               <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
                                 data-loading-text="<i class='icon-refresh'></i>">
                                     <i class="icon-map-marker"></i>
@@ -97,17 +157,17 @@
 
                         <div class="controls">
                             <span for="people">Number of People</span>
-                            <input placeholder="Number of People" type="number" name="people"/>
+                            <input id="people" placeholder="Number of People" type="number" name="people"/>
                         </div>
 
                         <div class="controls">
                             <span for="mpg">Miles Per Gallon</span>
-                            <input placeholder="MPG" type="number" name="mpg"/>
+                            <input id="mpg" placeholder="MPG" type="number" name="mpg"/>
                         </div>
 
                         <div class="controls">
                             <label class="checkbox">
-                                <input type="checkbox" name="roundtrip"> Roundtrip?
+                                <input id="roundtrip" type="checkbox" name="roundtrip"> Roundtrip?
                             </label>
                         </div>
 
@@ -160,6 +220,7 @@
         <script src="js/jquery.history.js"></script>
         <script>
         
+        var id;
         var map; 
         var start_lat;
         var start_lng;
@@ -174,6 +235,18 @@
         var price;
         var mpg;
         var roundtrip = 1;
+        var cost_per;
+        var cost_total;
+        
+        
+        $(document).ready(function(){
+        	id = getURLParameter("id");
+        	if(id != "null")
+        	{
+	        	console.log(id);
+	        	loadTrip(id);
+	        }
+        })
         
         function initialize() {
         
@@ -310,15 +383,31 @@
         
         $("#calculate").click(function(event){
             event.preventDefault();
+            console.log(start_lat);
+            console.log(start_lng);
+            console.log(end_lat);
+            console.log(end_lng);
+            
+            console.log(start_location);
+            console.log(end_location);
+                    
+            console.log(miles);
+            console.log(people);
+            console.log(price);
+            console.log(mpg);
+            console.log(roundtrip);
+
             calcRoute(function(){
                 calculateGasPrice(start_lat, start_lng, function(){
                     calculateCost();
                 })              
                 
             });
+            
+            $('#shareModal').modal('show');
+            $("#url").val(location.href);
         });
          
-        
         $("input[name='roundtrip']").on('click', function(event){
             //event.preventDefault();
             if($("input[name='roundtrip']:checked").length == 1)
@@ -433,10 +522,11 @@
             if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
             }
+            
+          callback();
           });
           
           directionsDisplay.setMap(map);
-          callback();
         }
              
              
@@ -484,13 +574,18 @@
                 //setURLParameter('miles',miles);
                 //setURLParameter('roundtrip',roundtrip);
                 console.log(History);
-                var cost = ((((miles/mpg)*price)*roundtrip)/people);
-                var total = (((miles/mpg)*price)*roundtrip);
-                $("#cost").html("$" + (cost).toFixed(2));
-                $("#total").html("$" + (total).toFixed(2));
+                compute();
             }
-            
-          return cost;
+        }
+        
+        function compute()
+        {
+        	cost_per = ((((miles/mpg)*price)*roundtrip)/people).toFixed(2);
+        	cost_total = (((miles/mpg)*price)*roundtrip).toFixed(2);
+        	$("#cost").html("$" + cost_per);
+        	$("#total").html("$" + cost_total);
+        	$("#cost2").html("$" + cost_per);
+        	$("#total2").html("$" + cost_total);
         }
         
         function calculateGasPrice(lat, lng, callback)
@@ -514,10 +609,10 @@
                     url: 'gas.php',
                     dataType: "json",
                     data: {
-                     latitude: lat,
-                     longitude: lng,
-                     gas_type: 'reg',
-                     sort_by: 'price'
+                    latitude: lat,
+                    longitude: lng,
+                    gas_type: 'reg',
+                    sort_by: 'price'
                      
                     }, 
                     success: function(data, status, response){
@@ -526,22 +621,29 @@
                         {
                             price = data.stations[0].price;
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                            $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
+                            $("#gas2").html("$" + data.stations[0].price);
                         }
                         else
                         {
                             price = data.stations[0].price;
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                            $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
+                            $("#gas2").html("$" + data.stations[0].price);
                         }
+                        callback();
                     },
                     error: function(data){
                         console.log(data);
                         $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
+                        $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                         $("#gas").html("$" + "ERROR");
+                        $("#gas2").html("$" + "ERROR");
+                        callback();
                     }
                 });
-                callback();
             }
         }
         
@@ -562,25 +664,94 @@
             }
             History.pushState({state:History.getStateId()+1},document.title,search);
         }
-             
-             
+        
+        Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
+        
+        var Trip = Parse.Object.extend("Trip");
+        var trip = new Trip();
+                  
         function updateHistory()
-        {
-            History.pushState({mpg:mpg, people:people}, 'mpg','?mpg='+mpg+'&people='+people+'&start-location='+start_location+'&end-location='+end_location+'&roundtrip='+roundtrip);
+        {    
+              trip.save(
+              	{
+              		mpg: mpg,
+              		people: people,
+              		start_location:start_location,
+              		end_location:end_location,
+              		roundtrip:roundtrip,
+              		cost_total:cost_total,
+              		cost_per:cost_per,
+              		start_lat:start_lat,
+              		start_lng:start_lng,
+              		end_lat:end_lat,
+              		end_lng:end_lng,
+              		miles:miles,
+              		price:price
+              	}, {
+              success: function(result) {
+                History.pushState({id:result.id}, document.title,'?id='+result.id);
+              },
+              error: function(model, error) {
+                $(".error").show();
+              }
+            });
         }
         
-        
-        
-        
-        
-        
-        
+        function loadTrip(id)
+        {
+        	var query = new Parse.Query(Trip);
+        	query.get(id, {
+        	  success: function(result) {
+        	    // object is an instance of Parse.Object.
+        	    mpg = result.mpg;
+        	    $("#mpg").val(result.get("mpg"));
+        	    console.log("#mpg = " + result.get("mpg"));
+        	    
+        	    people = result.people;
+        	    $("#people").val(result.get("people"));
+        	    console.log("#people = " + result.get("people"));
+        	    
+        	    start_location = result.start_location;
+        	    start_lat = result.start_lat;
+        	    start_lng = result.start_lng;
+        	    $("#start").val(result.get("start_location"));
+        	    console.log("#start = " + result.get("start_location"));
+        	    
+        	    end_location = result.end_location;
+        	    end_lat = result.end_lat;
+        	    end_lng = result.end_lng;
+        	    $("#end").val(result.get("end_location"));
+        	    console.log("#end = " + result.get("end_location"));
+        	    
+        	    roundtrip = result.roundtrip;
+        	    if(result.get("roundtrip") == "2")
+        	    {
+        	    	$('#roundtrip').prop('checked', true);
+        	    }
+        	    else
+        	    {	
+        	    	$('#roundtrip').prop('checked', false);
+        	    }
+        	    console.log("#roundtrip = " + result.get("roundtrip"));
+        	    
+        	    price = result.price;
+        	    console.log("#price = " + result.get("price"));
+        	    
+        	    calculateCost();
+        	  },
+        	
+        	  error: function(object, error) {
+        	    // error is an instance of Parse.Error.
+        	    console.log("error occurred");
+        	  }
+        	});
+        }
         
         
         </script>
 
         <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));

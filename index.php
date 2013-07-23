@@ -106,7 +106,7 @@
 	            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
 	            <!-- AddThis Button END -->
 	        </div>
-            <div class="row-fluid">
+            <div id="prices2" style="display:none" class="row-fluid">
                 <div class="span4">
                     <div class="controls">
                         <span id="gas_span2"></span>
@@ -182,7 +182,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div id="prices" style="display:none" class="row">
                 <div class="span4">
                     <div class="controls">
                         <span id="gas_span"></span>
@@ -616,7 +616,6 @@
                      
                     }, 
                     success: function(data, status, response){
-                        calculateCost();
                         if(data.status.error == "YES")
                         {
                             price = data.stations[0].price;
@@ -624,9 +623,12 @@
                             $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
                             $("#gas2").html("$" + data.stations[0].price);
+                            $("#prices").slideDown();
+                            $("#prices2").slideDown();
                         }
                         else
                         {
+                        	
                             price = data.stations[0].price;
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
