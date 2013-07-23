@@ -743,31 +743,39 @@
         	query.get(id, {
         	  success: function(result) {
         	    // object is an instance of Parse.Object.
-        	    mpg = result.get("mpg");
+        	    
         	    $("#mpg").val(result.get("mpg"));
-        	    console.log("#mpg = " + result.get("mpg"));
-        	    
-        	    miles = result.get("miles");
-        	    console.log("#miles = " + result.get("miles"));
-        	    
-        	    people = result.get("people");
         	    $("#people").val(result.get("people"));
-        	    console.log("#people = " + result.get("people"));
+        	    $("#start").val(result.get("start_location"));
+        	    $("#end").val(result.get("end_location"));
+        	    $("#cost").html("$" + cost_per);
+        	    $("#total").html("$" + cost_total);
+        	    $("#cost2").html("$" + cost_per);
+        	    $("#total2").html("$" + cost_total);
         	    
+        	    $('#shareModal').modal('show');
+        	    $("#prices").slideDown();
+        	    $("#prices2").slideDown();
+        	    
+        	    
+        	    
+        	    cost_total = result.get("cost_total");
+        	    cost_per = result.get("cost_per");
+        	    mpg = result.get("mpg");
+        	    miles = result.get("miles");
+        	    people = result.get("people");
         	    start_location = result.get("start_location");
         	    start_lat = result.get("start_lat");
         	    start_lng = result.get("start_lng");
         	    city	  = result.get("city");
-        	    $("#start").val(result.get("start_location"));
-        	    console.log("#start = " + result.get("start_location"));
-        	    
         	    end_location = result.get("end_location");
         	    end_lat = result.get("end_lat");
         	    end_lng = result.get("end_lng");
-        	    $("#end").val(result.get("end_location"));
-        	    console.log("#end = " + result.get("end_location"));
-        	    
+        	    price = result.get("price");
         	    roundtrip = result.get("roundtrip");
+        	    
+        	    calcRoute();
+        	    
         	    if(result.get("roundtrip") == "2")
         	    {
         	    	$('#roundtrip').prop('checked', true);
@@ -776,10 +784,8 @@
         	    {	
         	    	$('#roundtrip').prop('checked', false);
         	    }
-        	    console.log("#roundtrip = " + result.get("roundtrip"));
         	    
-        	    price = result.get("price");
-        	    console.log("#price = " + result.get("price"));
+        	    
         	    
         	    updateAll();
         	  },
