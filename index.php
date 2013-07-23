@@ -379,12 +379,12 @@
             console.log(mpg);
             console.log(roundtrip);
 
+			
+			$('#shareModal').modal('show');
             calcRoute(function(){
                 calculateGasPrice(start_lat, start_lng, function(){
                     calculateCost(function(){
-                    	updateHistory(function() {
-                    		$('#shareModal').modal('show');
-                    	});
+                    	updateHistory();
                     });
                 })              
                 
@@ -711,6 +711,7 @@
 	              success: function(result) 
 	              {
 	                History.pushState({id:result.id}, document.title,'?id='+result.id);
+	                $("#url").val(document.URL);
 	              },
 	              error: function(model, error) 
 	              {
@@ -741,7 +742,7 @@
         	    $("#start").val(result.get("start_location"));
         	    console.log("#start = " + result.get("start_location"));
         	    
-        	    end_location = result.end_location;
+        	    end_location = result.get("end_location");
         	    end_lat = result.get("end_lat");
         	    end_lng = result.get("end_lng");
         	    $("#end").val(result.get("end_location"));
