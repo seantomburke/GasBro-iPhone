@@ -382,7 +382,7 @@
             calcRoute(function(){
                 calculateGasPrice(start_lat, start_lng, function(){
                     calculateCost(function(){
-                    	updateHistory( function() {
+                    	updateHistory(function() {
                     		$('#shareModal').modal('show');
                     	});
                     });
@@ -410,43 +410,6 @@
             $("#current-location").button("loading");
             google.maps.event.addDomListener(window, 'load', mapCurrentLocation());
         });
-        
-        $('#end').on('change', function(event) {
-                event.preventDefault();
-                console.log("loading");
-                
-                $("#menu-map").slideDown();
-              var address = $('#location').val();
-              geocoder.geocode( { 'address': address}, function(results, status) 
-              {
-                if (status == google.maps.GeocoderStatus.OK) 
-                {
-                    var mapRow = $("#map");
-                    mapRow.show("normal", function()
-                    {
-                        scroll("#map");
-                        TweenMax.to(mapRow, 1, {
-                            height:"400px", ease:Elastic.easeOut, onComplete: function()
-                            {
-                                google.maps.event.trigger(gmap, 'resize');
-                                gmap.setZoom( gmap.getZoom() );
-                                gmap.setCenter(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    map: gmap,
-                                    position: results[0].geometry.location
-                                });
-                                $("#q1").slideDown();
-                            }});
-                   });       
-                
-                }
-                else 
-                {
-                  console.log(status);
-                }
-              console.log(address);
-                 });
-             });
              
         function getGPS(address, output){
             geocoder.geocode( { 'address': address}, function(results, status) 
@@ -519,7 +482,7 @@
         return output;
         }
         
-        function calculateCost(success,error)
+        function calculateCost(success)
         {
             var errors = 1;
             if(!$("input[name='mpg']").val())
@@ -558,10 +521,6 @@
                 console.log(History);
                 compute();
                 success();
-            }
-            else
-            {
-            	error();
             }
         }
         
@@ -662,7 +621,7 @@
         var Trip = Parse.Object.extend("Trip");
         var trip = new Trip();
                   
-        function updateHistory(success, error)
+        function updateHistory(success)
         {   
         	var errors = 1; 
         	if(mpg == undefined)
@@ -710,10 +669,6 @@
 	              }
 	            });
 	            success();
-            }
-            else
-            {
-            	error();
             }
         }
         
