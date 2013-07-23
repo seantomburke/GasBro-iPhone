@@ -28,7 +28,7 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
+		<!--
         <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -37,7 +37,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">RoadTrip</a>
+                    <a class="brand" href="#">RoadTripr</a>
                     <div class="nav-collapse collapse">
                         <form class="navbar-form pull-right">
                             <input class="span2" type="text" placeholder="Email">
@@ -48,6 +48,7 @@
                 </div>
             </div>
         </div>
+        -->
         <header class="jumbotron subhead">
         
 
@@ -380,13 +381,14 @@
 
             calcRoute(function(){
                 calculateGasPrice(start_lat, start_lng, function(){
-                    calculateCost();
+                    calculateCost(function(){
+                    	updateHistory( function() {
+                    		$('#shareModal').modal('show');
+                    	}
+                    });
                 })              
                 
             });
-            
-            $('#shareModal').modal('show');
-            $("#url").val(location.href);
         });
          
         $("input[name='roundtrip']").on('click', function(event){
@@ -517,7 +519,7 @@
         return output;
         }
         
-        function calculateCost()
+        function calculateCost(success , error)
         {
             var errors = 1;
             if(!$("input[name='mpg']").val())
@@ -547,7 +549,6 @@
             }
             if(errors == 1)
             {
-                updateHistory();
                 //setURLParameter('people',people);
                 //setURLParameter('start-location',start_location);
                 //setURLParameter('end-location',end_location);
@@ -556,6 +557,11 @@
                 //setURLParameter('roundtrip',roundtrip);
                 console.log(History);
                 compute();
+                success();
+            }
+            else
+            {
+            	error();
             }
         }
         
@@ -656,31 +662,59 @@
         var Trip = Parse.Object.extend("Trip");
         var trip = new Trip();
                   
-        function updateHistory()
-        {    
-              trip.save(
-              	{
-              		mpg: mpg,
-              		people: people,
-              		start_location:start_location,
-              		end_location:end_location,
-              		roundtrip:roundtrip,
-              		cost_total:cost_total,
-              		cost_per:cost_per,
-              		start_lat:start_lat,
-              		start_lng:start_lng,
-              		end_lat:end_lat,
-              		end_lng:end_lng,
-              		miles:miles,
-              		price:price
-              	}, {
-              success: function(result) {
-                History.pushState({id:result.id}, document.title,'?id='+result.id);
-              },
-              error: function(model, error) {
-                $(".error").show();
-              }
-            });
+        function updateHistory(success, error)
+        {   
+        	var errors = 1; 
+        	if(mpg == undefined)
+        	{
+        		alert("mpg: "+mpg);
+        		errors++;
+        	}
+        	if(people == "")
+        	{
+        		alert("mpg: "+mpg);
+        		errors++;
+        	}
+        	if(person == "")
+        	{
+        		alert("mpg: "+mpg);
+        		errors++;
+        	}
+        	
+        	if(errors == 1)
+        	{	
+	              trip.save(
+		          	{
+		          		mpg: mpg,
+		          		people: people,
+		          		start_location:start_location,
+		          		end_location:end_location,
+		          		roundtrip:roundtrip,
+		          		cost_total:cost_total,
+		          		cost_per:cost_per,
+		          		start_lat:start_lat,
+		          		start_lng:start_lng,
+		          		end_lat:end_lat,
+		          		end_lng:end_lng,
+		          		miles:miles,
+		          		price:price
+		          	}, 
+	              {
+	              success: function(result) 
+	              {
+	                History.pushState({id:result.id}, document.title,'?id='+result.id);
+	              },
+	              error: function(model, error) 
+	              {
+	                $(".error").show();
+	              }
+	            });
+	            success();
+            }
+            else
+            {
+            	error();
+            }
         }
         
         function loadTrip(id)
