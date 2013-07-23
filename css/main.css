@@ -38,6 +38,24 @@ body {
 }
 
 
+h1, h2, h3, h4, h5, p, span, label, button {
+	font-family: 'Lato', sans-serif;
+}
+
+h1, label {
+	font-weight: 400;
+}
+
+h2, span {
+	font-weight: 300;
+}
+
+h3, p {
+	font-weight: 100;
+}
+
+
+
 
 
 

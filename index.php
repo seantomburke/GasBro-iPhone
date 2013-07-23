@@ -18,7 +18,8 @@
             }
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
 
@@ -69,19 +70,25 @@
           <div class="modal-body">
           	<div class="row-fluid">
           		<div id="prices2" style="display:none" class="row-fluid">
-          		    <div class="span4">
+	          		<div class="span3">
+	          		    <div class="controls">
+	          		        # of People:
+	          		        <h1 id="num_people" class=""></h1>
+	          		    </div>
+	          		</div>
+          		    <div class="span3">
           		        <div class="controls">
           		            Cost of gas in <span id="gas_span2"></span>:
           		            <h1 id="gas2" class=""></h1>
           		        </div>
           		    </div>
-          		    <div class="span4">
+          		    <div class="span3">
           		        <div class="controls">
           		            <span>Cost per Person:</span>
           		            <h1 id="cost2" class=""></h1>
           		        </div>
           		    </div>
-          		    <div class="span4">
+          		    <div class="span3">
           		        <div class="controls">
           		            <span>Total Cost:</span>
           		            <h1 id="total2" class=""></h1>
@@ -166,19 +173,25 @@
                 </div>
             </div>
             <div id="prices" class="row">
-                <div class="span4">
+            	<div class="span3">
+            	    <div class="controls">
+            	        # of People:
+            	        <h1 id="num_people" class=""></h1>
+            	    </div>
+            	</div>
+                <div class="span3">
                     <div class="controls">
                         Cost of gas in <span id="gas_span"></span>:
                         <h1 id="gas" class=""></h1>
                     </div>
                 </div>
-                <div class="span4">
+                <div class="span3">
                     <div class="controls">
                         <span>Cost per Person:</span>
                         <h1 id="cost" class=""></h1>
                     </div>
                 </div>
-                <div class="span4">
+                <div class="span3">
                     <div class="controls">
                         <span>Total Cost:</span>
                         <h1 id="total" class=""></h1>
