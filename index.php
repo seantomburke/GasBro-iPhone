@@ -9,6 +9,12 @@
         <title>GasBro</title>
         <meta name="description" content="Easliy split the cost of gas with friends">
         <meta name="viewport" content="width=device-width">
+        <meta property="og:title" content="GasBro" />
+        	<meta property="og:type" content="website" />
+        	<meta property="og:site_name" content="http://www.gasbro.com/" />
+        	<meta property="og:image" content="http://www.memebro.com/images/memebro.png" />
+        	<meta property="og:description" content="Easily split the cost of gas with your friends!" />
+        	<meta property="og:url" content="http://www.gasbro.com/" />
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
