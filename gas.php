@@ -17,7 +17,7 @@ $api_key = 'wf55k72cc3';
 
 $longitude = $_GET['longitude'];
 $latitude = $_GET['latitude']; 
-$distance = ($_GET['distance']) ? $_GET['distance']:'2';
+$distance = ($_GET['distance']) ? $_GET['distance']:'10';
 $fuel_type = ($_GET['fuel_type']) ? ($_GET['fuel_type']):'reg';
 $sort_by = ($_GET['sort_by']) ? $_GET['sort_by']:'price';
 
