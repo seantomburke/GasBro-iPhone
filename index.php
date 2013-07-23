@@ -96,14 +96,6 @@
           		    </div>
           		</div>
 	         </div>
-	         <div class="row-fluid">
-	         	<div class="span12">
-		         	<div class="input-append">
-		         	  <input id="url" class="span6" type="text">
-		         	  <button id="share" class="btn btn-info" type="button">Share</button>
-		         	</div>
-		        </div>
-	         </div>
 	         <div id="addThis" class="row-fluid">
 	         	<!-- AddThis Button BEGIN -->
 	         	<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -120,8 +112,10 @@
 	         </div>
            </div>
           <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button class="btn btn-primary">Share</button>
+          	<div class="input-append">
+          	  <input id="url" class="span6" type="text">
+          	  <button id="share" class="btn btn-info" type="button">Share</button>
+          	</div>
           </div>
         </div>
         
@@ -618,6 +612,8 @@
                             $("#gas2").html("$" + price);
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
+                            $("#num_people").html(result.get("people"));
+                            $("#num_people2").html(result.get("people"));
                         }
                         callback();
                     },
@@ -776,11 +772,13 @@
         	    $("#total").html("$" + result.get("cost_total"));
         	    $("#gas").html("$" + result.get("price"));
         	    $("#gas_span").html(result.get("city"));
+        	    $("#num_people").html(result.get("people"));
         	    
         	    $("#cost2").html("$" + result.get("cost_per"));
         	    $("#total2").html("$" + result.get("cost_total"));
         	    $("#gas2").html("$" + result.get("price"));
         	    $("#gas_span2").html(result.get("city"));
+        	    $("#num_people2").html(result.get("people"));
         	    
         	    $('#shareModal').modal('show');
         	    $('#shareModalHeader').html('Roadtripr: ' + result.get("city") + ' to ' + result.get("end_location"));
