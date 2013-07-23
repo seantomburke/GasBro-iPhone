@@ -114,7 +114,22 @@
           <div class="modal-footer">
           	<div class="input-append">
           	  <input id="url" class="span6" type="text">
-          	  <button id="share" class="btn btn-info" type="button">Share</button>
+          	  <button id="facebook" class="btn btn-primary" type="button" href="#" 
+          	    onclick="
+          	      window.open(
+          	        'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+          	        'facebook-share-dialog', 
+          	        'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0'); 
+          	      return false;">
+          	    Share
+          	  </button>
+          	  <button id="tweet" class="btn btn-info" type="button" href="#" 
+          	  	onclick="
+          	  		window.open(
+          	  		'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + document.title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+          	  		return false;">
+          	  	Tweet
+          	  </button>
           	</div>
           </div>
         </div>
@@ -612,6 +627,8 @@
                             $("#gas2").html("$" + price);
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
+                            $("#num_people").html(result.get("people"));
+                            $("#num_people2").html(result.get("people"));
                         }
                         callback();
                     },
@@ -770,11 +787,13 @@
         	    $("#total").html("$" + result.get("cost_total"));
         	    $("#gas").html("$" + result.get("price"));
         	    $("#gas_span").html(result.get("city"));
+        	    $("#num_people").html(result.get("people"));
         	    
         	    $("#cost2").html("$" + result.get("cost_per"));
         	    $("#total2").html("$" + result.get("cost_total"));
         	    $("#gas2").html("$" + result.get("price"));
         	    $("#gas_span2").html(result.get("city"));
+        	    $("#num_people2").html(result.get("people"));
         	    
         	    $('#shareModal').modal('show');
         	    $('#shareModalHeader').html('Roadtripr: ' + result.get("city") + ' to ' + result.get("end_location"));

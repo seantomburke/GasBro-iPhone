@@ -114,22 +114,22 @@
           <div class="modal-footer">
           	<div class="input-append">
           	  <input id="url" class="span6" type="text">
-          	  <a id="facebook" class="btn btn-primary" href="#" 
+          	  <button id="facebook" class="btn btn-primary" type="button" href="#" 
           	    onclick="
           	      window.open(
           	        'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
           	        'facebook-share-dialog', 
-          	        'width=626,height=436'); 
+          	        'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0'); 
           	      return false;">
-          	    Share
-          	  </a>
-          	  <a id="tweet" class="btn btn-info" href="#" 
+          	    Facebook
+          	  </button>
+          	  <button id="tweet" class="btn btn-info" type="button" href="#" 
           	  	onclick="
           	  		window.open(
           	  		'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + document.title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
           	  		return false;">
           	  	Tweet
-          	  </a>
+          	  </button>
           	</div>
           </div>
         </div>
