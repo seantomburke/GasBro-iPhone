@@ -28,10 +28,8 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
-        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-
-        <!--<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+		<!--
+        <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -39,25 +37,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">RoadTrip</a>
+                    <a class="brand" href="#">RoadTripr</a>
                     <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li class="nav-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                         <form class="navbar-form pull-right">
                             <input class="span2" type="text" placeholder="Email">
                             <input class="span2" type="password" placeholder="Password">
@@ -66,7 +47,8 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
+        -->
         <header class="jumbotron subhead">
         
 
@@ -106,7 +88,7 @@
 	            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
 	            <!-- AddThis Button END -->
 	        </div>
-            <div class="row-fluid">
+            <div id="prices2" style="display:none" class="row-fluid">
                 <div class="span4">
                     <div class="controls">
                         <span id="gas_span2"></span>
@@ -182,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div id="prices" style="display:none" class="row">
                 <div class="span4">
                     <div class="controls">
                         <span id="gas_span"></span>
@@ -399,13 +381,14 @@
 
             calcRoute(function(){
                 calculateGasPrice(start_lat, start_lng, function(){
-                    calculateCost();
+                    calculateCost(function(){
+                    	updateHistory( function() {
+                    		$('#shareModal').modal('show');
+                    	});
+                    });
                 })              
                 
             });
-            
-            $('#shareModal').modal('show');
-            $("#url").val(location.href);
         });
          
         $("input[name='roundtrip']").on('click', function(event){
@@ -536,7 +519,7 @@
         return output;
         }
         
-        function calculateCost()
+        function calculateCost(success , error)
         {
             var errors = 1;
             if(!$("input[name='mpg']").val())
@@ -566,7 +549,6 @@
             }
             if(errors == 1)
             {
-                updateHistory();
                 //setURLParameter('people',people);
                 //setURLParameter('start-location',start_location);
                 //setURLParameter('end-location',end_location);
@@ -575,6 +557,11 @@
                 //setURLParameter('roundtrip',roundtrip);
                 console.log(History);
                 compute();
+                success();
+            }
+            else
+            {
+            	error();
             }
         }
         
@@ -586,6 +573,9 @@
         	$("#total").html("$" + cost_total);
         	$("#cost2").html("$" + cost_per);
         	$("#total2").html("$" + cost_total);
+        	
+        	$("#prices").slideDown();
+        	$("#prices2").slideDown();
         }
         
         function calculateGasPrice(lat, lng, callback)
@@ -616,7 +606,6 @@
                      
                     }, 
                     success: function(data, status, response){
-                        calculateCost();
                         if(data.status.error == "YES")
                         {
                             price = data.stations[0].price;
@@ -627,11 +616,14 @@
                         }
                         else
                         {
+                        	
                             price = data.stations[0].price;
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
                             $("#gas2").html("$" + data.stations[0].price);
+                            $("#prices").slideDown();
+                            $("#prices2").slideDown();
                         }
                         callback();
                     },
@@ -670,31 +662,59 @@
         var Trip = Parse.Object.extend("Trip");
         var trip = new Trip();
                   
-        function updateHistory()
-        {    
-              trip.save(
-              	{
-              		mpg: mpg,
-              		people: people,
-              		start_location:start_location,
-              		end_location:end_location,
-              		roundtrip:roundtrip,
-              		cost_total:cost_total,
-              		cost_per:cost_per,
-              		start_lat:start_lat,
-              		start_lng:start_lng,
-              		end_lat:end_lat,
-              		end_lng:end_lng,
-              		miles:miles,
-              		price:price
-              	}, {
-              success: function(result) {
-                History.pushState({id:result.id}, document.title,'?id='+result.id);
-              },
-              error: function(model, error) {
-                $(".error").show();
-              }
-            });
+        function updateHistory(success, error)
+        {   
+        	var errors = 1; 
+        	if(mpg == undefined)
+        	{
+        		alert("mpg: "+mpg);
+        		errors++;
+        	}
+        	if(people == "")
+        	{
+        		alert("mpg: "+mpg);
+        		errors++;
+        	}
+        	if(person == "")
+        	{
+        		alert("mpg: "+mpg);
+        		errors++;
+        	}
+        	
+        	if(errors == 1)
+        	{	
+	              trip.save(
+		          	{
+		          		mpg: mpg,
+		          		people: people,
+		          		start_location:start_location,
+		          		end_location:end_location,
+		          		roundtrip:roundtrip,
+		          		cost_total:cost_total,
+		          		cost_per:cost_per,
+		          		start_lat:start_lat,
+		          		start_lng:start_lng,
+		          		end_lat:end_lat,
+		          		end_lng:end_lng,
+		          		miles:miles,
+		          		price:price
+		          	}, 
+	              {
+	              success: function(result) 
+	              {
+	                History.pushState({id:result.id}, document.title,'?id='+result.id);
+	              },
+	              error: function(model, error) 
+	              {
+	                $(".error").show();
+	              }
+	            });
+	            success();
+            }
+            else
+            {
+            	error();
+            }
         }
         
         function loadTrip(id)
