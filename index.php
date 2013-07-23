@@ -378,18 +378,24 @@
             console.log(price);
             console.log(mpg);
             console.log(roundtrip);
-
+            updateAll()
 			
-			$('#shareModal').modal('show');
-            calcRoute(function(){
-                calculateGasPrice(start_lat, start_lng, function(){
-                    calculateCost(function(){
-                    	updateHistory();
-                    });
-                })              
-                
-            });
         });
+        
+        function updateAll()
+        {
+        	$('#shareModal').modal('show');
+        	calcRoute(function(){
+        	    calculateGasPrice(start_lat, start_lng, function(){
+        	        calculateCost(function(){
+        	        	updateHistory();
+        	        });
+        	    })              
+        	    
+        	});
+        }
+        
+       
          
         $("input[name='roundtrip']").on('click', function(event){
             //event.preventDefault();
@@ -772,8 +778,7 @@
         	    price = result.get("price");
         	    console.log("#price = " + result.get("price"));
         	    
-        	    calculateGasPrice(start_lng,start_lng);
-        	    calculateCost();
+        	    updateAll();
         	  },
         	
         	  error: function(object, error) {
