@@ -623,8 +623,6 @@
                             $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
                             $("#gas2").html("$" + data.stations[0].price);
-                            $("#prices").slideDown();
-                            $("#prices2").slideDown();
                         }
                         else
                         {
@@ -634,6 +632,8 @@
                             $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas").html("$" + data.stations[0].price);
                             $("#gas2").html("$" + data.stations[0].price);
+                            $("#prices").slideDown();
+                            $("#prices2").slideDown();
                         }
                         callback();
                     },
