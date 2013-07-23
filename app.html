@@ -72,25 +72,25 @@
           		<div id="prices2" style="display:none" class="row-fluid">
 	          		<div class="span3">
 	          		    <div class="controls">
-	          		        <span># of People:</span>
+	          		        <span>Number of People:</span>
 	          		        <h1 id="num_people" class=""></h1>
 	          		    </div>
 	          		</div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Cost of gas in <span id="gas_span2"></span>:</span>
+          		            <span>Gas in <span id="gas_span2"></span>:</span>
           		            <h1 id="gas2" class=""></h1>
           		        </div>
           		    </div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Cost per Person:</span>
+          		            <span>Per Person:</span>
           		            <h1 id="cost2" class=""></h1>
           		        </div>
           		    </div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Total Cost:</span>
+          		            <span>Total:</span>
           		            <h1 id="total2" class=""></h1>
           		        </div>
           		    </div>
@@ -139,40 +139,38 @@
             <!-- Example row of columns -->
             <div class="row">
                <div class="span4 sidebar" >
-                    <form class="form">
-                        <div class="controls">
-                        <div class="input-append">
-                            <span for="start-location">Start Location</span>
-                              <input id="start" type="text" name="start-location" placeholder="Start Location" class="span3">
-                              <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
-                                data-loading-text="<i class='icon-refresh'></i>">
-                                    <i class="icon-map-marker"></i>
-                              </button>
-                            </div>
-                        </div>
-
-                        <div class="controls">
+                    <form class="form form-horizontal">
+                        
+						<div class="cuntrolls form-inline">
+						    <span for="start-location">Start Location</span>
+						    <input class="span3" id="start" type="text" name="start-location" data-placeholder="Start Location">
+						    <button id="current-location" class="btn" type="button"
+						      data-loading-text="<i class='icon-refresh icon-white'></i>">
+						          <i class="icon-map-marker"></i>
+						    </button>
+						</div>
+                        <div class="cuntrolls">
                             <span for="end-location">End Destination</span>
-                            <input type="text" id="end" name="end-location" placeholder="Destination" >
+                            <input class="span4" type="text" id="end" name="end-location" data-placeholder="Destination" >
                         </div>
 
-                        <div class="controls">
+                        <div class="cuntrolls">
                             <span for="people">Number of People</span>
-                            <input id="people" placeholder="Number of People" type="number" name="people"/>
+                            <input class="span4" id="people" data-placeholder="Number of People" type="number" name="people"/>
                         </div>
 
-                        <div class="controls">
+                        <div class="cuntrolls">
                             <span for="mpg">Miles Per Gallon</span>
-                            <input id="mpg" placeholder="MPG" type="number" name="mpg"/>
+                            <input class="span4" id="mpg" data-placeholder="MPG" type="number" name="mpg"/>
                         </div>
 
-                        <div class="controls">
+                        <div class="cuntrolls">
                             <label class="checkbox">
                                 <input id="roundtrip" type="checkbox" name="roundtrip"> Roundtrip?
                             </label>
                         </div>
 
-                        <div class="controls">
+                        <div class="cuntrolls">
                             <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
                         </div>
                    </form>
@@ -186,8 +184,8 @@
             <div id="prices" class="row">
             	<div class="span3">
             	    <div class="controls">
-            	        # of People:
-            	        <h1 id="num_people" class=""></h1>
+            	        Number of People:
+            	        <h1 id="num_people2" class=""></h1>
             	    </div>
             	</div>
                 <div class="span3">
@@ -450,6 +448,7 @@
         $("#current-location").popover({trigger: 'hover', delay: { show: 900, hide: 10 }});
         $("#current-location").click(function (){
             $("#current-location").button("loading");
+            $("#current-location").addClass("btn-primary");
             google.maps.event.addDomListener(window, 'load', mapCurrentLocation());
         });
              

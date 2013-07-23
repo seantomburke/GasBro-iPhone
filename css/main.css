@@ -36,7 +36,7 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, p, span, label, button {
+h1, h2, h3, h4, h5, p, span, label, button, input {
 	font-family: 'Lato', sans-serif;
 }
 
@@ -49,7 +49,7 @@ h2, span {
 }
 
 h3, p {
-	font-weight: 100;
+	font-weight: 300;
 }
 
 .modal-footer .input-append .btn{
@@ -62,9 +62,12 @@ h3, p {
 
 @media (max-width: 767px){
 
+
 .container {
 	margin: 0px 10%;
 	width: 80%;
+}
+	
 }
 
 body .modal {
@@ -73,16 +76,6 @@ body .modal {
     /* must be half of the width, minus scrollbar on the left (30px) */
     margin-left: -280px;
 }
-
-	
-}
-
-
-
-
-
-
-
 
 
 
