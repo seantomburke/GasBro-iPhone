@@ -92,11 +92,11 @@
 	            <div class="input-append">
 	              <input id="url" class="span12" type="text">
 	              <button class="btn" type="button">Copy<i class="icon-download"></i></button>
-	              <button class="btn" type="button">Share</button>
+	              <button class="btn btn-info" type="button">Share</button>
 	            </div>
 	            
 	         </div>
-	         <div class="row-fluid">
+	         <div id="addThis" class="row-fluid">
 	         	<!-- AddThis Button BEGIN -->
 	         	<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
 	         	<a class="addthis_button_preferred_1"></a>
@@ -166,7 +166,7 @@
                     </div>
                 </div>
             </div>
-            <div id="prices" style="display:none" class="row">
+            <div id="prices" class="row">
                 <div class="span4">
                     <div class="controls">
                         Cost of gas in <span id="gas_span"></span>:
@@ -225,6 +225,9 @@
         
         
         $(document).ready(function(){
+        	$("#prices").hide();
+        	$("#prices2").hide();
+        	$("#addThis").hide();
         	id = getURLParameter("id");
         	if(id != "null")
         	{
@@ -577,12 +580,10 @@
                      
                     }, 
                     success: function(data, status, response){
+                    
+                    city = data.stations[0].city
                         if(data.status.error == "YES")
                         {
-                            price = data.stations[0].price;
-                            city = data.stations[0].city
-                            $("#gas_span").html(city);
-                            $("#gas_span2").html(city);
                             $("#gas").html("$" + "ERROR");
                             $("#gas2").html("$" + "ERROR");
                         }
