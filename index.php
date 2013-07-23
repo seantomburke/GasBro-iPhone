@@ -659,7 +659,6 @@
         		
         		errors++;
         	}
-        	,
         	if(start_lat == undefined)
         	{
         		
@@ -685,7 +684,6 @@
         		
         		errors++;
         	}
-        	
         	if(price == undefined)
         	{
         		
