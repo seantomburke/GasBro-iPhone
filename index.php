@@ -72,25 +72,25 @@
           		<div id="prices2" style="display:none" class="row-fluid">
 	          		<div class="span3">
 	          		    <div class="controls">
-	          		        <span># of People:</span>
+	          		        <span>Number of People:</span>
 	          		        <h1 id="num_people" class=""></h1>
 	          		    </div>
 	          		</div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Cost of gas in <span id="gas_span2"></span>:</span>
+          		            <span>Gas in <span id="gas_span2"></span>:</span>
           		            <h1 id="gas2" class=""></h1>
           		        </div>
           		    </div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Cost per Person:</span>
+          		            <span>Per Person:</span>
           		            <h1 id="cost2" class=""></h1>
           		        </div>
           		    </div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Total Cost:</span>
+          		            <span>Total:</span>
           		            <h1 id="total2" class=""></h1>
           		        </div>
           		    </div>
