@@ -78,7 +78,7 @@
 	          		</div>
           		    <div class="span3">
           		        <div class="controls">
-          		            <span>Cost of gas in <p> id="gas_span2"></p>:</span>
+          		            <span>Cost of gas in <span id="gas_span2"></span>:</span>
           		            <h1 id="gas2" class=""></h1>
           		        </div>
           		    </div>
