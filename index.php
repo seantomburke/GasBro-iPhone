@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>RoadTripr</title>
+        <title>GasBro</title>
         <meta name="description" content="Easliy split the cost of gas with friends">
         <meta name="viewport" content="width=device-width">
 
@@ -38,7 +38,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">RoadTripr</a>
+                    <a class="brand" href="#">GasBro</a>
                     <div class="nav-collapse collapse">
                         <form class="navbar-form pull-right">
                             <input class="span2" type="text" placeholder="Email">
@@ -55,7 +55,7 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="container">
-                <h1>Roadtripr</h1>
+                <h1>GasBro</h1>
                 <p class="lead">Easliy split the cost of gas with friends</p>
             </div>
         </header>
@@ -65,7 +65,7 @@
         <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="shareModalHeader">RoadTripr</h3>
+            <h3 id="shareModalHeader">GasBro</h3>
           </div>
           <div class="modal-body">
           	<div class="row-fluid">
@@ -113,7 +113,7 @@
            </div>
           <div class="modal-footer">
           	<div class="input-append">
-          	  <input id="url" class="span6" type="text">
+          	  <input id="url" class="span4" type="text">
           	  <button id="facebook" class="btn btn-primary" type="button" href="#" 
           	    onclick="
           	      window.open(
@@ -211,7 +211,7 @@
             </div>
             <hr>
             <footer>
-                <p>Developed by <a href="http://www.seantburke.com/?r=roadtripr">Sean Thomas Burke</a> &copy;RoadTripr 2013</p>
+                <p>Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy;GasBro 2013</p>
             </footer>
 
         </div> <!-- /container -->
@@ -420,7 +420,7 @@
         function updateAll()
         {
         	$('#shareModal').modal('show');
-        	$('#shareModalHeader').html('Roadtripr: ' + city + ' to ' + end_location);
+        	$('#shareModalHeader').html('GasBro: ' + city + ' to ' + end_location);
         	calcRoute(function(){
         	    calculateGasPrice(start_lat, start_lng, function(){
         	        calculateCost(function(){
@@ -650,18 +650,6 @@
             );
         }
         
-        function setURLParameter(name,value){
-            var search;
-            if(getURLParameter(name)){
-                search =location.search.replace(new RegExp('([?|&]'+name + '=)' + '(.+?)(&|$)'),"$1"+encodeURIComponent(value)+"$3"); 
-            }else if(location.search.length){
-                search = location.search +'&'+name + '=' +encodeURIComponent(value);
-            }else{
-                search = '?'+name + '=' +encodeURIComponent(value);
-            }
-            History.pushState({state:History.getStateId()+1},document.title,search);
-        }
-        
         Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
         
         var Trip = Parse.Object.extend("Trip");
@@ -757,7 +745,7 @@
 	              {
 	              success: function(result) 
 	              {
-	                History.pushState({id:result.id}, document.title + ": " + city + " to " + end_location ,'?id='+result.id);
+	                History.pushState({id:result.id}, 'GasBro: ' + city + ' to ' + end_location,'?id='+result.id);
 	                $("#url").val(document.URL);
 	              },
 	              error: function(model, error) 
@@ -796,7 +784,7 @@
         	    $("#num_people2").html(result.get("people"));
         	    
         	    $('#shareModal').modal('show');
-        	    $('#shareModalHeader').html('Roadtripr: ' + result.get("city") + ' to ' + result.get("end_location"));
+        	    $('#shareModalHeader').html('GasBro: ' + result.get("city") + ' to ' + result.get("end_location"));
         	    $("#prices").slideDown();
         	    $("#prices2").slideDown();
         	    $("#url").val(document.URL);
