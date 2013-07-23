@@ -64,7 +64,7 @@
         <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="shareModalHeader">Share</h3>
+            <h3 id="shareModalHeader">RoadTripr</h3>
           </div>
           <div class="modal-body">
           	<div class="row-fluid">
@@ -91,8 +91,7 @@
           		
 	            <div class="input-append">
 	              <input id="url" class="span12" type="text">
-	              <button class="btn" type="button">Copy<i class="icon-download"></i></button>
-	              <button class="btn btn-info" type="button">Share</button>
+	              <button id="share" class="btn btn-info" type="button">Share</button>
 	            </div>
 	            
 	         </div>
@@ -349,6 +348,11 @@
             });
         });
         
+        $("#share").click(function(event){
+            //event.preventDefault();
+            $("#addThis").slideDown();
+        });
+        
         
         
         $("input[name='people']").change(function(event){
@@ -380,6 +384,7 @@
             console.log(end_location);
                     
             console.log(miles);
+            console.log(city);
             console.log(people);
             console.log(price);
             console.log(mpg);
@@ -391,6 +396,7 @@
         function updateAll()
         {
         	$('#shareModal').modal('show');
+        	$('#shareModalHeader').html('Roadtripr: ' + city + ' to ' + end_location);
         	calcRoute(function(){
         	    calculateGasPrice(start_lat, start_lng, function(){
         	        calculateCost(function(){
@@ -754,12 +760,15 @@
         	    $("#cost").html("$" + result.get("cost_per"));
         	    $("#total").html("$" + result.get("cost_total"));
         	    $("#gas").html("$" + result.get("price"));
+        	    $("#gas_span").html(result.get("city"));
         	    
         	    $("#cost2").html("$" + result.get("cost_per"));
         	    $("#total2").html("$" + result.get("cost_total"));
         	    $("#gas2").html("$" + result.get("price"));
+        	    $("#gas_span2").html(result.get("city"));
         	    
         	    $('#shareModal').modal('show');
+        	    $('#shareModalHeader').html('Roadtripr: ' + result.get("city") + ' to ' + result.get("end_location"));
         	    $("#prices").slideDown();
         	    $("#prices2").slideDown();
         	    $("#url").val(document.URL);
