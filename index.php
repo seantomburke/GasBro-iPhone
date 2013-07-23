@@ -519,7 +519,7 @@
         return output;
         }
         
-        function calculateCost(success , error)
+        function calculateCost(success,error)
         {
             var errors = 1;
             if(!$("input[name='mpg']").val())
