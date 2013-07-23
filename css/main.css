@@ -9,22 +9,20 @@
 	max-width: none;
 }
 
+#map-canvas{
+	margin-top: 10px;
+}
+
 .jumbotron {
-	background-image: url('../img/jumbotron.jpg');
 	position: relative;
 	color: #fff;
 	text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
-	background: #020031;
-	background: -moz-linear-gradient(45deg, #020031 0%, #6d3353 100%);
-	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,#6d3353));
-	background: -webkit-linear-gradient(45deg, #020031 0%,#6d3353 100%);
-	background: -o-linear-gradient(45deg, #020031 0%,#6d3353 100%);
-	background: -ms-linear-gradient(45deg, #020031 0%,#6d3353 100%);
-	background: linear-gradient(45deg, #020031 0%,#6d3353 100%);
+	background: -moz-linear-gradient(45deg, #000000 0%, #1e5b00 100%), #020031;
+	background: -webkit-gradient(linear, left bottom, right top, from(#000000), to(#1e5b00)), #020031;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353',GradientType=1 );
-	-webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
-	-moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
-	box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+	-webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32), inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32), inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32), inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
 }
 
 body {
@@ -62,6 +60,16 @@ h3, p {
 	margin-left: 0;
 }
 
+@media (max-width: 767px){
+
+.container {
+	margin: 0px 10%;
+	width: 80%;
+}
+
+
+	
+}
 
 
 

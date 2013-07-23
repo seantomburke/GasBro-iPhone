@@ -627,8 +627,8 @@
                             $("#gas2").html("$" + price);
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
-                            $("#num_people").html(result.get("people"));
-                            $("#num_people2").html(result.get("people"));
+                            $("#num_people").html(people);
+                            $("#num_people2").html(people);
                         }
                         callback();
                     },
