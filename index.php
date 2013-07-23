@@ -520,7 +520,10 @@
                 //setURLParameter('roundtrip',roundtrip);
                 console.log(History);
                 compute();
-                success();
+                if(success)
+                {
+                	success();
+                }
             }
         }
         
@@ -568,10 +571,11 @@
                         if(data.status.error == "YES")
                         {
                             price = data.stations[0].price;
+                            
                             $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
                             $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
-                            $("#gas").html("$" + data.stations[0].price);
-                            $("#gas2").html("$" + data.stations[0].price);
+                            $("#gas").html("$" + "ERROR");
+                            $("#gas2").html("$" + "ERROR");
                         }
                         else
                         {
@@ -718,7 +722,10 @@
 	                $(".error").show();
 	              }
 	            });
-	            success();
+	            if(success)
+	            {
+	            	success();
+	            }
             }
         }
         
@@ -762,6 +769,7 @@
         	    price = result.get("price");
         	    console.log("#price = " + result.get("price"));
         	    
+        	    calculateGasPrice(start_lng,start_lng);
         	    calculateCost();
         	  },
         	
@@ -769,6 +777,7 @@
         	    // error is an instance of Parse.Error.
         	    console.log("error occurred");
         	  }
+        	  
         	});
         }
         
