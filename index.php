@@ -68,47 +68,49 @@
           </div>
           <div class="modal-body">
           	<div class="row-fluid">
+          		<div id="prices2" style="display:none" class="row-fluid">
+          		    <div class="span4">
+          		        <div class="controls">
+          		            Cost of gas in <span id="gas_span2"></span>:
+          		            <h1 id="gas2" class=""></h1>
+          		        </div>
+          		    </div>
+          		    <div class="span4">
+          		        <div class="controls">
+          		            <span>Cost per Person:</span>
+          		            <h1 id="cost2" class=""></h1>
+          		        </div>
+          		    </div>
+          		    <div class="span4">
+          		        <div class="controls">
+          		            <span>Total Cost:</span>
+          		            <h1 id="total2" class=""></h1>
+          		        </div>
+          		    </div>
+          		</div>
+          		
 	            <div class="input-append">
 	              <input id="url" class="span12" type="text">
 	              <button class="btn" type="button">Copy<i class="icon-download"></i></button>
 	              <button class="btn" type="button">Share</button>
 	            </div>
-	         <div class="row-fluid">
+	            
 	         </div>
-	            <!-- AddThis Button BEGIN -->
-	            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-	            <a class="addthis_button_preferred_1"></a>
-	            <a class="addthis_button_preferred_2"></a>
-	            <a class="addthis_button_preferred_3"></a>
-	            <a class="addthis_button_preferred_4"></a>
-	            <a class="addthis_button_compact"></a>
-	            <a class="addthis_counter addthis_bubble_style"></a>
-	            </div>
-	            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-	            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
-	            <!-- AddThis Button END -->
-	        </div>
-            <div id="prices2" style="display:none" class="row-fluid">
-                <div class="span4">
-                    <div class="controls">
-                        <span id="gas_span2"></span>
-                        <h1 id="gas2" class=""></h1>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="controls">
-                        <span>Cost per Person:</span>
-                        <h1 id="cost2" class=""></h1>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="controls">
-                        <span>Total Cost:</span>
-                        <h1 id="total2" class=""></h1>
-                    </div>
-                </div>
-            </div>
-          </div>
+	         <div class="row-fluid">
+	         	<!-- AddThis Button BEGIN -->
+	         	<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+	         	<a class="addthis_button_preferred_1"></a>
+	         	<a class="addthis_button_preferred_2"></a>
+	         	<a class="addthis_button_preferred_3"></a>
+	         	<a class="addthis_button_preferred_4"></a>
+	         	<a class="addthis_button_compact"></a>
+	         	<a class="addthis_counter addthis_bubble_style"></a>
+	         	</div>
+	         	<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+	         	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
+	         	<!-- AddThis Button END -->
+	         </div>
+           </div>
           <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             <button class="btn btn-primary">Share</button>
@@ -167,7 +169,7 @@
             <div id="prices" style="display:none" class="row">
                 <div class="span4">
                     <div class="controls">
-                        <span id="gas_span"></span>
+                        Cost of gas in <span id="gas_span"></span>:
                         <h1 id="gas" class=""></h1>
                     </div>
                 </div>
@@ -579,8 +581,8 @@
                         {
                             price = data.stations[0].price;
                             city = data.stations[0].city
-                            $("#gas_span").html("Cost of gas in "+ city +":");
-                            $("#gas_span2").html("Cost of gas in "+ city +":");
+                            $("#gas_span").html(city);
+                            $("#gas_span2").html(city);
                             $("#gas").html("$" + "ERROR");
                             $("#gas2").html("$" + "ERROR");
                         }
@@ -588,8 +590,8 @@
                         {
                         	
                             price = data.stations[0].price;
-                            $("#gas_span").html("Cost of gas in "+ city +":");
-                            $("#gas_span2").html("Cost of gas in "+ city +":");
+                            $("#gas_span").html(city);
+                            $("#gas_span2").html(city);
                             $("#gas").html("$" + price);
                             $("#gas2").html("$" + price);
                             $("#prices").slideDown();
@@ -599,8 +601,8 @@
                     },
                     error: function(data){
                         console.log(data);
-                        $("#gas_span").html("Cost of gas in "+ city +":");
-                        $("#gas_span2").html("Cost of gas in "+ city +":");
+                        $("#gas_span").html(city);
+                        $("#gas_span2").html(city);
                         $("#gas").html("$" + "ERROR");
                         $("#gas2").html("$" + "ERROR");
                         callback();
@@ -756,7 +758,16 @@
         	    $('#shareModal').modal('show');
         	    $("#prices").slideDown();
         	    $("#prices2").slideDown();
+        	    $("#url").val(document.URL);
         	    
+        	    if(result.get("roundtrip") == "2")
+        	    {
+        	    	$('#roundtrip').prop('checked', true);
+        	    }
+        	    else
+        	    {	
+        	    	$('#roundtrip').prop('checked', false);
+        	    }
         	    
         	    
         	    cost_total = result.get("cost_total");
@@ -773,21 +784,9 @@
         	    end_lng = result.get("end_lng");
         	    price = result.get("price");
         	    roundtrip = result.get("roundtrip");
-        	    
         	    calcRoute();
+        	    History.pushState({id:id}, document.title + ": " + city + " to " + end_location ,'?id='+id);
         	    
-        	    if(result.get("roundtrip") == "2")
-        	    {
-        	    	$('#roundtrip').prop('checked', true);
-        	    }
-        	    else
-        	    {	
-        	    	$('#roundtrip').prop('checked', false);
-        	    }
-        	    
-        	    
-        	    
-        	    updateAll();
         	  },
         	
         	  error: function(object, error) {
