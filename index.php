@@ -579,6 +579,8 @@
         	$("#total").html("$" + cost_total);
         	$("#cost2").html("$" + cost_per);
         	$("#total2").html("$" + cost_total);
+        	$("#num_people").html(people);
+        	$("#num_people2").html(people);
         	
         	$("#prices").slideDown();
         	$("#prices2").slideDown();
