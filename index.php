@@ -208,6 +208,7 @@
         var start_lng;
         var end_lat;
         var end_lng;
+        var city;
         
         var start_location;
         var end_location;
@@ -577,9 +578,9 @@
                         if(data.status.error == "YES")
                         {
                             price = data.stations[0].price;
-                            
-                            $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
-                            $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
+                            city = data.stations[0].city
+                            $("#gas_span").html("Cost of gas in "+ city +":");
+                            $("#gas_span2").html("Cost of gas in "+ city +":");
                             $("#gas").html("$" + "ERROR");
                             $("#gas2").html("$" + "ERROR");
                         }
@@ -587,10 +588,10 @@
                         {
                         	
                             price = data.stations[0].price;
-                            $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
-                            $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
-                            $("#gas").html("$" + data.stations[0].price);
-                            $("#gas2").html("$" + data.stations[0].price);
+                            $("#gas_span").html("Cost of gas in "+ city +":");
+                            $("#gas_span2").html("Cost of gas in "+ city +":");
+                            $("#gas").html("$" + price);
+                            $("#gas2").html("$" + price);
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
                         }
@@ -598,8 +599,8 @@
                     },
                     error: function(data){
                         console.log(data);
-                        $("#gas_span").html("Cost of gas in "+data.stations[0].city +":");
-                        $("#gas_span2").html("Cost of gas in "+data.stations[0].city +":");
+                        $("#gas_span").html("Cost of gas in "+ city +":");
+                        $("#gas_span2").html("Cost of gas in "+ city +":");
                         $("#gas").html("$" + "ERROR");
                         $("#gas2").html("$" + "ERROR");
                         callback();
@@ -715,12 +716,13 @@
 		          		end_lat:end_lat,
 		          		end_lng:end_lng,
 		          		miles:miles,
-		          		price:price
+		          		price:price,
+		          		city:city
 		          	}, 
 	              {
 	              success: function(result) 
 	              {
-	                History.pushState({id:result.id}, document.title,'?id='+result.id);
+	                History.pushState({id:result.id}, document.title + ": " + city + " to " + end_location ,'?id='+result.id);
 	                $("#url").val(document.URL);
 	              },
 	              error: function(model, error) 
@@ -755,6 +757,7 @@
         	    start_location = result.get("start_location");
         	    start_lat = result.get("start_lat");
         	    start_lng = result.get("start_lng");
+        	    city	  = result.get("city");
         	    $("#start").val(result.get("start_location"));
         	    console.log("#start = " + result.get("start_location"));
         	    
