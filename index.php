@@ -95,12 +95,14 @@
           		        </div>
           		    </div>
           		</div>
-          		
-	            <div class="input-append">
-	              <input id="url" class="span12" type="text">
-	              <button id="share" class="btn btn-info" type="button">Share</button>
-	            </div>
-	            
+	         </div>
+	         <div class="row-fluid">
+	         	<div class="span12">
+		         	<div class="input-append">
+		         	  <input id="url" class="span6" type="text">
+		         	  <button id="share" class="btn btn-info" type="button">Share</button>
+		         	</div>
+		        </div>
 	         </div>
 	         <div id="addThis" class="row-fluid">
 	         	<!-- AddThis Button BEGIN -->
