@@ -384,7 +384,7 @@
                     calculateCost(function(){
                     	updateHistory( function() {
                     		$('#shareModal').modal('show');
-                    	}
+                    	});
                     });
                 })              
                 
