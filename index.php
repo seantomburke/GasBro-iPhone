@@ -739,6 +739,9 @@
         	    $("#mpg").val(result.get("mpg"));
         	    console.log("#mpg = " + result.get("mpg"));
         	    
+        	    miles = result.get("miles");
+        	    console.log("#miles = " + result.get("miles"));
+        	    
         	    people = result.get("people");
         	    $("#people").val(result.get("people"));
         	    console.log("#people = " + result.get("people"));
