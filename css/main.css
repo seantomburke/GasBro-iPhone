@@ -60,15 +60,6 @@ h3, p {
 	margin-left: 0;
 }
 
-@media (max-width: 767px){
-
-
-.container {
-	margin: 0px 10%;
-	width: 80%;
-}
-	
-}
 
 body .modal {
     /* new custom width */
@@ -77,6 +68,33 @@ body .modal {
     margin-left: -280px;
 }
 
+.media {
+	margin: 20px 0 0 20px;
+	padding: 20px 0 0 20px;
+}
+
+
+@media (max-width: 767px){
+
+
+body .modal {
+    /* new custom width */
+    width: 560px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-left: -280px;
+}
+
+.media {
+	margin: 0px 10%;
+}
+
+
+.container {
+	margin: 0px 10%;
+	width: 80%;
+}
+	
+}
 
 
 

@@ -51,12 +51,14 @@
         </div>
         -->
         <header class="jumbotron subhead">
-        
-
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="container">
-                <h1>GasBro</h1>
+            <div class="media">
+              <a class="pull-left" href="http://www.gasbro.com/">
+                <img class="media-object" src="http://memebro.com/images/memebro512.png" width="64">
+              </a>
+              <div class="media-body">
+                <h1 class="media-heading">GasBro</h1>
                 <p class="lead">Easliy split the cost of gas with friends</p>
+              </div>
             </div>
         </header>
         
@@ -211,7 +213,7 @@
             </div>
             <hr>
             <footer>
-                <p>Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy;GasBro 2013</p>
+                <p>Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy; GasBro <?php echo date('Y');?></p>
             </footer>
 
         </div> <!-- /container -->

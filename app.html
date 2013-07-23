@@ -51,12 +51,14 @@
         </div>
         -->
         <header class="jumbotron subhead">
-        
-
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="container">
-                <h1>GasBro</h1>
+            <div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" src="http://memebro.com/images/memebro512.png" width="64">
+              </a>
+              <div class="media-body">
+                <h1 class="media-heading">GasBro</h1>
                 <p class="lead">Easliy split the cost of gas with friends</p>
+              </div>
             </div>
         </header>
         
@@ -139,38 +141,40 @@
             <!-- Example row of columns -->
             <div class="row">
                <div class="span4 sidebar" >
-                    <form class="form form-horizontal">
-                        
-						<div class="cuntrolls form-inline">
-						    <span for="start-location">Start Location</span>
-						    <input class="span3" id="start" type="text" name="start-location" data-placeholder="Start Location">
-						    <button id="current-location" class="btn" type="button"
-						      data-loading-text="<i class='icon-refresh icon-white'></i>">
-						          <i class="icon-map-marker"></i>
-						    </button>
-						</div>
-                        <div class="cuntrolls">
+                    <form class="form">
+                        <div class="controls">
+                            <span for="start-location">Start Location</span>
+                            <div class="input-append">
+                              <input id="start" type="text" name="start-location" placeholder="Start Location">
+                              <button id="current-location" class="btn" type="button" data-trigger"hover" data-toggle="popover" data-content="Click for current Location" data-placement="right"
+                                data-loading-text="<i class='icon-refresh'></i>">
+                                    <i class="icon-map-marker"></i>
+                              </button>
+                            </div>
+                        </div>
+
+                        <div class="controls">
                             <span for="end-location">End Destination</span>
-                            <input class="span4" type="text" id="end" name="end-location" data-placeholder="Destination" >
+                            <input type="text" id="end" name="end-location" placeholder="Destination" >
                         </div>
 
-                        <div class="cuntrolls">
+                        <div class="controls">
                             <span for="people">Number of People</span>
-                            <input class="span4" id="people" data-placeholder="Number of People" type="number" name="people"/>
+                            <input id="people" placeholder="Number of People" type="number" name="people"/>
                         </div>
 
-                        <div class="cuntrolls">
+                        <div class="controls">
                             <span for="mpg">Miles Per Gallon</span>
-                            <input class="span4" id="mpg" data-placeholder="MPG" type="number" name="mpg"/>
+                            <input id="mpg" placeholder="MPG" type="number" name="mpg"/>
                         </div>
 
-                        <div class="cuntrolls">
+                        <div class="controls">
                             <label class="checkbox">
                                 <input id="roundtrip" type="checkbox" name="roundtrip"> Roundtrip?
                             </label>
                         </div>
 
-                        <div class="cuntrolls">
+                        <div class="controls">
                             <button id="calculate" class="btn btn-large btn-primary">Calculate</button>
                         </div>
                    </form>
@@ -209,7 +213,7 @@
             </div>
             <hr>
             <footer>
-                <p>Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy;GasBro 2013</p>
+                <p>Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy; GasBro <?php echo date('Y');?></p>
             </footer>
 
         </div> <!-- /container -->
@@ -448,7 +452,6 @@
         $("#current-location").popover({trigger: 'hover', delay: { show: 900, hide: 10 }});
         $("#current-location").click(function (){
             $("#current-location").button("loading");
-            $("#current-location").addClass("btn-primary");
             google.maps.event.addDomListener(window, 'load', mapCurrentLocation());
         });
              
