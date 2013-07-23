@@ -753,8 +753,11 @@
         	    $("#end").val(result.get("end_location"));
         	    $("#cost").html("$" + result.get("cost_per"));
         	    $("#total").html("$" + result.get("cost_total"));
+        	    $("#gas").html("$" + result.get("price"));
+        	    
         	    $("#cost2").html("$" + result.get("cost_per"));
         	    $("#total2").html("$" + result.get("cost_total"));
+        	    $("#gas2").html("$" + result.get("price"));
         	    
         	    $('#shareModal').modal('show');
         	    $("#prices").slideDown();
