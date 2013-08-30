@@ -594,8 +594,8 @@
         	$("#total").html("$" + cost_total);
         	$("#cost2").html("$" + cost_per);
         	$("#total2").html("$" + cost_total);
-        	$("#num_people").html(people);
-        	$("#num_people2").html(people);
+        	$("#num_people").html(people + " ");
+        	$("#num_people2").html(people + " ");
         	
         	$("#prices").slideDown();
         	$("#prices2").slideDown();
@@ -652,10 +652,10 @@
                             $("#gas_span2").html(city);
                             $("#gas").html("$" + price);
                             $("#gas2").html("$" + price);
+                            $("#num_people").html(people + " ");
+                            $("#num_people2").val(people);
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
-                            $("#num_people").html(people);
-                            $("#num_people2").html(people);
                         }
                         callback();
                     },
