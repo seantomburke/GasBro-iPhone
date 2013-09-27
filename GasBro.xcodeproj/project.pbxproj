@@ -16,7 +16,6 @@
 		141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03417F53AD000E6B058 /* Main_iPhone.storyboard */; };
 		141AF03917F53AD000E6B058 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03717F53AD000E6B058 /* Main_iPad.storyboard */; };
 		141AF03C17F53AD000E6B058 /* GBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF03B17F53AD000E6B058 /* GBViewController.m */; };
-		141AF03E17F53AD000E6B058 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03D17F53AD000E6B058 /* Images.xcassets */; };
 		141AF04517F53AD000E6B058 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF04417F53AD000E6B058 /* XCTest.framework */; };
 		141AF04617F53AD000E6B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02217F53AD000E6B058 /* Foundation.framework */; };
 		141AF04717F53AD000E6B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02617F53AD000E6B058 /* UIKit.framework */; };
@@ -24,6 +23,25 @@
 		141AF05117F53AD100E6B058 /* GasBroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF05017F53AD100E6B058 /* GasBroTests.m */; };
 		141AF05D17F5404200E6B058 /* current.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 141AF05C17F5404200E6B058 /* current.jpg */; };
 		1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1473663717F5410B00F91B27 /* CoreLocation.framework */; };
+		1473664A17F6049D00F91B27 /* bro.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663917F6049D00F91B27 /* bro.png */; };
+		1473664B17F6049D00F91B27 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663A17F6049D00F91B27 /* Icon-60.png */; };
+		1473664C17F6049D00F91B27 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663B17F6049D00F91B27 /* Icon-60@2x.png */; };
+		1473664D17F6049D00F91B27 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663C17F6049D00F91B27 /* Icon-72.png */; };
+		1473664E17F6049D00F91B27 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663D17F6049D00F91B27 /* Icon-72@2x.png */; };
+		1473664F17F6049D00F91B27 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663E17F6049D00F91B27 /* Icon-76.png */; };
+		1473665017F6049D00F91B27 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663F17F6049D00F91B27 /* Icon-76@2x.png */; };
+		1473665117F6049D00F91B27 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664017F6049D00F91B27 /* Icon-Small-50.png */; };
+		1473665217F6049D00F91B27 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664117F6049D00F91B27 /* Icon-Small-50@2x.png */; };
+		1473665317F6049D00F91B27 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664217F6049D00F91B27 /* Icon-Small.png */; };
+		1473665417F6049D00F91B27 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664317F6049D00F91B27 /* Icon-Small@2x.png */; };
+		1473665517F6049D00F91B27 /* Icon-Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664417F6049D00F91B27 /* Icon-Spotlight-40.png */; };
+		1473665617F6049D00F91B27 /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664517F6049D00F91B27 /* Icon-Spotlight-40@2x.png */; };
+		1473665717F6049D00F91B27 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664617F6049D00F91B27 /* Icon.png */; };
+		1473665817F6049D00F91B27 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473664717F6049D00F91B27 /* Icon@2x.png */; };
+		1473665917F6049D00F91B27 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 1473664817F6049D00F91B27 /* iTunesArtwork */; };
+		1473665A17F6049D00F91B27 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 1473664917F6049D00F91B27 /* iTunesArtwork@2x */; };
+		1473665C17F6058B00F91B27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1473665B17F6058B00F91B27 /* Images.xcassets */; };
+		1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473665D17F60BE300F91B27 /* BroLaunchImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +69,6 @@
 		141AF03817F53AD000E6B058 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		141AF03A17F53AD000E6B058 /* GBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBViewController.h; sourceTree = "<group>"; };
 		141AF03B17F53AD000E6B058 /* GBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GBViewController.m; sourceTree = "<group>"; };
-		141AF03D17F53AD000E6B058 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		141AF04317F53AD000E6B058 /* GasBroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GasBroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		141AF04417F53AD000E6B058 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		141AF04C17F53AD100E6B058 /* GasBroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GasBroTests-Info.plist"; sourceTree = "<group>"; };
@@ -59,6 +76,25 @@
 		141AF05017F53AD100E6B058 /* GasBroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GasBroTests.m; sourceTree = "<group>"; };
 		141AF05C17F5404200E6B058 /* current.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = current.jpg; sourceTree = "<group>"; };
 		1473663717F5410B00F91B27 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1473663917F6049D00F91B27 /* bro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bro.png; path = Images.xcassets/bro.png; sourceTree = "<group>"; };
+		1473663A17F6049D00F91B27 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "Images.xcassets/Icon-60.png"; sourceTree = "<group>"; };
+		1473663B17F6049D00F91B27 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Images.xcassets/Icon-60@2x.png"; sourceTree = "<group>"; };
+		1473663C17F6049D00F91B27 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images.xcassets/Icon-72.png"; sourceTree = "<group>"; };
+		1473663D17F6049D00F91B27 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Images.xcassets/Icon-72@2x.png"; sourceTree = "<group>"; };
+		1473663E17F6049D00F91B27 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "Images.xcassets/Icon-76.png"; sourceTree = "<group>"; };
+		1473663F17F6049D00F91B27 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "Images.xcassets/Icon-76@2x.png"; sourceTree = "<group>"; };
+		1473664017F6049D00F91B27 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images.xcassets/Icon-Small-50.png"; sourceTree = "<group>"; };
+		1473664117F6049D00F91B27 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50@2x.png"; path = "Images.xcassets/Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		1473664217F6049D00F91B27 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images.xcassets/Icon-Small.png"; sourceTree = "<group>"; };
+		1473664317F6049D00F91B27 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Images.xcassets/Icon-Small@2x.png"; sourceTree = "<group>"; };
+		1473664417F6049D00F91B27 /* Icon-Spotlight-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Spotlight-40.png"; path = "Images.xcassets/Icon-Spotlight-40.png"; sourceTree = "<group>"; };
+		1473664517F6049D00F91B27 /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Spotlight-40@2x.png"; path = "Images.xcassets/Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
+		1473664617F6049D00F91B27 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images.xcassets/Icon.png; sourceTree = "<group>"; };
+		1473664717F6049D00F91B27 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Images.xcassets/Icon@2x.png"; sourceTree = "<group>"; };
+		1473664817F6049D00F91B27 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Images.xcassets/iTunesArtwork; sourceTree = "<group>"; };
+		1473664917F6049D00F91B27 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Images.xcassets/iTunesArtwork@2x"; sourceTree = "<group>"; };
+		1473665B17F6058B00F91B27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1473665D17F60BE300F91B27 /* BroLaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +162,7 @@
 				141AF03717F53AD000E6B058 /* Main_iPad.storyboard */,
 				141AF03A17F53AD000E6B058 /* GBViewController.h */,
 				141AF03B17F53AD000E6B058 /* GBViewController.m */,
-				141AF03D17F53AD000E6B058 /* Images.xcassets */,
+				1473665B17F6058B00F91B27 /* Images.xcassets */,
 				141AF02917F53AD000E6B058 /* Supporting Files */,
 			);
 			path = GasBro;
@@ -135,6 +171,24 @@
 		141AF02917F53AD000E6B058 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1473665D17F60BE300F91B27 /* BroLaunchImage.png */,
+				1473663917F6049D00F91B27 /* bro.png */,
+				1473663A17F6049D00F91B27 /* Icon-60.png */,
+				1473663B17F6049D00F91B27 /* Icon-60@2x.png */,
+				1473663C17F6049D00F91B27 /* Icon-72.png */,
+				1473663D17F6049D00F91B27 /* Icon-72@2x.png */,
+				1473663E17F6049D00F91B27 /* Icon-76.png */,
+				1473663F17F6049D00F91B27 /* Icon-76@2x.png */,
+				1473664017F6049D00F91B27 /* Icon-Small-50.png */,
+				1473664117F6049D00F91B27 /* Icon-Small-50@2x.png */,
+				1473664217F6049D00F91B27 /* Icon-Small.png */,
+				1473664317F6049D00F91B27 /* Icon-Small@2x.png */,
+				1473664417F6049D00F91B27 /* Icon-Spotlight-40.png */,
+				1473664517F6049D00F91B27 /* Icon-Spotlight-40@2x.png */,
+				1473664617F6049D00F91B27 /* Icon.png */,
+				1473664717F6049D00F91B27 /* Icon@2x.png */,
+				1473664817F6049D00F91B27 /* iTunesArtwork */,
+				1473664917F6049D00F91B27 /* iTunesArtwork@2x */,
 				141AF05C17F5404200E6B058 /* current.jpg */,
 				141AF02A17F53AD000E6B058 /* GasBro-Info.plist */,
 				141AF02B17F53AD000E6B058 /* InfoPlist.strings */,
@@ -241,9 +295,27 @@
 			files = (
 				141AF03917F53AD000E6B058 /* Main_iPad.storyboard in Resources */,
 				141AF05D17F5404200E6B058 /* current.jpg in Resources */,
-				141AF03E17F53AD000E6B058 /* Images.xcassets in Resources */,
+				1473665217F6049D00F91B27 /* Icon-Small-50@2x.png in Resources */,
+				1473664E17F6049D00F91B27 /* Icon-72@2x.png in Resources */,
+				1473664D17F6049D00F91B27 /* Icon-72.png in Resources */,
+				1473664A17F6049D00F91B27 /* bro.png in Resources */,
+				1473664F17F6049D00F91B27 /* Icon-76.png in Resources */,
+				1473665A17F6049D00F91B27 /* iTunesArtwork@2x in Resources */,
+				1473665317F6049D00F91B27 /* Icon-Small.png in Resources */,
+				1473665817F6049D00F91B27 /* Icon@2x.png in Resources */,
 				141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */,
+				1473665717F6049D00F91B27 /* Icon.png in Resources */,
+				1473665617F6049D00F91B27 /* Icon-Spotlight-40@2x.png in Resources */,
+				1473665117F6049D00F91B27 /* Icon-Small-50.png in Resources */,
+				1473664B17F6049D00F91B27 /* Icon-60.png in Resources */,
+				1473665C17F6058B00F91B27 /* Images.xcassets in Resources */,
 				141AF02D17F53AD000E6B058 /* InfoPlist.strings in Resources */,
+				1473665917F6049D00F91B27 /* iTunesArtwork in Resources */,
+				1473665417F6049D00F91B27 /* Icon-Small@2x.png in Resources */,
+				1473665017F6049D00F91B27 /* Icon-76@2x.png in Resources */,
+				1473665517F6049D00F91B27 /* Icon-Spotlight-40.png in Resources */,
+				1473664C17F6049D00F91B27 /* Icon-60@2x.png in Resources */,
+				1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

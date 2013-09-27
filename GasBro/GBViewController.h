@@ -13,9 +13,29 @@
     IBOutlet UILabel* humanReadble;
     IBOutlet UILabel* jsonSummary;
 }
-@property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
+
+@property (readwrite) Float64 longitude;
+@property (readwrite) Float64 latitude;
+@property (readwrite) Float64 price;
+@property (readwrite) Float64 cost;
+@property (readwrite) Float64 miles;
+@property (readwrite) int people;
+@property (readwrite) int mpg;
+@property (readwrite) Boolean roundtrip;
+
+@property (weak, nonatomic) IBOutlet UILabel *peopleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mpgLabel;
+@property (weak, nonatomic) IBOutlet UISlider *peopleSlider;
+@property (weak, nonatomic) IBOutlet UISlider *mpgSlider;
+@property (weak, nonatomic) IBOutlet UILabel *gasPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *gasTotalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *gasPerPersonLabel;
+@property (weak, nonatomic) IBOutlet UITextField *startLocationText;
+@property (weak, nonatomic) IBOutlet UITextField *endLocationText;
+
 - (IBAction)getCurrentLocation:(id)sender;
+- (IBAction)peopleSliderChanged:(id)sender;
+- (IBAction)mpgSliderChanged:(id)sender;
 - (void) calculateGas;
 
 @end

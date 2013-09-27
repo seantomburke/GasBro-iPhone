@@ -59,9 +59,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     locationManager = [[CLLocationManager alloc] init];
+    [self peopleSliderChanged:(self)];
+    [self mpgSliderChanged:(self)];
+    
+    
 }
 
-- (void) calculateGas
+- (void)calculateGas
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", locationManager.location.coordinate.longitude, locationManager.location.coordinate.latitude]];
     
@@ -73,39 +77,7 @@
     });
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-- (IBAction)getCurrentLocation:(id)sender {
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
-    [self calculateGas];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
-    
-    if (currentLocation != nil) {
-        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        
-        
-    }
-}
 
 - (void)fetchedData:(NSData *)responseData {
     //parse out the json data
@@ -120,17 +92,66 @@
     
     NSLog(@"stations: %@", gasStations); //3
     
-    // 1) Get the latest loan
-    NSDictionary* station = [gasStations objectAtIndex:0];
-    
-    // 2) Get the funded amount and loan amount
-    NSNumber* price = [station objectForKey:@"price"];
-    NSString* city = [station objectForKey:@"city"];
-    float outstandingAmount =    [price floatValue];
-    
-    // 3) Set the label appropriately
-    humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is %f",
-                         [station objectForKey:@"city"],
-                         outstandingAmount];
+    // 1) Get the first gas station
+    if(sizeof gasStations == 0)
+    {
+        UIAlertView *errorAlert = [[UIAlertView alloc]
+                                   initWithTitle:@"Error" message:@"No Gas Stations Near here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+    }
+    else
+    {
+        NSDictionary* station = [gasStations objectAtIndex:0];
+        
+        // 2) Get the funded amount and loan amount
+        NSNumber* price = [station objectForKey:@"price"];
+        NSString* city = [station objectForKey:@"city"];
+        float gasPrice =    [price floatValue];
+        
+        // 3) Set the label appropriately
+        humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
+                             city,
+                             gasPrice];
+        _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", gasPrice];
+        _startLocationText.text = [NSString stringWithFormat:@"%@", city];
+        
+    }
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)getCurrentLocation:(id)sender {
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    
+        [self calculateGas];
+}
+
+- (IBAction)peopleSliderChanged:(id)sender {
+    _peopleLabel.text = [NSString stringWithFormat:@"%d", (int) _peopleSlider.value];
+}
+
+- (IBAction)mpgSliderChanged:(id)sender {
+    _mpgLabel.text = [NSString stringWithFormat:@"%d", (int) _mpgSlider.value];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"didUpdateToLocation: %@", newLocation);
+    CLLocation *currentLocation = newLocation;
+}
+
 @end
