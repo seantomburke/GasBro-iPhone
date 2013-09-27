@@ -97,10 +97,18 @@
                                     <action selector="getCurrentLocation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Jqp-2e-gCz"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="263" translatesAutoresizingMaskIntoConstraints="NO" id="8k1-uc-dna">
+                                <rect key="frame" x="31" y="353" width="263" height="161"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="humanReadble" destination="8k1-uc-dna" id="5oh-93-hel"/>
+                        <outlet property="jsonSummary" destination="5rE-Bo-qVA" id="1gd-NX-lca"/>
                         <outlet property="latitudeLabel" destination="5rE-Bo-qVA" id="C4d-vJ-Qyv"/>
                         <outlet property="longitudeLabel" destination="k3s-k1-MmW" id="feG-bX-WjB"/>
                     </connections>
@@ -110,6 +118,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="current.jpg" width="62" height="62"/>
         <image name="current.jpg" width="62" height="62"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

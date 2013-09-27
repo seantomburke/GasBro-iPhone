@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface GBViewController : UIViewController <CLLocationManagerDelegate>
+@interface GBViewController : UIViewController <CLLocationManagerDelegate>{
+    IBOutlet UILabel* humanReadble;
+    IBOutlet UILabel* jsonSummary;
+}
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
 - (IBAction)getCurrentLocation:(id)sender;
+- (void) calculateGas;
 
 @end
