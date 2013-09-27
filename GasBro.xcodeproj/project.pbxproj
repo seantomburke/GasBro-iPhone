@@ -22,6 +22,8 @@
 		141AF04717F53AD000E6B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02617F53AD000E6B058 /* UIKit.framework */; };
 		141AF04F17F53AD100E6B058 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 141AF04D17F53AD100E6B058 /* InfoPlist.strings */; };
 		141AF05117F53AD100E6B058 /* GasBroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF05017F53AD100E6B058 /* GasBroTests.m */; };
+		141AF05D17F5404200E6B058 /* current.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 141AF05C17F5404200E6B058 /* current.jpg */; };
+		1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1473663717F5410B00F91B27 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		141AF04C17F53AD100E6B058 /* GasBroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GasBroTests-Info.plist"; sourceTree = "<group>"; };
 		141AF04E17F53AD100E6B058 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		141AF05017F53AD100E6B058 /* GasBroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GasBroTests.m; sourceTree = "<group>"; };
+		141AF05C17F5404200E6B058 /* current.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = current.jpg; sourceTree = "<group>"; };
+		1473663717F5410B00F91B27 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */,
 				141AF02517F53AD000E6B058 /* CoreGraphics.framework in Frameworks */,
 				141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */,
 				141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */,
@@ -103,6 +108,7 @@
 		141AF02117F53AD000E6B058 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1473663717F5410B00F91B27 /* CoreLocation.framework */,
 				141AF02217F53AD000E6B058 /* Foundation.framework */,
 				141AF02417F53AD000E6B058 /* CoreGraphics.framework */,
 				141AF02617F53AD000E6B058 /* UIKit.framework */,
@@ -129,6 +135,7 @@
 		141AF02917F53AD000E6B058 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				141AF05C17F5404200E6B058 /* current.jpg */,
 				141AF02A17F53AD000E6B058 /* GasBro-Info.plist */,
 				141AF02B17F53AD000E6B058 /* InfoPlist.strings */,
 				141AF02E17F53AD000E6B058 /* main.m */,
@@ -233,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				141AF03917F53AD000E6B058 /* Main_iPad.storyboard in Resources */,
+				141AF05D17F5404200E6B058 /* current.jpg in Resources */,
 				141AF03E17F53AD000E6B058 /* Images.xcassets in Resources */,
 				141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */,
 				141AF02D17F53AD000E6B058 /* InfoPlist.strings in Resources */,
@@ -475,6 +483,7 @@
 				141AF05617F53AD100E6B058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		141AF05717F53AD100E6B058 /* Build configuration list for PBXNativeTarget "GasBroTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +492,7 @@
 				141AF05917F53AD100E6B058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
