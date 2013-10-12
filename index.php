@@ -235,6 +235,12 @@
         <script src="js/jquery.history.js"></script>
         <script>
         
+        
+        Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
+        
+        var Trip = Parse.Object.extend("Trip");
+        var trip = new Trip();
+        
         var id;
         var map; 
         var start_lat;
@@ -394,6 +400,9 @@
             {
                 calculateCost();
             }
+            trip.save({
+                people:people
+                });
         });
         
         $("input[name='mpg']").change(function(event){
@@ -585,8 +594,8 @@
         	$("#total").html("$" + cost_total);
         	$("#cost2").html("$" + cost_per);
         	$("#total2").html("$" + cost_total);
-        	$("#num_people").html(people);
-        	$("#num_people2").html(people);
+        	$("#num_people").html(people + " ");
+        	$("#num_people2").html(people + " ");
         	
         	$("#prices").slideDown();
         	$("#prices2").slideDown();
@@ -616,12 +625,20 @@
                     latitude: lat,
                     longitude: lng,
                     gas_type: 'reg',
-                    sort_by: 'price'
+                    sort_by: 'price',
+                    distance: '2'
                      
                     }, 
                     success: function(data, status, response){
+                    var i = 0;
                     
-                    city = data.stations[0].city
+                    while(data.stations[i].price == "N/A")
+                    {
+                        i++;
+                    }
+                    
+                    
+                    city = data.stations[i].city
                         if(data.status.error == "YES")
                         {
                             $("#gas").html("$" + "ERROR");
@@ -630,15 +647,15 @@
                         else
                         {
                         	
-                            price = data.stations[0].price;
+                            price = data.stations[i].price;
                             $("#gas_span").html(city);
                             $("#gas_span2").html(city);
                             $("#gas").html("$" + price);
                             $("#gas2").html("$" + price);
+                            $("#num_people").html(people + " ");
+                            $("#num_people2").val(people);
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
-                            $("#num_people").html(people);
-                            $("#num_people2").html(people);
                         }
                         callback();
                     },
@@ -660,10 +677,6 @@
             );
         }
         
-        Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
-        
-        var Trip = Parse.Object.extend("Trip");
-        var trip = new Trip();
                   
         function updateHistory(success)
         {   
