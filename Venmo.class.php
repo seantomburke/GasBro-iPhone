@@ -45,7 +45,7 @@ class Venmo {
 
 	public function me()
 	{
-		$this->get("/me");
+		echo $this->get("/me");
 	}
 
 	/**
