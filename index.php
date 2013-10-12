@@ -10,11 +10,11 @@
         <meta name="description" content="Easliy split the cost of gas with friends">
         <meta name="viewport" content="width=device-width">
         <meta property="og:title" content="GasBro" />
-        	<meta property="og:type" content="website" />
-        	<!--<meta property="og:site_name" content="http://www.gasbro.com/" />-->
-        	<meta property="og:image" content="http://www.memebro.com/images/memebro.png" />
-        	<meta property="og:description" content="Easily split the cost of gas with your friends!" />
-        	<!--<meta property="og:url" content="http://www.gasbro.com/" />-->
+          <meta property="og:type" content="website" />
+          <!--<meta property="og:site_name" content="http://www.gasbro.com/" />-->
+          <meta property="og:image" content="http://www.memebro.com/images/memebro.png" />
+          <meta property="og:description" content="Easily split the cost of gas with your friends!" />
+          <!--<meta property="og:url" content="http://www.gasbro.com/" />-->
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
@@ -35,7 +35,7 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-		<!--
+    <!--
         <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -76,69 +76,76 @@
             <h3 id="shareModalHeader">GasBro</h3>
           </div>
           <div class="modal-body">
-          	<div class="row-fluid">
-          		<div id="prices2" style="display:none" class="row-fluid">
-	          		<div class="span3">
-	          		    <div class="controls">
-	          		        <span>Number of People:</span>
-	          		        <h1 id="num_people" class=""></h1>
-	          		    </div>
-	          		</div>
-          		    <div class="span3">
-          		        <div class="controls">
-          		            <span>Gas in <span id="gas_span2"></span>:</span>
-          		            <h1 id="gas2" class=""></h1>
-          		        </div>
-          		    </div>
-          		    <div class="span3">
-          		        <div class="controls">
-          		            <span>Per Person:</span>
-          		            <h1 id="cost2" class=""></h1>
-          		        </div>
-          		    </div>
-          		    <div class="span3">
-          		        <div class="controls">
-          		            <span>Total:</span>
-          		            <h1 id="total2" class=""></h1>
-          		        </div>
-          		    </div>
-          		</div>
-	         </div>
-	         <div id="addThis" class="row-fluid">
-	         	<!-- AddThis Button BEGIN -->
-	         	<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-	         	<a class="addthis_button_preferred_1"></a>
-	         	<a class="addthis_button_preferred_2"></a>
-	         	<a class="addthis_button_preferred_3"></a>
-	         	<a class="addthis_button_preferred_4"></a>
-	         	<a class="addthis_button_compact"></a>
-	         	<a class="addthis_counter addthis_bubble_style"></a>
-	         	</div>
-	         	<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-	         	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
-	         	<!-- AddThis Button END -->
-	         </div>
+            <div class="row-fluid">
+              <div id="prices2" style="display:none" class="row-fluid">
+                <div class="span3">
+                    <div class="controls">
+                        <span>Number of People:</span>
+                        <h1 id="num_people" class=""></h1>
+                    </div>
+                </div>
+                  <div class="span3">
+                      <div class="controls">
+                          <span>Gas in <span id="gas_span2"></span>:</span>
+                          <h1 id="gas2" class=""></h1>
+                      </div>
+                  </div>
+                  <div class="span3">
+                      <div class="controls">
+                          <span>Per Person:</span>
+                          <h1 id="cost2" class=""></h1>
+                      </div>
+                  </div>
+                  <div class="span3">
+                      <div class="controls">
+                          <span>Total:</span>
+                          <h1 id="total2" class=""></h1>
+                      </div>
+                  </div>
+              </div>
+           </div>
+           <div id="addThis" class="row-fluid">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+            <a class="addthis_button_preferred_1"></a>
+            <a class="addthis_button_preferred_2"></a>
+            <a class="addthis_button_preferred_3"></a>
+            <a class="addthis_button_preferred_4"></a>
+            <a class="addthis_button_compact"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
+            <!-- AddThis Button END -->
+           </div>
            </div>
           <div class="modal-footer">
-          	<div class="input-append">
-          	  <input id="url" class="span4" type="text">
-          	  <button id="facebook" class="btn btn-primary" type="button" href="#" 
-          	    onclick="
-          	      window.open(
-          	        'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
-          	        'facebook-share-dialog', 
-          	        'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0'); 
-          	      return false;">
-          	    Facebook
-          	  </button>
-          	  <button id="tweet" class="btn btn-info" type="button" href="#" 
-          	  	onclick="
-          	  		window.open(
-          	  		'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + document.title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-          	  		return false;">
-          	  	Tweet
-          	  </button>
-          	</div>
+            <div class="input-append">
+              <input id="url" class="span4" type="text">
+              <button id="facebook" class="btn btn-primary" type="button" href="#" 
+                onclick="
+                  window.open(
+                    'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+                    'facebook-share-dialog', 
+                    'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0'); 
+                  return false;">
+                Facebook
+              </button>
+              <button id="tweet" class="btn btn-info" type="button" href="#" 
+                onclick="
+                  window.open(
+                  'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + document.title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+                  return false;">
+                Tweet
+              </button>
+              <button id="venmo" class="btn btn-info" type="button" href="#" 
+                onclick="
+                  window.open(
+                  'https://api.venmo.com/oauth/authorize?client_id=1447&scope=ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+                  return false;">
+                Venmo
+              </button>
+            </div>
           </div>
         </div>
         
@@ -192,12 +199,12 @@
                 </div>
             </div>
             <div id="prices" class="row">
-            	<div class="span3">
-            	    <div class="controls">
-            	        Number of People:
-            	        <h1 id="num_people2" class=""></h1>
-            	    </div>
-            	</div>
+              <div class="span3">
+                  <div class="controls">
+                      Number of People:
+                      <h1 id="num_people2" class=""></h1>
+                  </div>
+              </div>
                 <div class="span3">
                     <div class="controls">
                         Cost of gas in <span id="gas_span"></span>:
@@ -262,15 +269,15 @@
         
         
         $(document).ready(function(){
-        	$("#prices").hide();
-        	$("#prices2").hide();
-        	$("#addThis").hide();
-        	id = getURLParameter("id");
-        	if(id != "null")
-        	{
-	        	console.log(id);
-	        	loadTrip(id);
-	        }
+          $("#prices").hide();
+          $("#prices2").hide();
+          $("#addThis").hide();
+          id = getURLParameter("id");
+          if(id != "null")
+          {
+            console.log(id);
+            loadTrip(id);
+          }
         })
         
         function initialize() {
@@ -431,21 +438,21 @@
             console.log(mpg);
             console.log(roundtrip);
             updateAll()
-			
+      
         });
         
         function updateAll()
         {
-        	$('#shareModal').modal('show');
-        	$('#shareModalHeader').html('GasBro: ' + city + ' to ' + end_location);
-        	calcRoute(function(){
-        	    calculateGasPrice(start_lat, start_lng, function(){
-        	        calculateCost(function(){
-        	        	updateHistory();
-        	        });
-        	    })              
-        	    
-        	});
+          $('#shareModal').modal('show');
+          $('#shareModalHeader').html('GasBro: ' + city + ' to ' + end_location);
+          calcRoute(function(){
+              calculateGasPrice(start_lat, start_lng, function(){
+                  calculateCost(function(){
+                    updateHistory();
+                  });
+              })              
+              
+          });
         }
         
        
@@ -581,24 +588,24 @@
                 compute();
                 if(success)
                 {
-                	success();
+                  success();
                 }
             }
         }
         
         function compute()
         {
-        	cost_per = ((((miles/mpg)*price)*roundtrip)/people).toFixed(2);
-        	cost_total = (((miles/mpg)*price)*roundtrip).toFixed(2);
-        	$("#cost").html("$" + cost_per);
-        	$("#total").html("$" + cost_total);
-        	$("#cost2").html("$" + cost_per);
-        	$("#total2").html("$" + cost_total);
-        	$("#num_people").html(people + " ");
-        	$("#num_people2").html(people + " ");
-        	
-        	$("#prices").slideDown();
-        	$("#prices2").slideDown();
+          cost_per = ((((miles/mpg)*price)*roundtrip)/people).toFixed(2);
+          cost_total = (((miles/mpg)*price)*roundtrip).toFixed(2);
+          $("#cost").html("$" + cost_per);
+          $("#total").html("$" + cost_total);
+          $("#cost2").html("$" + cost_per);
+          $("#total2").html("$" + cost_total);
+          $("#num_people").html(people + " ");
+          $("#num_people2").html(people + " ");
+          
+          $("#prices").slideDown();
+          $("#prices2").slideDown();
         }
         
         function calculateGasPrice(lat, lng, callback)
@@ -646,7 +653,7 @@
                         }
                         else
                         {
-                        	
+                          
                             price = data.stations[i].price;
                             $("#gas_span").html(city);
                             $("#gas_span2").html(city);
@@ -680,173 +687,173 @@
                   
         function updateHistory(success)
         {   
-        	var errors = 1; 
-        	if(mpg == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(people == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(start_location == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(end_location == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(roundtrip == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(cost_total == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(cost_per == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(start_lat == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(start_lng == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(end_lat == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(end_lng == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(miles == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(price == undefined)
-        	{
-        		
-        		errors++;
-        	}
-        	if(errors == 1)
-        	{	
-	              trip.save(
-		          	{
-		          		mpg: mpg,
-		          		people: people,
-		          		start_location:start_location,
-		          		end_location:end_location,
-		          		roundtrip:roundtrip,
-		          		cost_total:cost_total,
-		          		cost_per:cost_per,
-		          		start_lat:start_lat,
-		          		start_lng:start_lng,
-		          		end_lat:end_lat,
-		          		end_lng:end_lng,
-		          		miles:miles,
-		          		price:price,
-		          		city:city
-		          	}, 
-	              {
-	              success: function(result) 
-	              {
-	                History.pushState({id:result.id}, 'GasBro: ' + city + ' to ' + end_location,'?id='+result.id);
-	                $("#url").val(document.URL);
-	              },
-	              error: function(model, error) 
-	              {
-	                $(".error").show();
-	              }
-	            });
-	            if(success)
-	            {
-	            	success();
-	            }
+          var errors = 1; 
+          if(mpg == undefined)
+          {
+            
+            errors++;
+          }
+          if(people == undefined)
+          {
+            
+            errors++;
+          }
+          if(start_location == undefined)
+          {
+            
+            errors++;
+          }
+          if(end_location == undefined)
+          {
+            
+            errors++;
+          }
+          if(roundtrip == undefined)
+          {
+            
+            errors++;
+          }
+          if(cost_total == undefined)
+          {
+            
+            errors++;
+          }
+          if(cost_per == undefined)
+          {
+            
+            errors++;
+          }
+          if(start_lat == undefined)
+          {
+            
+            errors++;
+          }
+          if(start_lng == undefined)
+          {
+            
+            errors++;
+          }
+          if(end_lat == undefined)
+          {
+            
+            errors++;
+          }
+          if(end_lng == undefined)
+          {
+            
+            errors++;
+          }
+          if(miles == undefined)
+          {
+            
+            errors++;
+          }
+          if(price == undefined)
+          {
+            
+            errors++;
+          }
+          if(errors == 1)
+          { 
+                trip.save(
+                {
+                  mpg: mpg,
+                  people: people,
+                  start_location:start_location,
+                  end_location:end_location,
+                  roundtrip:roundtrip,
+                  cost_total:cost_total,
+                  cost_per:cost_per,
+                  start_lat:start_lat,
+                  start_lng:start_lng,
+                  end_lat:end_lat,
+                  end_lng:end_lng,
+                  miles:miles,
+                  price:price,
+                  city:city
+                }, 
+                {
+                success: function(result) 
+                {
+                  History.pushState({id:result.id}, 'GasBro: ' + city + ' to ' + end_location,'?id='+result.id);
+                  $("#url").val(document.URL);
+                },
+                error: function(model, error) 
+                {
+                  $(".error").show();
+                }
+              });
+              if(success)
+              {
+                success();
+              }
             }
         }
         
         function loadTrip(id)
         {
-        	var query = new Parse.Query(Trip);
-        	query.get(id, {
-        	  success: function(result) {
-        	    // object is an instance of Parse.Object.
-        	    
-        	    $("#mpg").val(result.get("mpg"));
-        	    $("#people").val(result.get("people"));
-        	    $("#start").val(result.get("start_location"));
-        	    $("#end").val(result.get("end_location"));
-        	    $("#cost").html("$" + result.get("cost_per"));
-        	    $("#total").html("$" + result.get("cost_total"));
-        	    $("#gas").html("$" + result.get("price"));
-        	    $("#gas_span").html(result.get("city"));
-        	    $("#num_people").html(result.get("people"));
-        	    
-        	    $("#cost2").html("$" + result.get("cost_per"));
-        	    $("#total2").html("$" + result.get("cost_total"));
-        	    $("#gas2").html("$" + result.get("price"));
-        	    $("#gas_span2").html(result.get("city"));
-        	    $("#num_people2").html(result.get("people"));
-        	    
-        	    $('#shareModal').modal('show');
-        	    $('#shareModalHeader').html('GasBro: ' + result.get("city") + ' to ' + result.get("end_location"));
-        	    $("#prices").slideDown();
-        	    $("#prices2").slideDown();
-        	    $("#url").val(document.URL);
-        	    
-        	    if(result.get("roundtrip") == "2")
-        	    {
-        	    	$('#roundtrip').prop('checked', true);
-        	    }
-        	    else
-        	    {	
-        	    	$('#roundtrip').prop('checked', false);
-        	    }
-        	    
-        	    
-        	    cost_total = result.get("cost_total");
-        	    cost_per = result.get("cost_per");
-        	    mpg = result.get("mpg");
-        	    miles = result.get("miles");
-        	    people = result.get("people");
-        	    start_location = result.get("start_location");
-        	    start_lat = result.get("start_lat");
-        	    start_lng = result.get("start_lng");
-        	    city	  = result.get("city");
-        	    end_location = result.get("end_location");
-        	    end_lat = result.get("end_lat");
-        	    end_lng = result.get("end_lng");
-        	    price = result.get("price");
-        	    roundtrip = result.get("roundtrip");
-        	    calcRoute();
-        	    History.pushState({id:id}, document.title + ": " + city + " to " + end_location ,'?id='+id);
-        	    
-        	  },
-        	
-        	  error: function(object, error) {
-        	    // error is an instance of Parse.Error.
-        	    console.log("error occurred");
-        	  }
-        	  
-        	});
+          var query = new Parse.Query(Trip);
+          query.get(id, {
+            success: function(result) {
+              // object is an instance of Parse.Object.
+              
+              $("#mpg").val(result.get("mpg"));
+              $("#people").val(result.get("people"));
+              $("#start").val(result.get("start_location"));
+              $("#end").val(result.get("end_location"));
+              $("#cost").html("$" + result.get("cost_per"));
+              $("#total").html("$" + result.get("cost_total"));
+              $("#gas").html("$" + result.get("price"));
+              $("#gas_span").html(result.get("city"));
+              $("#num_people").html(result.get("people"));
+              
+              $("#cost2").html("$" + result.get("cost_per"));
+              $("#total2").html("$" + result.get("cost_total"));
+              $("#gas2").html("$" + result.get("price"));
+              $("#gas_span2").html(result.get("city"));
+              $("#num_people2").html(result.get("people"));
+              
+              $('#shareModal').modal('show');
+              $('#shareModalHeader').html('GasBro: ' + result.get("city") + ' to ' + result.get("end_location"));
+              $("#prices").slideDown();
+              $("#prices2").slideDown();
+              $("#url").val(document.URL);
+              
+              if(result.get("roundtrip") == "2")
+              {
+                $('#roundtrip').prop('checked', true);
+              }
+              else
+              { 
+                $('#roundtrip').prop('checked', false);
+              }
+              
+              
+              cost_total = result.get("cost_total");
+              cost_per = result.get("cost_per");
+              mpg = result.get("mpg");
+              miles = result.get("miles");
+              people = result.get("people");
+              start_location = result.get("start_location");
+              start_lat = result.get("start_lat");
+              start_lng = result.get("start_lng");
+              city    = result.get("city");
+              end_location = result.get("end_location");
+              end_lat = result.get("end_lat");
+              end_lng = result.get("end_lng");
+              price = result.get("price");
+              roundtrip = result.get("roundtrip");
+              calcRoute();
+              History.pushState({id:id}, document.title + ": " + city + " to " + end_location ,'?id='+id);
+              
+            },
+          
+            error: function(object, error) {
+              // error is an instance of Parse.Error.
+              console.log("error occurred");
+            }
+            
+          });
         }
         
         
