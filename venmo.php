@@ -1,12 +1,16 @@
-<?php 
+<?php
+
 session_start();
 require_once("Venmo.class.php");
 
 $venmo = Venmo($_GET['access_token']);
 
-$venmo->me();
+echo $venmo->me();
+echo $_GET['access_token'];
+$venmo->get('https://api.venmo.com/me?access_token='.$_GET['access_toke']);
 
 ?>
+
 <html>
 <head>
 <title>GasBro
