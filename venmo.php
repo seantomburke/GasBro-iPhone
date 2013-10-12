@@ -1,7 +1,10 @@
 <?php
 
-echo $_GET['access_token'];
+include_once "Venmo.class.php";
 
+echo $_GET['access_token'];
+$venmo = Venmo($_GET['access_token']);
+$venmo->get('https://api.venmo.com/me?access_token='.$_GET['access_toke']);
 ?>
 
 <html>
