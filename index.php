@@ -25,10 +25,9 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
-        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
-
+        <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body data-spy="scroll" data-target="#navbar">
@@ -138,13 +137,10 @@
                   return false;">
                 Tweet
               </button>
-              <button id="venmo" class="btn btn-info" type="button" href="#" 
-                onclick="
-                  window.open(
-                  'https://api.venmo.com/oauth/authorize?client_id=1447&scope=ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-                  return false;">
+              <a id="venmo" class="btn btn-info" type="button" 
+              href="https://api.venmo.com/oauth/authorize?client_id=1447&scope=ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS">
                 Venmo
-              </button>
+              </a>
             </div>
           </div>
         </div>
