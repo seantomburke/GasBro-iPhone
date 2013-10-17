@@ -1,7 +1,7 @@
 <?php
 
 include "Venmo.class.php";
-echo $_GET['access_token'];
+echo "Venmo:".$_GET['access_token'];
 $venmo = new Venmo($_GET['access_token']);
 ?>
 

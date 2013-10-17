@@ -31,7 +31,7 @@ class Venmo {
 	public function request()
 	{
 		//request URl
-		$url = 'https://api.venmo.com/oauth/authorize'
+		$url = 'https://api.venmo.com/oauth/authorize';
 		// initiate a cURL; if you don't know what curl is, look it up at http://curl.haxx.se/
 		$ch = curl_init(); 
 		//Venmo uses plaintext OAuth 1.0; make the header for this request
