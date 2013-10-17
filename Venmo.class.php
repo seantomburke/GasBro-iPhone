@@ -17,15 +17,18 @@ class Venmo {
 	private static $SCOPE = 'ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS'; // = ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS
 
 	private $access_token;
+	public $me;
 
 	/**
 	 * Venmo() 
 	 * creates the object and decides based on the $_SESSION whether to request() or processCallBack()
 	 *
 	 * @author 	Sean Thomas Burke <http://www.seantburke.com/>
-	 */
+     */
 	public function __construct($access_token){
 		$this->access_token = $access_token;
+		$this->me = $this->me();
+		
 	}
 
 	public function request()
@@ -45,7 +48,12 @@ class Venmo {
 
 	public function me()
 	{
-		echo $this->get("/me");
+		return $this->get("/me");
+	}
+	
+	public function friends()
+	{
+		return $this->get("/users/".$this->me->id."/friends");
 	}
 
 	/**
@@ -65,6 +73,7 @@ class Venmo {
 		$question_mark = (strstr($path, '?')) ? '&':'?';
 
 		$url = "https://api.venmo.com".$path.$question_mark."access_token=".$this->access_token;
+		//echo "url:".$url;
 		$ch = curl_init(); 
 		$headers = array('Authorization: OAuth oauth_version="2.0"');  
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);  
@@ -72,7 +81,8 @@ class Venmo {
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$api_response = curl_exec($ch);
-		return $api_response;
+		$output = json_decode($api_response);
+		return $output->data;
 	}
 
 

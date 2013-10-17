@@ -119,6 +119,24 @@
            </div>
            </div>
           <div class="modal-footer">
+            <div class="row">
+              <div class="input-append">
+                  <input id="url" class="span4" type="text">
+                  <button id="facebook" class="btn btn-info" type="button" href="#" 
+                    onclick="
+                      window.open(
+                        'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+                        'facebook-share-dialog', 
+                        'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0'); 
+                      return false;">
+                    Venmo
+                  </button>
+                </div>
+            </div>
+            <div class="row text-center">
+            <span> OR </span>
+            </div>
+            <div class="row">
             <div class="input-append">
               <input id="url" class="span4" type="text">
               <button id="facebook" class="btn btn-primary" type="button" href="#" 
@@ -137,10 +155,7 @@
                   return false;">
                 Tweet
               </button>
-              <a id="venmo" class="btn btn-info" type="button" 
-              href="https://api.venmo.com/oauth/authorize?client_id=1447&scope=ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS">
-                Venmo
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -184,7 +199,7 @@
                         </div>
 
                         <div class="controls">
-                            <button id="calculate" class="btn btn-large btn-primary">Send to Friends</button>
+                            <button id="calculate" class="btn btn-large btn-info"><img width="45%" src="http://brand.venmo.com/img/logowhite.png" /></button>
                         </div>
                    </form>
                 </div>
