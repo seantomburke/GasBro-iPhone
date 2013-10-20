@@ -272,32 +272,6 @@ $venmo = new Venmo($_GET['access_token']);
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="js/jquery-2.0.0.js"></script>
         <script src="js/validate.js"></script>
-        <script>
-            $.validator.setDefaults();
-            
-            
-            $("#main-form").validate({
-              rules: {
-                // simple rule, converted to {required:true}
-                start: "required",
-                // compound rule
-                end: {
-                  required: true
-                },
-                mpg: {
-                  required: true,
-                  digits: true
-                },
-                people: {
-                  required: true,
-                  digits: true
-                }
-              },
-              submitHandler: function() { 
-                  //updateAll();
-                  }
-            });
-        </script>
         <script src="js/hogan.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
