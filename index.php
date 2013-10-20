@@ -271,7 +271,6 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="js/jquery-2.0.0.js"></script>
-        <script src="js/validate.js"></script>
         <script src="js/hogan.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
@@ -280,7 +279,6 @@ $venmo = new Venmo($_GET['access_token']);
         <script src="js/jquery.history.js"></script>
         <script src="js/typeahead.min.js"></script>
         <script src="js/main.js?<?php echo time() ?>"></script>
-        
         <script>
             //getFriends(' <?php echo $venmo->access_token; ?> ');
             $("#venmo-friends").typeahead({                              
