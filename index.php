@@ -4,7 +4,12 @@ error_reporting(1);
 ini_set('display_errors', 'On');
 
 include 'Venmo.class.php';
-$venmo = new Venmo($_GET['access_token']);
+$venmo = new Venmo($_SESSION['access_token']);
+if($_GET['access_token'])
+{
+    $_SESSION['access_token'] = $_GET['access_token'];
+    header("Location: //". $_SERVER['SERVER_NAME']);    
+}
 
 ?>
 <!DOCTYPE html>
