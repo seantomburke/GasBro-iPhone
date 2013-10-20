@@ -1,5 +1,7 @@
 <?php 
 session_start();
+error_reporting(1);
+ini_set('display_errors', 'On');
 
 /**
  * Venmo OAuth API
@@ -16,8 +18,10 @@ class Venmo {
 	private static $CLIENT_ID = '1447'; //id of Venmo app
 	private static $SCOPE = 'ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS'; // = ACCESS_FRIENDS,ACCESS_PROFILE,MAKE_PAYMENTS
 
-	private $access_token;
+	public $access_token;
 	public $me;
+	public $auth_link;
+	public $loggedin = false;
 
 	/**
 	 * Venmo() 
@@ -28,7 +32,14 @@ class Venmo {
 	public function __construct($access_token){
 		$this->access_token = $access_token;
 		$this->me = $this->me();
-		
+		if($this->me->username)
+		{
+		    $this->loggedin = true;
+		    $_SESSION['access_token'] = $access_token;
+		    $_SESSION['username'] = $this->me->username;
+		}
+		$this->auth_link = 'https://api.venmo.com/oauth/authorize?client_id='.self::$CLIENT_ID.'&scope='.self::$SCOPE;
+		//$this->auth_link = 'https://api.venmo.com/oauth/authorize?client_id=1447&scope=make_payments,access_profile&response_type=code'
 	}
 
 	public function request()
@@ -41,7 +52,7 @@ class Venmo {
 		$headers = array('Authorization: OAuth oauth_version="1.0", oauth_signature_method="PLAINTEXT", oauth_consumer_key="'.self::$APP_KEY.'", oauth_signature="'.self::$APP_SECRET.'&"');  
 		// set cURL options and execute
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);  
-		curl_setopt($ch, CURLOPT_URL, $url.'?client_id='.self::CLIENT_ID.'&scope='.self::SCOPE);  
+		curl_setopt($ch, CURLOPT_URL, $url.'?client_id='.self::$CLIENT_ID.'&scope='.self::$SCOPE);  
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);  
 		$request_token_response = curl_exec($ch);
 	}
