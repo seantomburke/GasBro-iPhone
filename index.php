@@ -21,7 +21,7 @@ $venmo = new Venmo($_GET['access_token']);
         <meta property="og:title" content="GasBro" />
           <meta property="og:type" content="website" />
           <!--<meta property="og:site_name" content="http://www.gasbro.com/" />-->
-          <meta property="og:image" content="http://www.memebro.com/images/memebro.png" />
+          <meta property="og:image" content="/img/bro.png" />
           <meta property="og:description" content="Easily split the cost of gas with your friends!" />
           <!--<meta property="og:url" content="http://www.gasbro.com/" />-->
 
@@ -44,6 +44,13 @@ $venmo = new Venmo($_GET['access_token']);
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="#">Share</a>
+                    <!-- AddThis Button BEGIN -->
+                        <div class="addthis_toolbox addthis_default_style ">
+                        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                        <a class="addthis_button_tweet"></a>
+                        <a class="addthis_counter addthis_pill_style"></a>
+                        </div>
+                        <!-- AddThis Button END -->
                     <div class="pull-right">
                     <?php 
                     if($venmo->loggedin)
@@ -76,7 +83,7 @@ $venmo = new Venmo($_GET['access_token']);
         <header class="jumbotron subhead">
             <div class="media">
               <a class="pull-left" href="http://www.gasbro.com/">
-                <img class="media-object" src="http://memebro.com/images/memebro512.png" width="64">
+                <img class="media-object" src="/img/bro.png" width="64">
               </a>
               <div class="media-body">
                 <h1 class="media-heading">GasBro</h1>
@@ -225,7 +232,7 @@ $venmo = new Venmo($_GET['access_token']);
                         </div>
 
                         <div class="controls">
-                            <button id="calculate" class="btn btn-large btn-info"><img width="45%" src="http://brand.venmo.com/img/logowhite.png" /></button>
+                            <button id="calculate" class="btn btn-large btn-info">Venmo</button>
                         </div>
                    </form>
                 </div>
@@ -268,17 +275,19 @@ $venmo = new Venmo($_GET['access_token']);
 
         </div> <!-- /container -->
         
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <script type="text/javascript" src="js/hogan.js"></script>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
+        <!--<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
+        <!--<script type="text/javascript" src="js/hogan.js"></script>-->
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
         <script type="text/javascript" src="js/jquery.history.js"></script>
-        <script type="text/javascript" src="js/typeahead.min.js"></script>
+        <!--<script type="text/javascript" src="js/typeahead.min.js"></script>-->
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
         <script>
             //getFriends(' <?php echo $venmo->access_token; ?> ');

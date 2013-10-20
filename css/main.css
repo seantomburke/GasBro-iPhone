@@ -82,6 +82,12 @@ body .modal {
 	padding: 20px 0 0 20px;
 }
 
+.addthis_default_style {
+    width:300px;
+    float:left;
+    margin: 10px 0 0 0;
+}
+
 
 @media (max-width: 767px){
 
