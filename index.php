@@ -269,16 +269,17 @@ $venmo = new Venmo($_GET['access_token']);
         </div> <!-- /container -->
         
         <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        <script src="js/jquery-2.0.0.js"></script>
-        <script src="js/hogan.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+        <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="js/hogan.js"></script>
+        <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
-        <script src="js/jquery.history.js"></script>
-        <script src="js/typeahead.min.js"></script>
-        <script src="js/main.js?<?php echo time() ?>"></script>
+        <script type="text/javascript" src="js/jquery.history.js"></script>
+        <script type="text/javascript" src="js/typeahead.min.js"></script>
+        <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
         <script>
             //getFriends(' <?php echo $venmo->access_token; ?> ');
             $("#venmo-friends").typeahead({                              
