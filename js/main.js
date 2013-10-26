@@ -110,10 +110,11 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         };
         
         function handleNoGeolocation(errorFlag) {
+          var content;
           if (errorFlag) {
-            var content = 'Error: The Geolocation service failed.';
+            content = 'Error: The Geolocation service failed.';
           } else {
-            var content = 'Error: Your browser doesn\'t support geolocation.';
+            content = 'Error: Your browser doesn\'t support geolocation.';
           }
         }
         
@@ -124,17 +125,11 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         function getFriends(access_token)
         {
-            $("#venmo-friends .typeahead").typeahead({                              
-                  name: 'venmo-friends',                                                        
-                  prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
-                  template: [                                                                 
-                    '<p>{{username}}</p>',                              
-                    '<p>{{display_name}}</p>',                                      
-                    '<p>{{description}}</p>',
-                    '<img src="{{profile_picture_url}}" />'                        
-                  ].join(''),                                                                 
-                  engine: Hogan                                                               
-                });
+            $("#venmo-friends").typeahead({                                
+              name: 'countries',                                                          
+              prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                         
+              limit: 10                                                                   
+            });
         }
 
         function setStart(){

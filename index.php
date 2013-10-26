@@ -8,10 +8,11 @@ $venmo = new Venmo($_SESSION['access_token']);
 if($_GET['access_token'])
 {
     $_SESSION['access_token'] = $_GET['access_token'];
-    header("Location: //". $_SERVER['SERVER_NAME']);    
+   //header("Location: //". $_SERVER['SERVER_NAME']);    
 }
 
 ?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -67,6 +68,7 @@ if($_GET['access_token'])
 		                        <ul class="dropdown-menu">
 		                        	<li class="nav-header">Balance</li>
 		                        	<li><a href="#">$'.$venmo->me->balance.'</a></li>
+		                        	<li><a href="#">loggedin = '.$venmo->loggedin.'</a></li>
 		                            <li class="divider"></li>
 		                            <li class="nav-header">Completed</li>
 		                            <li><a href="#">Logout</a></li>
@@ -295,12 +297,7 @@ if($_GET['access_token'])
         <!--<script type="text/javascript" src="js/typeahead.min.js"></script>-->
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
         <script>
-            //getFriends(' <?php echo $venmo->access_token; ?> ');
-            $("#venmo-friends").typeahead({                              
-                  name: 'venmo-friends', 
-                  local: ['yes','no']
-                  //remote: '/venmo.php?data=friends&access_token=' + '<?php echo $_SESSION['access_token']; ?>'                                            
-                });
+            getFriends(' <?php echo $venmo->access_token; ?> ');
         </script>
         <script>
             var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
