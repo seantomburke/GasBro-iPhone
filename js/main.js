@@ -76,7 +76,6 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                         $("#current-location-group").addClass("info");
                         $("#current-location").addClass("btn-primary");
                         $("#current-location i").addClass("icon-white");
-                        calculateGasPrice(start_lat, start_lng);
                         calcRoute();
                 });
             }, function(){
@@ -106,7 +105,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                                          position.coords.longitude);
             map.setCenter(pos);
             
-            callback();
+            if(callback){callback();}
         };
         
         function handleNoGeolocation(errorFlag) {
@@ -138,7 +137,6 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 console.log(location);
                 start_lat = location.lat();
                 start_lng = location.lng();
-                calculateGasPrice(start_lat, start_lng);
                 calcRoute();
                 var marker = new google.maps.Marker({
                   map:map,
@@ -152,11 +150,16 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         $("input[name='end-location']").focusout(function(event){
             //event.preventDefault();
-            calcRoute(function(){
-                calculateGasPrice(start_lat, start_lng);
-            });
+            calcRoute();
         });
         
+        $("#gas-radio .btn").click(function() {
+            console.log("gas clicked" + $(this).text());
+            $("#gas-type").val($(this).text());
+            calculateGasPrice(start_lat, start_lng, function(){
+                updateAll();
+            });
+        }); 
         
         
         $("input[name='people']").change(function(event){
@@ -197,13 +200,12 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
             console.log(price);
             console.log(mpg);
             console.log(roundtrip);
-            updateAll()
+            showModal();
       
         });
         
         function updateAll()
         {
-          $('#shareModal').modal('show');
           $('#shareModalHeader').html('GasBro: ' + city + ' to ' + end_location);
           calcRoute(function(){
               calculateGasPrice(start_lat, start_lng, function(){
@@ -213,6 +215,12 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
               })              
               
           });
+        }
+        
+        function showModal()
+        {
+          $('#shareModal').modal('show');
+          updateAll();
         }
         
        
@@ -295,7 +303,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
               directionsDisplay.setDirections(response);
             }
             
-          callback();
+          if(callback){callback();}
           });
           
           directionsDisplay.setMap(map);
@@ -370,6 +378,8 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         function calculateGasPrice(lat, lng, callback)
         {
+            var gastype = $("#gas-type").val();
+            console.log(gastype);
             var errors = 1
             if(!lat)
             {
@@ -389,11 +399,11 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                     url: 'gas.php',
                     dataType: "json",
                     data: {
-                    latitude: lat,
-                    longitude: lng,
-                    gas_type: 'reg',
-                    sort_by: 'price',
-                    distance: '2'
+                        latitude: lat,
+                        longitude: lng,
+                        fuel_type: gastype.toLowerCase(),
+                        sort_by: 'price',
+                        distance: '2'
                      
                     }, 
                     success: function(data, status, response){
@@ -424,7 +434,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                             $("#prices").slideDown();
                             $("#prices2").slideDown();
                         }
-                        callback();
+                        if(callback){callback();}
                     },
                     error: function(data){
                         console.log(data);
@@ -432,7 +442,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                         $("#gas_span2").html(city);
                         $("#gas").html("$" + "ERROR");
                         $("#gas2").html("$" + "ERROR");
-                        callback();
+                        if(callback){callback();}
                     }
                 });
             }
