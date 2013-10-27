@@ -110,21 +110,6 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
             setStart();
         });
         
-        function getFriends(access_token)
-        {
-            $("#typeahead").typeahead({                              
-              name: 'venmo-friends',                                                        
-              prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
-              template: [                                                                 
-                '<p class="repo-language">{{username}}</p>',                              
-                '<p class="repo-name">{{display_name}}</p>',                                      
-                '<p class="repo-description">{{description}}</p>'                         
-              ].join(''),                                                                 
-              engine: Hogan                                                               
-            });
-            console.log('/venmo.php?data=friends&access_token=' + access_token);
-        }
-
         function setStart(){
             getGPS($(this).val(), function(location){
                 console.log("location");
