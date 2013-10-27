@@ -35,6 +35,7 @@ $venmo = new Venmo($_GET['access_token']);
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
+        <link rel="stylesheet" href="css/test.css?<?php echo time() ?>" type="text/css" media="screen" title="Test Stylesheet" charset="utf-8" />
         <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
     </head>
     <body data-spy="scroll" data-target="#navbar">
@@ -180,16 +181,34 @@ $venmo = new Venmo($_GET['access_token']);
         </div>
         
         
+        
+        
+        
         <div class="container">
-            <!-- Example row of columns -->
-            <div class="demo">
-          <span class="twitter-typeahead" style="position: relative; display: inline-block;">
-          <input class="tt-hint" type="text" autocomplete="off" spellcheck="off" disabled="" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background-attachment: scroll; background-clip: border-box; background-color: rgb(255, 255, 255); background-image: none; background-origin: padding-box; background-size: auto; background-position: 0% 0%; background-repeat: repeat repeat;">
-          <input id="typeahead" class="typeahead tt-query" type="text" placeholder="countries" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
-          <span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: 'Lucida Grande'; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span>
-          <span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"></span>
-          </span>
-        </div>
+        
+        
+        <ol>
+
+        <li class="input-text">
+          <label>Simple input</label>
+          <input type="text" name="testinput" value="" id="testinput" />
+        </li>
+        
+        <li id="facebook-list" class="input-text">
+          <label>FacebookList input</label>
+          <input type="text" value="" id="facebook-demo" />
+          <div id="facebook-auto">
+
+            <div class="default">Type the name of an argentine writer you like</div> 
+            <ul class="feed">
+              <li value="1">Jorge Luis Borges</li>
+              <li value="2">Julio Cortazar</li>
+            </ul>
+          </div>
+          <!-- These two writers will be added when the control is loaded -->
+
+        </li>
+      </ol>   
             <div class="row">
                <div class="span4 sidebar" >
                     <form class="form" id="main-form">
@@ -292,23 +311,19 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
         <!--<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
-        <script src="//twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
+        <!--<script src="//twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>-->
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
         <script type="text/javascript" src="js/jquery.history.js"></script>
         <script type="text/javascript" src="js/typeahead.min.js"></script>
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
+        
         <script>
             $(document).ready(function(){
                 var access_token = '<?php echo $venmo->access_token; ?>';
                 $("#typeahead").typeahead({                              
-                  name: 'venmo-friends',   
-                  local: [
-                  'yes',
-                  'no',
-                  'maybe'
-                  ],
+                  name: 'venmo-friends',
                   prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
                   template: [                                                                 
                     '<p class="repo-language">{{username}}</p>',                              
@@ -324,13 +339,31 @@ $venmo = new Venmo($_GET['access_token']);
                     console.log(id);
                     loadTrip(id);
                 }
-        })
+            });  
         </script>
         <script>
             var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+        <script src="/js/protoculous-effects-shrinkvars.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/textboxlist.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/test.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            document.observe('dom:loaded', function() {
+            
+            
+              // init
+              tlist2 = new FacebookList('facebook-demo', 'facebook-auto',{fetchFile:'venmo.php?data=friends&access_token=' + <?php echo $venmo->access_token?> });
+              
+              // fetch and feed
+              new Ajax.Request('json.php', {
+                onSuccess: function(transport) {
+                    transport.responseText.evalJSON(true).each(function(t){tlist2.autoFeed(t)});
+                }
+              });
+            });  
         </script>
     </body>
 </html>

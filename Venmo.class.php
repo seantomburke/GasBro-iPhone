@@ -95,7 +95,8 @@ class Venmo {
 	    $input = $this->get("/users/".$this->me->id."/friends", $access_token);
 	    foreach($input as $key1 => $value1)
 	    {
-	        $output[$key1]['value'] = $value1->username;
+	        $output[$key1]['caption'] = $value1->display_name;
+	        $output[$key1]['value'] = $value1->id;
 	        $output[$key1]['tokens'][0] = $value1->display_name;
 	        $output[$key1]['tokens'][1] = $value1->username;
 	        foreach($value1 as $key2 => $value2)
