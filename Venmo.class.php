@@ -1,7 +1,7 @@
 <?php 
 session_start();
-//error_reporting(1);
-//ini_set('display_errors', 'On');
+error_reporting(1);
+ini_set('display_errors', 'On');
 
 /**
  * Venmo OAuth API
@@ -30,7 +30,7 @@ class Venmo {
 	 * @author 	Sean Thomas Burke <http://www.seantburke.com/>
      */
 	public function __construct($access_token){
-	    $_SESSION['blob']= 'blob';
+	    
 	    if($this->loggedin($access_token))
 	    {
 	        echo 'using:access_token<br>';
@@ -65,7 +65,7 @@ class Venmo {
 	    }
 	    else
 	    {
-    	    echo "username: ".$this->me($acess_token)->username."<br>";
+    	    echo "username: ".$this->me($access_token)->username."<br>";
     	    return $this->me($access_token)->username;
 	    }
 	}
@@ -85,12 +85,12 @@ class Venmo {
 		$request_token_response = curl_exec($ch);
 	}
 
-	public function me($access_token)
+	public function me($access_token = null)
 	{
 		return $this->get("/me", $access_token);
 	}
 	
-	public function friends($access_token)
+	public function friends($access_token = null)
 	{
 		return $this->get("/users/".$this->me->id."/friends", $access_token);
 	}
@@ -109,6 +109,7 @@ class Venmo {
 	 */
 	function get($path, $access_token)
 	{	
+	    $access_token = ($access_token) ? $access_token:$this->access_token;
 		$question_mark = (strstr($path, '?')) ? '&':'?';
 
 		$url = "https://api.venmo.com".$path.$question_mark."access_token=".$access_token;

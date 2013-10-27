@@ -1,16 +1,11 @@
 <?php
 session_start();
-//error_reporting(1);
-//ini_set('display_errors', 'On');
-
-echo 'session_blob: '.$_SESSION['blob'];
-
+error_reporting(1);
+ini_set('display_errors', 'On');
 include 'Venmo.class.php';
 
-	    echo 'session: '.$_SESSION['access_token'].'<br>';
 $venmo = new Venmo($_GET['access_token']);
 
-$_SESSION['blob'] = 'blob';
 ?>
 
 <!DOCTYPE html>
