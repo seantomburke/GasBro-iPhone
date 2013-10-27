@@ -285,7 +285,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
         <!--<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
-        <!--<script type="text/javascript" src="js/hogan.js"></script>-->
+        <script src="//twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
