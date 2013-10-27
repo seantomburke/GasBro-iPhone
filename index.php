@@ -182,7 +182,14 @@ $venmo = new Venmo($_GET['access_token']);
         
         <div class="container">
             <!-- Example row of columns -->
-            <input id="typeahead" type="text" />
+            <div class="demo">
+          <span class="twitter-typeahead" style="position: relative; display: inline-block;">
+          <input class="tt-hint" type="text" autocomplete="off" spellcheck="off" disabled="" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background-attachment: scroll; background-clip: border-box; background-color: rgb(255, 255, 255); background-image: none; background-origin: padding-box; background-size: auto; background-position: 0% 0%; background-repeat: repeat repeat;">
+          <input class="typeahead tt-query" type="text" placeholder="countries" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+          <span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: 'Lucida Grande'; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span>
+          <span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"></span>
+          </span>
+        </div>
             <div class="row">
                <div class="span4 sidebar" >
                     <form class="form" id="main-form">
@@ -296,7 +303,8 @@ $venmo = new Venmo($_GET['access_token']);
             $(document).ready(function(){
                 var access_token = '<?php echo $venmo->access_token; ?>';
                 $("#typeahead").typeahead({                              
-                  name: 'venmo-friends',                                                        
+                  name: 'venmo-friends',   
+                  local: ['yes','no','maybe'],
                   prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
                   template: [                                                                 
                     '<p class="repo-language">{{username}}</p>',                              
