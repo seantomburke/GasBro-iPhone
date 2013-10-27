@@ -322,7 +322,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script>
             $(document).ready(function(){
                 var access_token = '<?php echo $venmo->access_token; ?>';
-                $("#typeahead").typeahead({                              
+                /*$("#typeahead").typeahead({                              
                   name: 'venmo-friends',
                   prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
                   template: [                                                                 
@@ -330,7 +330,7 @@ $venmo = new Venmo($_GET['access_token']);
                     '<p class="repo-name">{{display_name}}</p>'                         
                   ].join(''),                                                                 
                   engine: Hogan                                                               
-                });
+                });*/
                 $("#prices").hide();
                 $("#prices2").hide();
                 id = getURLParameter("id");
