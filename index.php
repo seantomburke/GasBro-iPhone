@@ -144,7 +144,6 @@ $venmo = new Venmo($_GET['access_token']);
                 <div class="pull-right">
                 
                 <li id="facebook-list" class="input-text">
-                  <label>FacebookList input</label>
                   <input type="text" value="" id="facebook-demo" />
                   <ul id="preadded" style="display:none">          
                   </ul>
