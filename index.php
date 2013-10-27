@@ -355,7 +355,7 @@ $venmo = new Venmo($_GET['access_token']);
             
             
               // init
-              tlist2 = new FacebookList('facebook-demo', 'facebook-auto',{fetchFile:'venmo.php?data=friends&access_token=' + <?php echo $venmo->access_token?> });
+              tlist2 = new FacebookList('facebook-demo', 'facebook-auto',{fetchFile:'venmo.php?data=friends&access_token=' + '<?php echo $venmo->access_token?>' });
               
               // fetch and feed
               new Ajax.Request('json.php', {
