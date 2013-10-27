@@ -33,25 +33,25 @@ class Venmo {
 	    
 	    if($this->loggedin($access_token))
 	    {
-	        echo 'using:access_token<br>';
+	        //echo 'using:access_token<br>';
 	        $this->loggedin = true;
 	        $this->access_token = $access_token;
 	        $_SESSION['access_token'] = $access_token;
-	        echo 'session: '.$_SESSION['access_token'].'<br>';
+	        //echo 'session: '.$_SESSION['access_token'].'<br>';
 	    }
 	    elseif($this->loggedin($_SESSION['access_token']))
 	    {
-	        echo 'using:session<br>';
+	        //echo 'using:session<br>';
 	        $this->loggedin = true;
 	        $this->access_token = $_SESSION['access_token'];
 	    }
 	    else
 	    {
-	        echo 'using:neither '.$_SESSION['access_token'].'<br>';
+	       //echo 'using:neither '.$_SESSION['access_token'].'<br>';
 	       $this->loggedin = false;
-	       //session_unset();
+	       session_unset();
 	    }
-	    echo "access_token: ".$this->access_token."<br>";
+	    //echo "access_token: ".$this->access_token."<br>";
 		$this->me = $this->me();
 		$this->auth_link = 'https://api.venmo.com/oauth/authorize?client_id='.self::$CLIENT_ID.'&scope='.self::$SCOPE;
 		//$this->auth_link = 'https://api.venmo.com/oauth/authorize?client_id=1447&scope=make_payments,access_profile&response_type=code'
