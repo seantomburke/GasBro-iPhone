@@ -1,16 +1,16 @@
 <?php
 session_start();
-error_reporting(1);
-ini_set('display_errors', 'On');
+//error_reporting(1);
+//ini_set('display_errors', 'On');
+
+echo 'session_blob: '.$_SESSION['blob'];
 
 include 'Venmo.class.php';
-$venmo = new Venmo($_SESSION['access_token']);
-if($_GET['access_token'])
-{
-    $_SESSION['access_token'] = $_GET['access_token'];
-   //header("Location: //". $_SERVER['SERVER_NAME']);    
-}
 
+	    echo 'session: '.$_SESSION['access_token'].'<br>';
+$venmo = new Venmo($_GET['access_token']);
+
+$_SESSION['blob'] = 'blob';
 ?>
 
 <!DOCTYPE html>
@@ -68,10 +68,9 @@ if($_GET['access_token'])
 		                        <ul class="dropdown-menu">
 		                        	<li class="nav-header">Balance</li>
 		                        	<li><a href="#">$'.$venmo->me->balance.'</a></li>
-		                        	<li><a href="#">loggedin = '.$venmo->loggedin.'</a></li>
 		                            <li class="divider"></li>
 		                            <li class="nav-header">Completed</li>
-		                            <li><a href="#">Logout</a></li>
+		                            <li><a href="/index.php?logout=true">Logout</a></li>
 		                        </ul>
 		                    </li>
 		            </div>';
@@ -135,19 +134,19 @@ if($_GET['access_token'])
                   </div>
               </div>
            </div>
-            <div class="row">
+            <div class="row-fluid">
               <?php 
                 if($_SESSION['username'] == null)
                 {
-                echo '<a id="venmo-btn" class="btn btn-info" type="button" href="'.$venmo->auth_link.'">
+                echo '<a id="venmo-btn" class="btn btn-info pull-right" type="button" href="'.$venmo->auth_link.'">
                 Login with Venmo
                     </a>';
                 }
                 else{
                 echo '
                 
-                <div class="input-append">
-                  <input class="typeahead" id="venmo-friends" type="text">
+                <div class="input-append pull-right">
+                  <input id="venmo-friends" type="text">
                   <button id="venmo-btn" class="btn btn-info" type="button" href="#"> 
                     Venmo!
                   </button>

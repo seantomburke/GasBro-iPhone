@@ -1,7 +1,7 @@
 <?php 
 session_start();
-error_reporting(1);
-ini_set('display_errors', 'On');
+//error_reporting(1);
+//ini_set('display_errors', 'On');
 
 /**
  * Venmo OAuth API
@@ -30,16 +30,44 @@ class Venmo {
 	 * @author 	Sean Thomas Burke <http://www.seantburke.com/>
      */
 	public function __construct($access_token){
-		$this->access_token = $access_token;
+	    $_SESSION['blob']= 'blob';
+	    if($this->loggedin($access_token))
+	    {
+	        echo 'using:access_token<br>';
+	        $this->loggedin = true;
+	        $this->access_token = $access_token;
+	        $_SESSION['access_token'] = $access_token;
+	        echo 'session: '.$_SESSION['access_token'].'<br>';
+	    }
+	    elseif($this->loggedin($_SESSION['access_token']))
+	    {
+	        echo 'using:session<br>';
+	        $this->loggedin = true;
+	        $this->access_token = $_SESSION['access_token'];
+	    }
+	    else
+	    {
+	        echo 'using:neither '.$_SESSION['access_token'].'<br>';
+	       $this->loggedin = false;
+	       //session_unset();
+	    }
+	    echo "access_token: ".$this->access_token."<br>";
 		$this->me = $this->me();
-		if($this->me->username)
-		{
-		    $this->loggedin = true;
-		    $_SESSION['access_token'] = $access_token;
-		    $_SESSION['username'] = $this->me->username;
-		}
 		$this->auth_link = 'https://api.venmo.com/oauth/authorize?client_id='.self::$CLIENT_ID.'&scope='.self::$SCOPE;
 		//$this->auth_link = 'https://api.venmo.com/oauth/authorize?client_id=1447&scope=make_payments,access_profile&response_type=code'
+	}
+	
+	private function loggedin($access_token)
+	{
+	    if(empty($access_token))
+	    {
+	        return false;
+	    }
+	    else
+	    {
+    	    echo "username: ".$this->me($acess_token)->username."<br>";
+    	    return $this->me($access_token)->username;
+	    }
 	}
 
 	public function request()
@@ -57,14 +85,14 @@ class Venmo {
 		$request_token_response = curl_exec($ch);
 	}
 
-	public function me()
+	public function me($access_token)
 	{
-		return $this->get("/me");
+		return $this->get("/me", $access_token);
 	}
 	
-	public function friends()
+	public function friends($access_token)
 	{
-		return $this->get("/users/".$this->me->id."/friends");
+		return $this->get("/users/".$this->me->id."/friends", $access_token);
 	}
 
 	/**
@@ -79,11 +107,11 @@ class Venmo {
 	 * @param 	$url	REST URL		
 	 * @return 	array	decoded from JSON response
 	 */
-	function get($path)
+	function get($path, $access_token)
 	{	
 		$question_mark = (strstr($path, '?')) ? '&':'?';
 
-		$url = "https://api.venmo.com".$path.$question_mark."access_token=".$this->access_token;
+		$url = "https://api.venmo.com".$path.$question_mark."access_token=".$access_token;
 		//echo "url:".$url;
 		$ch = curl_init(); 
 		$headers = array('Authorization: OAuth oauth_version="2.0"');  
