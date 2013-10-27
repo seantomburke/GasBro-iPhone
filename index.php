@@ -132,6 +132,7 @@ $venmo = new Venmo($_GET['access_token']);
            </div>
             <div class="row-fluid">
               <?php 
+                echo $venmo->loggedin;
                 if($venmo->loggedin)
                 {
                 echo '<a id="venmo-btn" class="btn btn-info pull-right" type="button" href="'.$venmo->auth_link.'">
