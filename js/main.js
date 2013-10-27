@@ -22,18 +22,6 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         var cost_per;
         var cost_total;
         
-        
-        $(document).ready(function(){
-          $("#prices").hide();
-          $("#prices2").hide();
-          id = getURLParameter("id");
-          if(id != "null")
-          {
-            console.log(id);
-            loadTrip(id);
-          }
-        })
-        
         function initialize() {
         
         directionsService = new google.maps.DirectionsService();

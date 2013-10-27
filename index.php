@@ -293,7 +293,17 @@ $venmo = new Venmo($_GET['access_token']);
         <!--<script type="text/javascript" src="js/typeahead.min.js"></script>-->
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
         <script>
-            getFriends('<?php echo $venmo->access_token; ?>');
+            $(document).ready(function(){
+                getFriends('<?php echo $venmo->access_token; ?>');
+                $("#prices").hide();
+                $("#prices2").hide();
+                id = getURLParameter("id");
+                if(id != "null")
+                {
+                    console.log(id);
+                    loadTrip(id);
+                }
+        })
         </script>
         <script>
             var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
