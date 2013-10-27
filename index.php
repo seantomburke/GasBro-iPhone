@@ -150,10 +150,7 @@ $venmo = new Venmo($_GET['access_token']);
                   </ul>
                   <div id="facebook-auto">
                     <div class="default">Type the name of your Venmo Friends</div> 
-                    <ul id="feed">
-                      <li value="test1">tester 1</li>
-                      <li value="test2">tester 2</li>              
-                      <li value="test3">tester 3</li>              
+                    <ul id="feed">             
                     </ul>
                   </div>
                 </li>
