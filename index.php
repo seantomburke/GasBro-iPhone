@@ -33,9 +33,9 @@ $venmo = new Venmo($_GET['access_token']);
                 padding-bottom: 40px;
             }
         </style>
+        <link rel="stylesheet" href="css/style.css?<?php echo time() ?>" type="text/css" media="screen" title="Test Stylesheet" charset="utf-8" />
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
-        <link rel="stylesheet" href="css/test.css?<?php echo time() ?>" type="text/css" media="screen" title="Test Stylesheet" charset="utf-8" />
         <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
     </head>
     <body data-spy="scroll" data-target="#navbar">
@@ -141,8 +141,22 @@ $venmo = new Venmo($_GET['access_token']);
                 else{
                 echo '
                 
-                <div class="input-append pull-right">
-                  <input id="venmo-friends" type="text">
+                <div class="pull-right">
+                
+                <li id="facebook-list" class="input-text">
+                  <label>FacebookList input</label>
+                  <input type="text" value="" id="facebook-demo" />
+                  <ul id="preadded" style="display:none">          
+                  </ul>
+                  <div id="facebook-auto">
+                    <div class="default">Type the name of your Venmo Friends</div> 
+                    <ul id="feed">
+                      <li value="test1">tester 1</li>
+                      <li value="test2">tester 2</li>              
+                      <li value="test3">tester 3</li>              
+                    </ul>
+                  </div>
+                </li>
                   <button id="venmo-btn" class="btn btn-info" type="button" href="#"> 
                     Venmo!
                   </button>
@@ -185,30 +199,6 @@ $venmo = new Venmo($_GET['access_token']);
         
         
         <div class="container">
-        
-        
-        <ol>
-
-        <li class="input-text">
-          <label>Simple input</label>
-          <input type="text" name="testinput" value="" id="testinput" />
-        </li>
-        
-        <li id="facebook-list" class="input-text">
-          <label>FacebookList input</label>
-          <input type="text" value="" id="facebook-demo" />
-          <div id="facebook-auto">
-
-            <div class="default">Type the name of an argentine writer you like</div> 
-            <ul class="feed">
-              <li value="1">Jorge Luis Borges</li>
-              <li value="2">Julio Cortazar</li>
-            </ul>
-          </div>
-          <!-- These two writers will be added when the control is loaded -->
-
-        </li>
-      </ol>   
             <div class="row">
                <div class="span4 sidebar" >
                     <form class="form" id="main-form">
@@ -318,7 +308,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/jquery.history.js"></script>
         <script type="text/javascript" src="js/typeahead.min.js"></script>
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
-        
+        <script type="text/javascript" src="js/fcbkcomplete.min.js" charset="utf-8"></script>    
         <script>
             $(document).ready(function(){
                 var access_token = '<?php echo $venmo->access_token; ?>';
@@ -331,6 +321,7 @@ $venmo = new Venmo($_GET['access_token']);
                   ].join(''),                                                                 
                   engine: Hogan                                                               
                 });*/
+                $.facebooklist('#facebook-demo', '#preadded', '#facebook-auto',{url:'venmo.php?data=friends&access_token='+'<?php echo $venmo->access_token; ?>',cache:1}, 10, {userfilter:1,casesensetive:0});
                 $("#prices").hide();
                 $("#prices2").hide();
                 id = getURLParameter("id");
@@ -346,24 +337,6 @@ $venmo = new Venmo($_GET['access_token']);
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-        <script src="/js/protoculous-effects-shrinkvars.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/js/textboxlist.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/js/test.js" type="text/javascript" charset="utf-8"></script>
-        <script>
-            document.observe('dom:loaded', function() {
-            
-            
-              // init
-              tlist2 = new FacebookList('facebook-demo', 'facebook-auto',{fetchFile:'venmo.php?data=friends&access_token=' + '<?php echo $venmo->access_token?>' });
-              
-              // fetch and feed
-              new Ajax.Request('json.php', {
-                onSuccess: function(transport) {
-                    transport.responseText.evalJSON(true).each(function(t){tlist2.autoFeed(t)});
-                }
-              });
-            });  
         </script>
     </body>
 </html>
