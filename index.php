@@ -297,7 +297,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/plugins.js"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
         <script type="text/javascript" src="js/jquery.history.js"></script>
-        <!--<script type="text/javascript" src="js/typeahead.min.js"></script>-->
+        <script type="text/javascript" src="js/typeahead.min.js"></script>
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
         <script>
             $(document).ready(function(){
