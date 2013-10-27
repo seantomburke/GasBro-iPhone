@@ -293,7 +293,7 @@ $venmo = new Venmo($_GET['access_token']);
         <!--<script type="text/javascript" src="js/typeahead.min.js"></script>-->
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
         <script>
-            getFriends(' <?php echo $venmo->access_token; ?> ');
+            getFriends('<?php echo $venmo->access_token; ?>');
         </script>
         <script>
             var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
