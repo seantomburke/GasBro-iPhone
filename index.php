@@ -132,8 +132,7 @@ $venmo = new Venmo($_GET['access_token']);
            </div>
             <div class="row-fluid">
               <?php 
-                echo $venmo->loggedin;
-                if($venmo->loggedin)
+                if(!$venmo->loggedin)
                 {
                 echo '<a id="venmo-btn" class="btn btn-info pull-right" type="button" href="'.$venmo->auth_link.'">
                 Login with Venmo
@@ -312,7 +311,6 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/fcbkcomplete.min.js" charset="utf-8"></script>    
         <script>
             $(document).ready(function(){
-                var access_token = '<?php echo $venmo->access_token; ?>';
                 /*$("#typeahead").typeahead({                              
                   name: 'venmo-friends',
                   prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
