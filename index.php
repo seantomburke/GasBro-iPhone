@@ -131,7 +131,7 @@ $venmo = new Venmo($_GET['access_token']);
            </div>
             <div class="row-fluid">
               <?php 
-                if($_SESSION['username'] == null)
+                if($venmo->loggedin)
                 {
                 echo '<a id="venmo-btn" class="btn btn-info pull-right" type="button" href="'.$venmo->auth_link.'">
                 Login with Venmo
@@ -182,6 +182,7 @@ $venmo = new Venmo($_GET['access_token']);
         
         <div class="container">
             <!-- Example row of columns -->
+            <input id="typeahead" type="text" />
             <div class="row">
                <div class="span4 sidebar" >
                     <form class="form" id="main-form">

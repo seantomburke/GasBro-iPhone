@@ -65,7 +65,7 @@ class Venmo {
 	    }
 	    else
 	    {
-    	    echo "username: ".$this->me($access_token)->username."<br>";
+    	    //echo "username: ".$this->me($access_token)->username."<br>";
     	    return $this->me($access_token)->username;
 	    }
 	}

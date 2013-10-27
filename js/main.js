@@ -124,7 +124,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         function getFriends(access_token)
         {
-            $("#venmo-friends").typeahead({                                
+            $("#typeahead").typeahead({                                
               name: 'countries',                                                          
               prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                         
               limit: 10                                                                   
