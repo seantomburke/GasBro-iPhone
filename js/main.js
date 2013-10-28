@@ -589,8 +589,7 @@ function getFriends(access_token) {
             },
             results: function(data, after) {
                 var next = data[20].id // whether or not there are more results available
-                console.log(data);
-                console.log(data[20]);
+                console.log(next);
                 // notice we return the value of more so Select2 knows if more results can be loaded
                 return {
                     results: data,
@@ -612,13 +611,13 @@ function getFriends(access_token) {
 function movieFormatResult(friend) {
     var markup = "<table class='movie-result'><tr>";
     if (friend.profile_picture_url !== undefined) {
-        markup += "<td class='movie-image'><img src='" + friend.profile_picture_url + "'/></td>";
+        markup += "<td class='movie-image'><img width='50px' src='" + friend.profile_picture_url + "'/></td>";
     }
     markup += "<td class='movie-info'><div class='movie-title'>" + friend.display_name + "</div>";
     if (friend.about != "No Short Bio") {
         markup += "<div class='movie-synopsis' >" + friend.about + "</div>";
     }
-    markup += "</td></tr></table>"
+    markup += "</td></tr></table>";
     return markup;
 }
 

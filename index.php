@@ -74,7 +74,7 @@ $venmo = new Venmo($_GET['access_token']);
                     }
                     else
                     {
-                    echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" /><input type="submit" class="btn pull-right" value="Login with Venmo"/></form>';
+                    echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" /><input type="submit" class="btn btn-info pull-right" value="Login with Venmo"/></form>';
                      
                     }
                     
@@ -135,7 +135,7 @@ $venmo = new Venmo($_GET['access_token']);
               <?php 
                 if(!$venmo->loggedin)
                 {
-                echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" /><input type="submit" class="btn pull-right" value="Login with Venmo"/></form>';
+                echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" /><input type="submit" class="btn btn-info pull-right" value="Login with Venmo"/></form>';
                 }
                 else{
                 echo '
