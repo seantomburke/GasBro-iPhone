@@ -20,11 +20,11 @@ $venmo = new Venmo($_GET['access_token']);
         <meta name="description" content="Easliy split the cost of gas with friends">
         <meta name="viewport" content="width=device-width">
         <meta property="og:title" content="GasBro" />
-          <meta property="og:type" content="website" />
-          <!--<meta property="og:site_name" content="http://www.gasbro.com/" />-->
-          <meta property="og:image" content="/img/bro.png" />
-          <meta property="og:description" content="Easily split the cost of gas with your friends!" />
-          <!--<meta property="og:url" content="http://www.gasbro.com/" />-->
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="http://wwww.gasbro.com/" />
+        <meta property="og:image" content="/img/bro.png" />
+        <meta property="og:description" content="Easily split the cost of gas with your friends!" />
+        <meta property="og:url" content="http://wwww.gasbro.com/" />
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
@@ -33,7 +33,8 @@ $venmo = new Venmo($_GET['access_token']);
                 padding-bottom: 40px;
             }
         </style>
-        <link rel="stylesheet" href="css/style.css?<?php echo time() ?>" type="text/css" media="screen" title="Test Stylesheet" charset="utf-8" />
+        <link rel="stylesheet" href="css/select2.css?<?php echo time() ?>">
+        <link rel="stylesheet" href="css/select2-bootstrap.css?<?php echo time() ?>">
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
         <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
@@ -139,24 +140,8 @@ $venmo = new Venmo($_GET['access_token']);
                 else{
                 echo '
                 
-                <div class="pull-right">
+                <div>
                 
-                <li id="facebook-list" class="input-text">
-                  <input type="text" value="" id="facebook-demo" />
-                  <ul id="preadded" style="display:none">          
-                  </ul>
-                  <div id="facebook-auto">
-                    <div class="default">Type the name of your Venmo Friends</div> 
-                    <ul id="feed">
-                      <li value="test1">tester 1</li>
-                      <li value="test2">tester 2</li>              
-                      <li value="test3">tester 3</li>              
-                    </ul>
-                  </div>
-                </li>
-                  <button id="venmo-btn" class="btn btn-info" type="button" href="#"> 
-                    Venmo!
-                  </button>
                 </div>';
                 }
             ?>
@@ -199,6 +184,8 @@ $venmo = new Venmo($_GET['access_token']);
             <div class="row">
                <div class="span4 sidebar" >
                     <form class="form" id="main-form">
+                    
+                        <input type="hidden" id="venmo-friends" />
                         <div class="controls">
                             <span for="start-location">Start Location</span>
                             <br>
@@ -291,33 +278,26 @@ $venmo = new Venmo($_GET['access_token']);
 
         </div> <!-- /container -->
         
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+        <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
-        <!--<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
-        <!--<script src="//twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>-->
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
         <script type="text/javascript" src="js/jquery.history.js"></script>
-        <script type="text/javascript" src="js/typeahead.min.js"></script>
+        <script type="text/javascript" src="js/select2.min.js"></script>
+        <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
-        <script type="text/javascript" src="js/fcbkcomplete.min.js" charset="utf-8"></script>    
         <script>
             $(document).ready(function(){
-                /*$("#typeahead").typeahead({                              
-                  name: 'venmo-friends',
-                  prefetch: '/venmo.php?data=friends&access_token=' + access_token,                                             
-                  template: [                                                                 
-                    '<p class="repo-language">{{username}}</p>',                              
-                    '<p class="repo-name">{{display_name}}</p>'                         
-                  ].join(''),                                                                 
-                  engine: Hogan                                                               
-                });*/
-                $.facebooklist('#facebook-demo', '#preadded', '#facebook-auto',{url:'venmo.php?data=friends&access_token='+'<?php echo $venmo->access_token; ?>',cache:1}, 10, {userfilter:1,casesensetive:0});
+                getFriends('<?php echo $venmo->access_token; ?>');
+                $("#e2").select2({
+                    placeholder: "Select a State",
+                    allowClear: true
+                });
                 $("#prices").hide();
                 $("#prices2").hide();
                 var session_id = '<?php echo $_SESSION['id']?>';
