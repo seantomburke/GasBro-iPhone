@@ -583,7 +583,7 @@ function getFriends(access_token) {
                 return {
                     data: 'friends', 
                     access_token: access_token,
-                    limit: 20
+                    limit: 200
                 };
             },
             results: function(data, page) {
