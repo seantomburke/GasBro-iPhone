@@ -575,6 +575,7 @@ function getFriends(access_token) {
     $("#venmo-friends").select2({
         placeholder: "Search your Venmo Friends",
         maximumSelectionSize: 3,
+        multiple: true,
         ajax: {
             url: "venmo.php",
             dataType: 'json',
