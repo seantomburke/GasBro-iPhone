@@ -294,10 +294,6 @@ $venmo = new Venmo($_GET['access_token']);
         <script>
             $(document).ready(function(){
                 getFriends('<?php echo $venmo->access_token; ?>');
-                $("#e2").select2({
-                    placeholder: "Select a State",
-                    allowClear: true
-                });
                 $("#prices").hide();
                 $("#prices2").hide();
                 var session_id = '<?php echo $_SESSION['id']?>';

@@ -583,17 +583,18 @@ function getFriends(access_token) {
                 return {
                     data: 'friends', 
                     access_token: access_token,
-                    limit: 20,
+                    limit: 500,
                     after: after
                 };
             },
             results: function(data, after) {
-                var after = data[20].id // whether or not there are more results available
-
+                var next = data[20].id // whether or not there are more results available
+                console.log(data);
+                console.log(data[20]);
                 // notice we return the value of more so Select2 knows if more results can be loaded
                 return {
                     results: data,
-                    more: after
+                    more: next
                 };
             }
         },
@@ -615,7 +616,7 @@ function movieFormatResult(friend) {
     }
     markup += "<td class='movie-info'><div class='movie-title'>" + friend.display_name + "</div>";
     if (friend.about != "No Short Bio") {
-        markup += "<div class='movie-synopsis'>" + friend.about + "</div>";
+        markup += "<div class='movie-synopsis' >" + friend.about + "</div>";
     }
     markup += "</td></tr></table>"
     return markup;
