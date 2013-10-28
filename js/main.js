@@ -573,27 +573,23 @@ function loadTrip(id) {
 
 function getFriends(access_token) {
     $("#venmo-friends").select2({
-        placeholder: "Search for a movie",
+        placeholder: "Search your Venmo Friends",
+        maximumSelectionSize: 3,
         minimumInputLength: 3,
         ajax: {
-            url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-            dataType: 'jsonp',
+            url: "venmo.php",
+            dataType: 'json',
             quietMillis: 100,
             data: function(term, page) { // page is the one-based page number tracked by Select2
                 return {
-                    q: term, //search term
-                    page_limit: 10, // page size
-                    page: page, // page number
-                    apikey: "ju6z9mjyajq2djue3gbvv26t" // please do not use so this example keeps working
+                    data: 'friends', 
+                    access_token: access_token
                 };
             },
             results: function(data, page) {
-                var more = (page * 10) < data.total; // whether or not there are more results available
-
                 // notice we return the value of more so Select2 knows if more results can be loaded
                 return {
-                    results: data.movies,
-                    more: more
+                    results: data
                 };
             }
         },
@@ -608,22 +604,22 @@ function getFriends(access_token) {
 
 
 
-function movieFormatResult(movie) {
+function movieFormatResult(friend) {
     var markup = "<table class='movie-result'><tr>";
-    if (movie.posters !== undefined && movie.posters.thumbnail !== undefined) {
-        markup += "<td class='movie-image'><img src='" + movie.posters.thumbnail + "'/></td>";
+    if (friend.profile_picture_url !== undefined) {
+        markup += "<td class='movie-image'><img src='" + friend.profile_picture_url + "'/></td>";
     }
-    markup += "<td class='movie-info'><div class='movie-title'>" + movie.title + "</div>";
-    if (movie.critics_consensus !== undefined) {
-        markup += "<div class='movie-synopsis'>" + movie.critics_consensus + "</div>";
+    markup += "<td class='movie-info'><div class='movie-title'>" + friend.display_name + "</div>";
+    if (friend.about != "No Short Bio") {
+        markup += "<div class='movie-synopsis'>" + friend.about + "</div>";
     }
-    else if (movie.synopsis !== undefined) {
-        markup += "<div class='movie-synopsis'>" + movie.synopsis + "</div>";
+    else if (friend.username !== undefined) {
+        markup += "<div class='movie-synopsis'>" + friend.username + "</div>";
     }
     markup += "</td></tr></table>"
     return markup;
 }
 
-function movieFormatSelection(movie) {
-    return movie.title;
+function movieFormatSelection(friend) {
+    return friend.display_name;
 }
