@@ -573,8 +573,8 @@ function loadTrip(id) {
 
 function getFriends(access_token) {
     $("#venmo-friends").select2({
-        placeholder: "Search for a movie",
-        minimumInputLength: 3,
+        placeholder: "Search your Venmo Friends",
+        maximumSelectionSize: 3,
         ajax: {
             url: "venmo.php",
             dataType: 'json',
@@ -587,7 +587,7 @@ function getFriends(access_token) {
                 };
             },
             results: function(data, page) {
-                var more = (page * 10); // whether or not there are more results available
+                var more = (page * 20); // whether or not there are more results available
 
                 // notice we return the value of more so Select2 knows if more results can be loaded
                 return {
