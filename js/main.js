@@ -587,7 +587,7 @@ function getFriends(access_token) {
                     limit: 20*page
                 };
             },
-            results: function(data, after) {
+            results: function(data, page) {
                 var next = true; // whether or not there are more results available
                 console.log(next);
                 // notice we return the value of more so Select2 knows if more results can be loaded
@@ -595,7 +595,22 @@ function getFriends(access_token) {
                     results: data,
                     more: next
                 };
-            }
+            },
+            sortResults: function(results, container, query) {
+                    if (query.term) {
+                        // use the built in javascript sort function
+                        return results.sort(function(a, b) {
+                            if (a.text.length > b.text.length) {
+                                return 1;
+                            } else if (a.text.length < b.text.length) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        });
+                    }
+                    return results;
+                }
         },
         formatResult: movieFormatResult, // omitted for brevity, see the source of this page
         formatSelection: movieFormatSelection, // omitted for brevity, see the source of this page

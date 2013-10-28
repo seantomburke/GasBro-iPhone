@@ -141,7 +141,7 @@ $venmo = new Venmo($_GET['access_token']);
                 echo '
                 
                 <div>
-                
+                    <input type="hidden" id="venmo-friends" />
                 </div>';
                 }
             ?>
@@ -184,8 +184,6 @@ $venmo = new Venmo($_GET['access_token']);
             <div class="row">
                <div class="span4 sidebar" >
                     <form class="form" id="main-form">
-                    
-                        <input type="hidden" id="venmo-friends" />
                         <div class="controls">
                             <span for="start-location">Start Location</span>
                             <br>
