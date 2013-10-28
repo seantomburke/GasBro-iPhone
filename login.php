@@ -7,6 +7,6 @@ $_SESSION['id'] = $_GET['id'];
 include 'Venmo.class.php';
 $venmo = new Venmo();
 
-header("Location: ".$venmo->auth_link);
+header("Location: ".$venmo->auth_link."&id=".$_GET['id']);
 
 ?>

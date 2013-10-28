@@ -49,7 +49,6 @@ class Venmo {
 	    {
 	       //echo 'using:neither '.$_SESSION['access_token'].'<br>';
 	       $this->loggedin = false;
-	       session_unset();
 	    }
 	    //echo "access_token: ".$this->access_token."<br>";
 		$this->me = $this->me();
