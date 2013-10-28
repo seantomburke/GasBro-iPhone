@@ -89,9 +89,9 @@ class Venmo {
 		return $this->get("/me", $access_token);
 	}
 	
-	public function friends($access_token = null)
+	public function friends($limit, $access_token = null)
 	{
-	    $input = $this->get("/users/".$this->me->id."/friends", $access_token);
+	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit, $access_token);
 	    foreach($input as $key1 => $value1)
 	    {
 	        $output[$key1]['caption'] = $value1->display_name;
