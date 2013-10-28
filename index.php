@@ -73,7 +73,7 @@ $venmo = new Venmo($_GET['access_token']);
                     }
                     else
                     {
-                     echo   '<a class="btn" href="'.$venmo->auth_link.'">Login with Venmo</a>';
+                    echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" /><input type="submit" class="btn pull-right" value="Login with Venmo"/></form>';
                      
                     }
                     
@@ -134,9 +134,7 @@ $venmo = new Venmo($_GET['access_token']);
               <?php 
                 if(!$venmo->loggedin)
                 {
-                echo '<a id="venmo-btn" class="btn btn-info pull-right" type="button" href="'.$venmo->auth_link.'">
-                Login with Venmo
-                    </a>';
+                echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" /><input type="submit" class="btn pull-right" value="Login with Venmo"/></form>';
                 }
                 else{
                 echo '
@@ -322,11 +320,15 @@ $venmo = new Venmo($_GET['access_token']);
                 $.facebooklist('#facebook-demo', '#preadded', '#facebook-auto',{url:'venmo.php?data=friends&access_token='+'<?php echo $venmo->access_token; ?>',cache:1}, 10, {userfilter:1,casesensetive:0});
                 $("#prices").hide();
                 $("#prices2").hide();
+                var session_id = '<?php echo $_SESSION['id']?>';
                 id = getURLParameter("id");
                 if(id != "null")
                 {
-                    console.log(id);
+                    //console.log(id);
                     loadTrip(id);
+                }
+                else{
+                    loadTrip(session_id);
                 }
             });  
         </script>

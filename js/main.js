@@ -16,6 +16,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 
         var miles;
         var people;
+        var fuel_type
         var price;
         var mpg;
         var roundtrip = 1;
@@ -55,7 +56,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 getCurrentLocation(location, function(){
                         start_lat = location.coords.latitude;
                         start_lng = location.coords.longitude;
-                        console.log("resetting button");
+                        //console.log("resetting button");
                         $("#current-location").button("reset");
                         getAddress(location, function(result){
                             $("input[name='start-location']").val(result);
@@ -69,8 +70,8 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
             }, function(){
                 handleNoGeolocation(true)}
             );
-            console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
-                                             position.coords.longitude);
+            //console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
+            //                                 position.coords.longitude);
           } else {
             // Browser doesn't support Geolocation
             handleNoGeolocation(false);
@@ -80,8 +81,8 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         function getCurrentLocation(position, callback){
             var pos = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
-            console.log("position.coords.latitude:"+position.coords.latitude);
-            console.log("position.coords.longitude:"+position.coords.longitude);                             
+            //console.log("position.coords.latitude:"+position.coords.latitude);
+            //console.log("position.coords.longitude:"+position.coords.longitude);                             
             icon = new google.maps.Marker();
             var marker = new google.maps.Marker({
                 map:map,
@@ -89,8 +90,8 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
             });
             
-            console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
-                                         position.coords.longitude);
+            //console.log("Getting current location: lat:" + position.coords.latitude + "long:" +
+            //                             position.coords.longitude);
             map.setCenter(pos);
             
             if(callback){callback();}
@@ -112,8 +113,8 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         function setStart(){
             getGPS($(this).val(), function(location){
-                console.log("location");
-                console.log(location);
+                //console.log("location");
+                //console.log(location);
                 start_lat = location.lat();
                 start_lng = location.lng();
                 calcRoute();
@@ -133,10 +134,10 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         });
         
         $("#gas-radio .btn").click(function() {
-            console.log("gas clicked" + $(this).text());
+            //console.log("gas clicked" + $(this).text());
             $("#gas-type").val($(this).text());
             calculateGasPrice(start_lat, start_lng, function(){
-                updateAll();
+                calculateCost();
             });
         }); 
         
@@ -164,27 +165,13 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         $("#calculate").click(function(event){
             event.preventDefault();
-            
-            console.log(start_lat);
-            console.log(start_lng);
-            console.log(end_lat);
-            console.log(end_lng);
-            
-            console.log(start_location);
-            console.log(end_location);
-                    
-            console.log(miles);
-            console.log(city);
-            console.log(people);
-            console.log(price);
-            console.log(mpg);
-            console.log(roundtrip);
             showModal();
       
         });
         
         function updateAll()
         {
+            $("#url").val("Loading...");
           $('#shareModalHeader').html('GasBro: ' + city + ' to ' + end_location);
           calcRoute(function(){
               calculateGasPrice(start_lat, start_lng, function(){
@@ -266,8 +253,8 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
             travelMode: google.maps.TravelMode.DRIVING
           };
           directionsService.route(request, function(response, status) {
-            console.log("Directions response");
-            console.log(response);
+            //console.log("Directions response");
+            //console.log(response);
             miles = metersToMiles(response.routes[0].legs[0].distance.value);
             if(response.routes)
             {
@@ -301,27 +288,27 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
             if(!$("input[name='mpg']").val())
             {
                 errors++;
-                console.log("Error: mpgs empty");
+                //console.log("Error: mpgs empty");
             }
             if(!$("input[name='people']").val())
             {
                 errors++;
-                console.log("Error: people empty");
+                //console.log("Error: people empty");
             }
             if(!$("input[name='start-location']").val())
             {
                 errors++;
-                console.log("Error: start-location empty");
+                //console.log("Error: start-location empty");
             }
             if(!$("input[name='end-location']").val())
             {
                 errors++;
-                console.log("Error: end-location empty");
+                //console.log("Error: end-location empty");
             }
             if(!price)
             {
                 errors++;
-                console.log("Error: price empty");
+                //console.log("Error: price empty");
             }
             if(errors == 1)
             {
@@ -331,7 +318,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 //setURLParameter('price',price);
                 //setURLParameter('miles',miles);
                 //setURLParameter('roundtrip',roundtrip);
-                console.log(History);
+                //console.log(History);
                 compute();
                 if(success)
                 {
@@ -357,18 +344,23 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         
         function calculateGasPrice(lat, lng, callback)
         {
-            var gastype = $("#gas-type").val();
-            console.log(gastype);
+            fuel_type = $("#gas-type").val().toLowerCase();
+            //console.log(fuel_type);
             var errors = 1
             if(!lat)
             {
                 errors++;
-                console.log("error: lat empty");
+                //console.log("error: lat empty");
             }
             if(!lng)
             {
                 errors++;
-                console.log("error: lng empty");
+                //console.log("error: lng empty");
+            }
+            if(!fuel_type)
+            {
+                errors++;
+                //console.log("error: lng empty");
             }
             
             if(errors === 1)
@@ -380,7 +372,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                     data: {
                         latitude: lat,
                         longitude: lng,
-                        fuel_type: gastype.toLowerCase(),
+                        fuel_type: fuel_type,
                         sort_by: 'price',
                         distance: '2'
                      
@@ -437,67 +429,72 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
         function updateHistory(success)
         {   
           var errors = 1; 
-          if(mpg == undefined)
+          if(fuel_type === undefined)
           {
             
             errors++;
           }
-          if(people == undefined)
+          if(mpg === undefined)
           {
             
             errors++;
           }
-          if(start_location == undefined)
+          if(people === undefined)
           {
             
             errors++;
           }
-          if(end_location == undefined)
+          if(start_location === undefined)
           {
             
             errors++;
           }
-          if(roundtrip == undefined)
+          if(end_location === undefined)
           {
             
             errors++;
           }
-          if(cost_total == undefined)
+          if(roundtrip === undefined)
           {
             
             errors++;
           }
-          if(cost_per == undefined)
+          if(cost_total === undefined)
           {
             
             errors++;
           }
-          if(start_lat == undefined)
+          if(cost_per === undefined)
           {
             
             errors++;
           }
-          if(start_lng == undefined)
+          if(start_lat === undefined)
           {
             
             errors++;
           }
-          if(end_lat == undefined)
+          if(start_lng === undefined)
           {
             
             errors++;
           }
-          if(end_lng == undefined)
+          if(end_lat === undefined)
           {
             
             errors++;
           }
-          if(miles == undefined)
+          if(end_lng === undefined)
           {
             
             errors++;
           }
-          if(price == undefined)
+          if(miles === undefined)
+          {
+            
+            errors++;
+          }
+          if(price === undefined)
           {
             
             errors++;
@@ -507,6 +504,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 trip.save(
                 {
                   mpg: mpg,
+                  fuel_type: fuel_type,
                   people: people,
                   start_location:start_location,
                   end_location:end_location,
@@ -525,6 +523,7 @@ Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8
                 success: function(result) 
                 {
                   History.pushState({id:result.id}, 'GasBro: ' + city + ' to ' + end_location,'?id='+result.id);
+                  $(".logintripid").val(result.id);
                   $("#url").val(document.URL);
                 },
                 error: function(model, error) 
