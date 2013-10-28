@@ -579,20 +579,21 @@ function getFriends(access_token) {
             url: "venmo.php",
             dataType: 'json',
             quietMillis: 100,
-            data: function(term, page) { // page is the one-based page number tracked by Select2
+            data: function(term, after) { // page is the one-based page number tracked by Select2
                 return {
                     data: 'friends', 
                     access_token: access_token,
-                    limit: 200
+                    limit: 20,
+                    after: after
                 };
             },
-            results: function(data, page) {
-                var more = (page * 20); // whether or not there are more results available
+            results: function(data, after) {
+                var after = data[20].id // whether or not there are more results available
 
                 // notice we return the value of more so Select2 knows if more results can be loaded
                 return {
                     results: data,
-                    more: more
+                    more: after
                 };
             }
         },
@@ -615,9 +616,6 @@ function movieFormatResult(friend) {
     markup += "<td class='movie-info'><div class='movie-title'>" + friend.display_name + "</div>";
     if (friend.about != "No Short Bio") {
         markup += "<div class='movie-synopsis'>" + friend.about + "</div>";
-    }
-    else if (friend.username !== undefined) {
-        markup += "<div class='movie-synopsis'>" + friend.username + "</div>";
     }
     markup += "</td></tr></table>"
     return markup;
