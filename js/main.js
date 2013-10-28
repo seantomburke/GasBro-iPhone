@@ -580,16 +580,15 @@ function getFriends(access_token) {
             url: "venmo.php",
             dataType: 'json',
             quietMillis: 100,
-            data: function(term, after) { // page is the one-based page number tracked by Select2
+            data: function(term, page) { // page is the one-based page number tracked by Select2
                 return {
                     data: 'friends', 
                     access_token: access_token,
-                    limit: 500,
-                    after: after
+                    limit: 20*page
                 };
             },
             results: function(data, after) {
-                var next = data[20].id // whether or not there are more results available
+                var next = true; // whether or not there are more results available
                 console.log(next);
                 // notice we return the value of more so Select2 knows if more results can be loaded
                 return {
