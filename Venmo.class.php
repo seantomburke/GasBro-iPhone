@@ -92,7 +92,7 @@ class Venmo {
 	public function friends($term = '', $limit = '20', $after = 0, $access_token = null)
 	{
 	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit."&after=".$after, $access_token);
-	    
+	    $output= array();
 	    if($term != '')
 	    {
     	    foreach($input as $key1 => $value1)
