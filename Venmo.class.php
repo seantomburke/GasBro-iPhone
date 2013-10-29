@@ -101,7 +101,7 @@ class Venmo {
         	        $output[$i++]['value'] = $value1->id;
         	        foreach($value1 as $key2 => $value2)
         	        {
-        	            $output[$key1][$key2] = $value2;
+        	            $output[$i][$key2] = $value2;
         	        }
     	        }
     	        else
