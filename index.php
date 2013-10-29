@@ -140,8 +140,8 @@ $venmo = new Venmo($_GET['access_token']);
                 else{
                 echo '
                 
-                <div>
-                    <input type="hidden" id="venmo-friends" />
+                <div class="span6">
+                    <input type="hidden" id="venmo-friends"/>
                 </div>';
                 }
             ?>

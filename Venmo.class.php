@@ -94,7 +94,7 @@ class Venmo {
 	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit."&after=".$after, $access_token);
 	    foreach($input as $key1 => $value1)
 	    {
-	        if(strpos($value1->display_name, $term) !== false)
+	        if(stripos($value1->display_name, $term) !== false)
 	        {
     	        $output[$key1]['caption'] = $value1->display_name;
     	        $output[$key1]['value'] = $value1->id;
@@ -107,7 +107,7 @@ class Venmo {
 	        }
 	        else
 	        {
-	            $output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
+	            //$output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
 	        }
 	    }
 	    //var_dump($output);
