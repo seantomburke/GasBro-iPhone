@@ -107,7 +107,7 @@ class Venmo {
 	        }
 	        else
 	        {
-	            //$output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
+	            $output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
 	        }
 	    }
 	    //var_dump($output);
