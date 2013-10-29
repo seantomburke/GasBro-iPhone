@@ -89,18 +89,21 @@ class Venmo {
 		return $this->get("/me", $access_token);
 	}
 	
-	public function friends($limit = 20, $after = 0, $access_token = null)
+	public function friends($term = '', $limit = '20', $after = 0, $access_token = null)
 	{
 	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit."&after=".$after, $access_token);
 	    foreach($input as $key1 => $value1)
 	    {
-	        $output[$key1]['caption'] = $value1->display_name;
-	        $output[$key1]['value'] = $value1->id;
-	        $output[$key1]['tokens'][0] = $value1->display_name;
-	        $output[$key1]['tokens'][1] = $value1->username;
-	        foreach($value1 as $key2 => $value2)
+	        if(strstr($value1->display_name, $term))
 	        {
-	            $output[$key1][$key2] = $value2;
+    	        $output[$key1]['caption'] = $value1->display_name;
+    	        $output[$key1]['value'] = $value1->id;
+    	        $output[$key1]['tokens'][0] = $value1->display_name;
+    	        $output[$key1]['tokens'][1] = $value1->username;
+    	        foreach($value1 as $key2 => $value2)
+    	        {
+    	            $output[$key1][$key2] = $value2;
+    	        }
 	        }
 	    }
 	    //var_dump($output);
