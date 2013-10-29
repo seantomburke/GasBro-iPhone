@@ -98,7 +98,7 @@ class Venmo {
     	    {
     	        if(stripos($value1->display_name, $term) !== false)
     	        {
-        	        $output[$i++]['value'] = $value1->id;
+        	        $output[++$i]['value'] = $value1->id;
         	        foreach($value1 as $key2 => $value2)
         	        {
         	            $output[$i][$key2] = $value2;
