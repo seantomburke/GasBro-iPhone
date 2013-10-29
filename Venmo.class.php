@@ -92,27 +92,39 @@ class Venmo {
 	public function friends($term = '', $limit = '20', $after = 0, $access_token = null)
 	{
 	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit."&after=".$after, $access_token);
-	    foreach($input as $key1 => $value1)
+	    if(isset($term))
 	    {
-	        if(stripos($value1->display_name, $term) !== false)
-	        {
-    	        $output[$key1]['caption'] = $value1->display_name;
+    	    foreach($input as $key1 => $value1)
+    	    {
+    	        if(stripos($value1->display_name, $term) !== false)
+    	        {
+        	        $output[$key1]['value'] = $value1->id;
+        	        foreach($value1 as $key2 => $value2)
+        	        {
+        	            $output[$key1][$key2] = $value2;
+        	        }
+    	        }
+    	        else
+    	        {
+    	            $output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
+    	        }
+    	    }
+        }
+        else
+        {
+            foreach($input as $key1 => $value1)
+    	    {
     	        $output[$key1]['value'] = $value1->id;
-    	        $output[$key1]['tokens'][0] = $value1->display_name;
-    	        $output[$key1]['tokens'][1] = $value1->username;
     	        foreach($value1 as $key2 => $value2)
     	        {
     	            $output[$key1][$key2] = $value2;
     	        }
-	        }
-	        else
-	        {
-	            $output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
-	        }
-	    }
-	    //var_dump($output);
-	    $str = preg_replace('/\\\"/','"', json_encode($output));
-	    return $str;
+    	    }
+        }
+        
+        //var_dump($output);
+        $str = preg_replace('/\\\"/','"', json_encode($output));
+        return $str;
 	}
 
 	/**
