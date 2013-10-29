@@ -97,21 +97,21 @@ class Venmo {
 	    {
     	    foreach($input as $key1 => $value1)
     	    {
-    	        
-	            $temp_array = array();
     	        if(stripos($value1->display_name, $term) !== false)
     	        {
+    	               
+	                $temp_array = array();
         	        $temp_array['value'] = $value1->id;
         	        foreach($value1 as $key2 => $value2)
         	        {
         	            $temp_array[$key2] = $value2;
         	        }
+    	            array_push($output, $temp_array);
     	        }
     	        else
     	        {
     	            //$output[$key1]['error'] = 'The term '.$term.' was not found in '.$value1->display_name; 
     	        }
-    	        array_push($output, $temp_array);
     	    }
         }
         else
