@@ -7,6 +7,7 @@
 //
 
 #import "GBViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 #define kLatestKivaLoansURL [NSURL URLWithString: @"http://api.kivaws.org/v1/loans/search.json?status=fundraising"] //2
@@ -48,8 +49,6 @@
 @end
 
 
-
-
 @implementation GBViewController{
     CLLocationManager *locationManager;
 }
@@ -61,20 +60,43 @@
     locationManager = [[CLLocationManager alloc] init];
     [self peopleSliderChanged:(self)];
     [self mpgSliderChanged:(self)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
     
     
 }
 
+-(void)dismissKeyboard {
+    [_startLocationText resignFirstResponder];
+    [_endLocationText resignFirstResponder];
+}
+
+-(void)updateStartToLoading {
+    _startLocationText.text = @"Loading...";
+}
+
 - (void)calculateGas
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", locationManager.location.coordinate.longitude, locationManager.location.coordinate.latitude]];
+        if(locationManager.location.coordinate.latitude == 0)
+        {
+            NSLog(@"Failed to get location");
+            UIAlertView *errorAlert = [[UIAlertView alloc]
+                                       initWithTitle:@"Error" message:@"Failed to Get Your Location. Please try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+        }
+        else{
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", locationManager.location.coordinate.longitude, locationManager.location.coordinate.latitude]];
     
-    dispatch_async(kBgQueue, ^{
-        NSData* data = [NSData dataWithContentsOfURL:
+            dispatch_async(kBgQueue, ^{
+                NSData* data = [NSData dataWithContentsOfURL:
                         url];
-        [self performSelectorOnMainThread:@selector(fetchedData:)
+                [self performSelectorOnMainThread:@selector(fetchedData:)
                                withObject:data waitUntilDone:YES];
-    });
+            });
+        }
 }
 
 
@@ -128,8 +150,12 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-    
-        [self calculateGas];
+    NSLog(@"%f",locationManager.location.coordinate.latitude);
+    [self calculateGas];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    //[self calculateGas];
 }
 
 - (IBAction)peopleSliderChanged:(id)sender {
@@ -146,12 +172,6 @@
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
 }
 
 @end

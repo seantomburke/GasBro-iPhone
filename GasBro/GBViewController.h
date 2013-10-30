@@ -32,10 +32,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *gasPerPersonLabel;
 @property (weak, nonatomic) IBOutlet UITextField *startLocationText;
 @property (weak, nonatomic) IBOutlet UITextField *endLocationText;
+@property (weak, nonatomic) IBOutlet UIViewController *googlemap;
 
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
-- (void) calculateGas;
+-(void)calculateGas;
+-(IBAction)updateStartToLoading;
 
 @end

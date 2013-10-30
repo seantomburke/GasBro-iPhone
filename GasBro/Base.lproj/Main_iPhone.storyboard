@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
@@ -87,7 +87,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GasBro" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAC-HS-HHx">
-                                <rect key="frame" x="19" y="20" width="113" height="58"/>
+                                <rect key="frame" x="20" y="20" width="113" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="42"/>
                                 <nil key="highlightedColor"/>
@@ -100,6 +100,7 @@
                                 </state>
                                 <connections>
                                     <action selector="getCurrentLocation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Jqp-2e-gCz"/>
+                                    <action selector="updateStartToLoading" destination="vXZ-lx-hvc" eventType="touchDown" id="Mtz-QO-5C0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="69" translatesAutoresizingMaskIntoConstraints="NO" id="8k1-uc-dna">
@@ -155,6 +156,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="cVL-Tp-1hV"/>
                     <connections>
                         <outlet property="endLocationText" destination="CeL-D6-lGe" id="ZI8-zk-Fli"/>
                         <outlet property="gasPerPersonLabel" destination="DZ1-Z0-UJM" id="UEN-29-BY4"/>
@@ -166,10 +168,31 @@
                         <outlet property="peopleLabel" destination="k3s-k1-MmW" id="ucb-Di-mhq"/>
                         <outlet property="peopleSlider" destination="oUS-Uc-1tt" id="APD-Tl-Vh4"/>
                         <outlet property="startLocationText" destination="mfa-KX-9L7" id="k6k-U8-Y0l"/>
+                        <segue destination="7yh-0v-jAZ" kind="push" id="Va1-NT-sq6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="269" y="-34"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="WW4-1o-mw7">
+            <objects>
+                <viewController id="7yh-0v-jAZ" customClass="GBMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fay-04-6Qr"/>
+                        <viewControllerLayoutGuide type="bottom" id="egF-Xb-PNY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="byL-ZG-5V1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="irn-6C-O4b"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xey-Q0-USZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="687" y="-34"/>
         </scene>
     </scenes>
     <resources>
