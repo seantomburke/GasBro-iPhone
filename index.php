@@ -53,8 +53,7 @@ $venmo = new Venmo($_GET['access_token']);
                         <a class="addthis_button_tweet"></a>
                         <a class="addthis_counter addthis_pill_style"></a>
                         </div>
-                    <!-- AddThis Button END -->
-                    <div class="pull-right">
+                    <div class="pull-right">-->
                     <?php 
                     if($venmo->loggedin)
                     {
@@ -139,8 +138,8 @@ $venmo = new Venmo($_GET['access_token']);
                 }
                 else{
                 echo '
-                
                 <div class="span6">
+                    <span>Select your friends:</span>
                     <input type="hidden" id="venmo-friends"/>
                 </div>';
                 }
@@ -149,29 +148,37 @@ $venmo = new Venmo($_GET['access_token']);
             
            </div>
           <div class="modal-footer">
-            <div class="row text-center">
-            <span> OR </span>
-            </div>
             <div class="row">
-            <div class="input-append">
+            <?php 
+                if($venmo->loggedin)
+                {
+                echo '
+                <input id="charge_friends" type="submit" value="Charge" />';
+                }
+                else{
+                echo '
+                <div class="input-append">
               <input id="url" type="text">
               <button id="facebook" class="btn btn-primary" type="button" href="#" 
                 onclick="
                   window.open(
-                    'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
-                    'facebook-share-dialog', 
-                    'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0'); 
+                    "https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(location.href), 
+                    "facebook-share-dialog", 
+                    "height=450, width=550, top="+($(window).height()/2 - 225) +", left="+$(window).width()/2 +", toolbar=0, location=0, menubar=0, directories=0, scrollbars=0"); 
                   return false;">
                 Facebook
               </button>
               <button id="tweet" class="btn btn-info" type="button" href="#" 
                 onclick="
                   window.open(
-                  'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + document.title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+                  "http://twitter.com/share?url=" + encodeURIComponent(location.href) + "&text=" + document.title + "&", "twitterwindow", "height=450, width=550, top="+($(window).height()/2 - 225) +", left="+$(window).width()/2 +", toolbar=0, location=0, menubar=0, directories=0, scrollbars=0");
                   return false;">
                 Tweet
               </button>
-              </div>
+              </div>';
+                }
+            ?>
+            
             </div>
           </div>
         </div>
@@ -291,7 +298,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/main.js?<?php echo time(); ?>"></script>
         <script>
             $(document).ready(function(){
-                getFriends('<?php echo $venmo->access_token; ?>');
+                getFriends('<?php echo $venmo->access_token; ?>', people - 1);
                 $("#prices").hide();
                 $("#prices2").hide();
                 var session_id = '<?php echo $_SESSION['id']?>';

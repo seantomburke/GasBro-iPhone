@@ -571,10 +571,10 @@ function loadTrip(id) {
 }
 //venmo.php?data=friends&access_token=
 
-function getFriends(access_token) {
+function getFriends(access_token, people) {
     $("#venmo-friends").select2({
         placeholder: "Search your Venmo Friends",
-        maximumSelectionSize: 3,
+        maximumSelectionSize: people,
         multiple: true,
         ajax: {
             url: "venmo.php",
