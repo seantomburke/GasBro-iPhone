@@ -46,14 +46,14 @@ $venmo = new Venmo($_GET['access_token']);
         <div id="navbar" class="navbar navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
+                    <!--
                     <a class="brand" href="#">Share</a>
-                    <!-- AddThis Button BEGIN -->
                         <div class="addthis_toolbox addthis_default_style ">
                         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
                         <a class="addthis_button_tweet"></a>
                         <a class="addthis_counter addthis_pill_style"></a>
                         </div>
-                        <!-- AddThis Button END -->
+                    <!-- AddThis Button END -->
                     <div class="pull-right">
                     <?php 
                     if($venmo->loggedin)
@@ -288,7 +288,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/jquery.history.js"></script>
         <script type="text/javascript" src="js/select2.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
-        <script type="text/javascript" src="js/main.js?<?php echo time() ?>"></script>
+        <script type="text/javascript" src="js/main.js?<?php echo time(); ?>"></script>
         <script>
             $(document).ready(function(){
                 getFriends('<?php echo $venmo->access_token; ?>');
