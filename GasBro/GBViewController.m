@@ -7,7 +7,6 @@
 //
 
 #import "GBViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 #define kLatestKivaLoansURL [NSURL URLWithString: @"http://api.kivaws.org/v1/loans/search.json?status=fundraising"] //2
@@ -50,6 +49,7 @@
 
 
 @implementation GBViewController{
+    CLPlacemark *thePlacemark;
     CLLocationManager *locationManager;
 }
 
@@ -79,9 +79,68 @@
     _startLocationText.text = @"Loading...";
 }
 
+- (IBAction)startSearch:(UITextField *)sender {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder geocodeAddressString:sender.text completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error) {
+                NSLog(@"%@", error);
+            } else {
+                thePlacemark = [placemarks lastObject];
+                float spanX = 1.00725;
+                float spanY = 1.00725;
+                MKCoordinateRegion region;
+                _start_latitude = thePlacemark.location.coordinate.latitude;
+                _start_longitude = thePlacemark.location.coordinate.longitude;
+                region.span = MKCoordinateSpanMake(spanX, spanY);
+                NSLog(@"long:%f,lat:%f", _start_latitude,_start_longitude);
+                [self calculateGas];
+            }
+        }];
+}
+
+- (IBAction)endSearch:(UITextField *)sender {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:sender.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error) {
+            NSLog(@"%@", error);
+        } else {
+            thePlacemark = [placemarks lastObject];
+            float spanX = 1.00725;
+            float spanY = 1.00725;
+            MKCoordinateRegion region;
+            _end_latitude = thePlacemark.location.coordinate.latitude;
+            _end_longitude = thePlacemark.location.coordinate.longitude;
+            region.span = MKCoordinateSpanMake(spanX, spanY);
+            NSLog(@"long:%f,lat:%f", _end_latitude,_end_longitude);
+            [self calculateGas];
+        }
+    }];
+}
+
+
+- (IBAction)peopleSliderChanged:(id)sender {
+    _peopleLabel.text = [NSString stringWithFormat:@"%d", (int) _peopleSlider.value];
+    _people = _peopleSlider.value;
+    [self calculateCost];
+}
+
+- (IBAction)mpgSliderChanged:(id)sender {
+    _mpgLabel.text = [NSString stringWithFormat:@"%d", (int) _mpgSlider.value];
+    _mpg = _mpgSlider.value;
+    [self calculateCost];
+}
+
+- (IBAction)roundtripSwitchChanged:(id)sender {
+    if(_roundtripSwitch.on)
+        _roundtrip = 2;
+    else
+        _roundtrip = 1;
+    [self calculateCost];
+}
+
 - (void)calculateGas
 {
-        if(locationManager.location.coordinate.latitude == 0)
+        if(_start_longitude == 0)
         {
             NSLog(@"Failed to get location");
             UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -89,7 +148,7 @@
             [errorAlert show];
         }
         else{
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", locationManager.location.coordinate.longitude, locationManager.location.coordinate.latitude]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", _start_longitude, _start_latitude]];
     
             dispatch_async(kBgQueue, ^{
                 NSData* data = [NSData dataWithContentsOfURL:
@@ -161,31 +220,13 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     NSLog(@"%f",locationManager.location.coordinate.latitude);
+    _start_latitude = locationManager.location.coordinate.latitude;
+    _start_longitude = locationManager.location.coordinate.longitude;
     [self calculateGas];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     //[self calculateGas];
-}
-
-- (IBAction)peopleSliderChanged:(id)sender {
-    _peopleLabel.text = [NSString stringWithFormat:@"%d", (int) _peopleSlider.value];
-    _people = _peopleSlider.value;
-    [self calculateCost];
-}
-
-- (IBAction)mpgSliderChanged:(id)sender {
-    _mpgLabel.text = [NSString stringWithFormat:@"%d", (int) _mpgSlider.value];
-    _mpg = _mpgSlider.value;
-    [self calculateCost];
-}
-
-- (IBAction)roundtripSwitchChanged:(id)sender {
-    if(_roundtripSwitch.on)
-        _roundtrip = 2;
-    else
-        _roundtrip = 1;
-    [self calculateCost];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

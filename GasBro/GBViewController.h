@@ -12,11 +12,12 @@
 
 @interface GBViewController : UIViewController <CLLocationManagerDelegate>{
     IBOutlet UILabel* humanReadble;
-    IBOutlet UILabel* jsonSummary;
 }
 
-@property (readwrite) Float64 longitude;
-@property (readwrite) Float64 latitude;
+@property (readwrite) Float64 start_longitude;
+@property (readwrite) Float64 start_latitude;
+@property (readwrite) Float64 end_longitude;
+@property (readwrite) Float64 end_latitude;
 @property (readwrite) Float64 price;
 @property (readwrite) Float64 cost;
 @property (readwrite) Float64 total;
@@ -41,8 +42,9 @@
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
 - (IBAction)roundtripSwitchChanged:(id)sender;
--(void)calculateGas;
--(void)calculateCost;
--(IBAction)updateStartToLoading;
+- (IBAction)updateStartToLoading;
+- (IBAction)startSearch:(id)sender;
+- (void)calculateGas;
+- (void)calculateCost;
 
 @end
