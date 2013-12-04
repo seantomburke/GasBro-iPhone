@@ -23,7 +23,7 @@
 @property (readwrite) Float64 miles;
 @property (readwrite) int people;
 @property (readwrite) int mpg;
-@property (readwrite) Boolean roundtrip;
+@property (readwrite) int roundtrip;
 
 @property (weak, nonatomic) IBOutlet UILabel *peopleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mpgLabel;
@@ -35,10 +35,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *startLocationText;
 @property (weak, nonatomic) IBOutlet UITextField *endLocationText;
 @property (weak, nonatomic) IBOutlet UIViewController *googlemap;
+@property (weak, nonatomic) IBOutlet UISwitch *roundtripSwitch;
 
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
+- (IBAction)roundtripSwitchChanged:(id)sender;
 -(void)calculateGas;
 -(void)calculateCost;
 -(IBAction)updateStartToLoading;

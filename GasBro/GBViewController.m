@@ -59,6 +59,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     locationManager = [[CLLocationManager alloc] init];
     [self peopleSliderChanged:(self)];
+    [self roundtripSwitchChanged:(self)];
     [self mpgSliderChanged:(self)];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -101,8 +102,8 @@
 
 - (void)calculateCost
 {
-    _miles = 10;
-    _total = (_price*_miles)/_mpg;
+    _miles = 100;
+    _total = (_price*_miles*_roundtrip)/_mpg;
     _cost = _total/_people;
     _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", _cost];
     _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", _total];
@@ -176,6 +177,14 @@
 - (IBAction)mpgSliderChanged:(id)sender {
     _mpgLabel.text = [NSString stringWithFormat:@"%d", (int) _mpgSlider.value];
     _mpg = _mpgSlider.value;
+    [self calculateCost];
+}
+
+- (IBAction)roundtripSwitchChanged:(id)sender {
+    if(_roundtripSwitch.on)
+        _roundtrip = 2;
+    else
+        _roundtrip = 1;
     [self calculateCost];
 }
 
