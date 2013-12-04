@@ -99,6 +99,15 @@
         }
 }
 
+- (void)calculateCost
+{
+    _miles = 10;
+    _total = (_price*_miles)/_mpg;
+    _cost = _total/_people;
+    _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", _cost];
+    _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", _total];
+}
+
 
 
 - (void)fetchedData:(NSData *)responseData {
@@ -128,13 +137,13 @@
         // 2) Get the funded amount and loan amount
         NSNumber* price = [station objectForKey:@"price"];
         NSString* city = [station objectForKey:@"city"];
-        float gasPrice =    [price floatValue];
+        _price =    [price floatValue];
         
         // 3) Set the label appropriately
         humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
                              city,
-                             gasPrice];
-        _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", gasPrice];
+                             _price];
+        _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
         _startLocationText.text = [NSString stringWithFormat:@"%@", city];
         
     }
@@ -160,10 +169,14 @@
 
 - (IBAction)peopleSliderChanged:(id)sender {
     _peopleLabel.text = [NSString stringWithFormat:@"%d", (int) _peopleSlider.value];
+    _people = _peopleSlider.value;
+    [self calculateCost];
 }
 
 - (IBAction)mpgSliderChanged:(id)sender {
     _mpgLabel.text = [NSString stringWithFormat:@"%d", (int) _mpgSlider.value];
+    _mpg = _mpgSlider.value;
+    [self calculateCost];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

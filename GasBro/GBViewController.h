@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 @interface GBViewController : UIViewController <CLLocationManagerDelegate>{
     IBOutlet UILabel* humanReadble;
@@ -18,6 +19,7 @@
 @property (readwrite) Float64 latitude;
 @property (readwrite) Float64 price;
 @property (readwrite) Float64 cost;
+@property (readwrite) Float64 total;
 @property (readwrite) Float64 miles;
 @property (readwrite) int people;
 @property (readwrite) int mpg;
@@ -38,6 +40,7 @@
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
 -(void)calculateGas;
+-(void)calculateCost;
 -(IBAction)updateStartToLoading;
 
 @end
