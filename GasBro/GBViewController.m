@@ -49,7 +49,6 @@
 
 
 @implementation GBViewController{
-    CLPlacemark *thePlacemark;
     CLLocationManager *locationManager;
 }
 
@@ -85,12 +84,12 @@
             if (error) {
                 NSLog(@"%@", error);
             } else {
-                thePlacemark = [placemarks lastObject];
+                _start_placemarker = [placemarks lastObject];
                 float spanX = 1.00725;
                 float spanY = 1.00725;
                 MKCoordinateRegion region;
-                _start_latitude = thePlacemark.location.coordinate.latitude;
-                _start_longitude = thePlacemark.location.coordinate.longitude;
+                _start_latitude = _start_placemarker.location.coordinate.latitude;
+                _start_longitude = _start_placemarker.location.coordinate.longitude;
                 region.span = MKCoordinateSpanMake(spanX, spanY);
                 NSLog(@"long:%f,lat:%f", _start_latitude,_start_longitude);
                 [self calculateGas];
@@ -104,15 +103,15 @@
         if (error) {
             NSLog(@"%@", error);
         } else {
-            thePlacemark = [placemarks lastObject];
+            _end_placemarker = [placemarks lastObject];
             float spanX = 1.00725;
             float spanY = 1.00725;
             MKCoordinateRegion region;
-            _end_latitude = thePlacemark.location.coordinate.latitude;
-            _end_longitude = thePlacemark.location.coordinate.longitude;
+            _end_latitude = _end_placemarker.location.coordinate.latitude;
+            _end_longitude = _end_placemarker.location.coordinate.longitude;
             region.span = MKCoordinateSpanMake(spanX, spanY);
             NSLog(@"long:%f,lat:%f", _end_latitude,_end_longitude);
-            [self calculateGas];
+            [self getDirections];
         }
     }];
 }
@@ -146,6 +145,7 @@
             UIAlertView *errorAlert = [[UIAlertView alloc]
                                        initWithTitle:@"Error" message:@"Failed to Get Your Location. Please try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [errorAlert show];
+            _startLocationText.text = @"Error Try Again";
         }
         else{
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", _start_longitude, _start_latitude]];
@@ -161,14 +161,54 @@
 
 - (void)calculateCost
 {
-    _miles = 100;
     _total = (_price*_miles*_roundtrip)/_mpg;
     _cost = _total/_people;
     _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", _cost];
     _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", _total];
 }
 
+- (void)getDirections
+{
+    MKDirectionsRequest *request =
+    [[MKDirectionsRequest alloc] init];
+    
+    request.source = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
+    request.destination = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_end_placemarker]];
+    
+    request.requestsAlternateRoutes = NO;
+    MKDirections *directions =
+    [[MKDirections alloc] initWithRequest:request];
+    
+    [directions calculateDirectionsWithCompletionHandler:
+     ^(MKDirectionsResponse *response, NSError *error) {
+         if (error) {
+             // Handle error
+         } else {
+             [self showRoute:response];
+         }
+     }];
+}
 
+-(void)showRoute:(MKDirectionsResponse *)response
+{
+    _miles = 0;
+    for (MKRoute *route in response.routes)
+    {
+        _miles += route.distance;
+        
+        //[addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+        
+        for (MKRouteStep *step in route.steps)
+        {
+            NSLog(@"%@", step.instructions);
+        }
+        
+    }
+    _miles = _miles/1609.34;
+    NSLog(@"Miles:%f", _miles);
+    
+    [self calculateCost];
+}
 
 - (void)fetchedData:(NSData *)responseData {
     //parse out the json data
@@ -204,7 +244,6 @@
                              city,
                              _price];
         _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
-        _startLocationText.text = [NSString stringWithFormat:@"%@", city];
         
     }
 }
@@ -222,6 +261,7 @@
     NSLog(@"%f",locationManager.location.coordinate.latitude);
     _start_latitude = locationManager.location.coordinate.latitude;
     _start_longitude = locationManager.location.coordinate.longitude;
+    _startLocationText.text = @"Current Location";
     [self calculateGas];
 }
 

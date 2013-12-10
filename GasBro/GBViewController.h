@@ -38,6 +38,10 @@
 @property (weak, nonatomic) IBOutlet UIViewController *googlemap;
 @property (weak, nonatomic) IBOutlet UISwitch *roundtripSwitch;
 
+@property (strong, nonatomic) IBOutlet MKMapView *routeMap;
+@property (strong, nonatomic) CLPlacemark *end_placemarker;
+@property (strong, nonatomic) CLPlacemark *start_placemarker;
+
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
