@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140A86C6185725C400948020 /* BroLaunchImage4inch.png in Resources */ = {isa = PBXBuildFile; fileRef = 140A86C5185725C400948020 /* BroLaunchImage4inch.png */; };
 		141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02217F53AD000E6B058 /* Foundation.framework */; };
 		141AF02517F53AD000E6B058 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02417F53AD000E6B058 /* CoreGraphics.framework */; };
 		141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02617F53AD000E6B058 /* UIKit.framework */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		140A86C5185725C400948020 /* BroLaunchImage4inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage4inch.png; sourceTree = "<group>"; };
 		141AF01F17F53AD000E6B058 /* GasBro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasBro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		141AF02217F53AD000E6B058 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		141AF02417F53AD000E6B058 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -243,6 +245,7 @@
 		141AF02917F53AD000E6B058 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				140A86C5185725C400948020 /* BroLaunchImage4inch.png */,
 				1473665D17F60BE300F91B27 /* BroLaunchImage.png */,
 				1473663917F6049D00F91B27 /* bro.png */,
 				1473663A17F6049D00F91B27 /* Icon-60.png */,
@@ -420,6 +423,7 @@
 				1473665417F6049D00F91B27 /* Icon-Small@2x.png in Resources */,
 				1473665017F6049D00F91B27 /* Icon-76@2x.png in Resources */,
 				1473665517F6049D00F91B27 /* Icon-Spotlight-40.png in Resources */,
+				140A86C6185725C400948020 /* BroLaunchImage4inch.png in Resources */,
 				1473664C17F6049D00F91B27 /* Icon-60@2x.png in Resources */,
 				1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */,
 			);

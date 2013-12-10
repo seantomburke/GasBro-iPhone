@@ -163,8 +163,26 @@
 {
     _total = (_price*_miles*_roundtrip)/_mpg;
     _cost = _total/_people;
-    _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", _cost];
-    _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", _total];
+    
+    NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", _cost];
+    NSString *total_string = [NSString stringWithFormat:@"$%0.2f", _total];
+    
+    if([cost_string length] > 6) {
+        // The source string is long enough to grab a substring of.
+        _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.0f", _cost];
+    }
+    else {
+        // The source string is already less than fifty characters.
+        _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", _cost];
+    }
+    
+    if([total_string length] > 6){
+        _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.0f", _total];
+    }
+    else{
+        
+        _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", _total];
+    }
 }
 
 - (void)getDirections
