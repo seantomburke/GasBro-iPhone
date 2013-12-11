@@ -50,6 +50,7 @@
 
 @implementation GBViewController{
     CLLocationManager *locationManager;
+    
 }
 
 - (void)viewDidLoad
@@ -69,6 +70,16 @@
     
 }
 
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // Any additional checks to ensure you have the correct textField here.
+    [_startLocationText resignFirstResponder];
+    [_endLocationText resignFirstResponder];
+    return YES;
+}
+
 -(void)dismissKeyboard {
     [_startLocationText resignFirstResponder];
     [_endLocationText resignFirstResponder];
@@ -79,12 +90,12 @@
 }
 
 - (IBAction)startSearch:(UITextField *)sender {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:sender.text completionHandler:^(NSArray *placemarks, NSError *error) {
+    CLGeocoder *startgeocoder = [[CLGeocoder alloc] init];
+    [startgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *startplacemarks, NSError *error) {
         if (error) {
             NSLog(@"%@", error);
         } else {
-            _start_placemarker = [placemarks lastObject];
+            _start_placemarker = [startplacemarks lastObject];
             float spanX = 1.00725;
             float spanY = 1.00725;
             MKCoordinateRegion region;
@@ -101,16 +112,15 @@
 - (IBAction)updateGasType:(id)sender {
     _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
     [self calculateGas];
-    [self calculateCost];
 }
 
 - (IBAction)endSearch:(UITextField *)sender {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:sender.text completionHandler:^(NSArray *placemarks, NSError *error) {
+    CLGeocoder *endgeocoder = [[CLGeocoder alloc] init];
+    [endgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *endplacemarks, NSError *error) {
         if (error) {
             NSLog(@"%@", error);
         } else {
-            _end_placemarker = [placemarks lastObject];
+            _end_placemarker = [endplacemarks lastObject];
             float spanX = 1.00725;
             float spanY = 1.00725;
             MKCoordinateRegion region;
@@ -151,15 +161,16 @@
     {
         _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
         
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&fuel_type=%@", _start_longitude, _start_latitude, _gas_type]];
-    
-    dispatch_async(kBgQueue, ^{
-        NSData* data = [NSData dataWithContentsOfURL:
-                        url];
-        [self performSelectorOnMainThread:@selector(fetchedData:)
-                               withObject:data waitUntilDone:YES];
-    });
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&fuel_type=%@", _start_longitude, _start_latitude, _gas_type]];
+        
+        dispatch_async(kBgQueue, ^{
+            NSData* data = [NSData dataWithContentsOfURL:
+                            url];
+            [self performSelectorOnMainThread:@selector(fetchedData:)
+                                   withObject:data waitUntilDone:YES];
+        });
     }
+    
 }
 
 - (void)calculateCost
@@ -250,22 +261,34 @@
         UIAlertView *errorAlert = [[UIAlertView alloc]
                                    initWithTitle:@"No Gas Stations Found" message:@"Try typing in a nearby U.S. city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         _startLocationText.text = @"Location Error";
+        _price = 0;
+        _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
         [errorAlert show];
     }
     else
     {
-        NSDictionary* station = [gasStations objectAtIndex:0];
-        
-        // 2) Get the funded amount and loan amount
-        NSNumber* price = [station objectForKey:@"price"];
-        NSString* city = [station objectForKey:@"city"];
-        _price =    [price floatValue];
+        int j=0;
+        NSString* city;
+        NSNumber* price = 0;
+        _price = 0;
+        while(_price == 0 && j<[gasStations count])
+        {
+            NSDictionary* station = [gasStations objectAtIndex:j];
+            
+            // 2) Get the funded amount and loan amount
+            price = [station objectForKey:@"price"];
+            city = [station objectForKey:@"city"];
+            _price =    [price floatValue];
+            j++;
+        }
         
         // 3) Set the label appropriately
         humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
                              city,
                              _price];
         _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+        
+        [self calculateCost];
         
     }
 }
@@ -281,6 +304,7 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     int i = 0;
+    _start_latitude = 0;
     while (_start_latitude == 0 && i<9000) {
         i++;
         NSLog(@"%f",locationManager.location.coordinate.latitude);

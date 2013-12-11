@@ -217,7 +217,6 @@
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-UltraLight" family="Avenir Next Condensed" pointSize="26"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
-                                    <action selector="endSearch:" destination="vXZ-lx-hvc" eventType="editingDidEnd" id="JDl-vF-um0"/>
                                     <action selector="startSearch:" destination="vXZ-lx-hvc" eventType="editingDidEnd" id="kae-oM-blj"/>
                                 </connections>
                             </textField>
