@@ -42,6 +42,9 @@
 @property (strong, nonatomic) CLPlacemark *end_placemarker;
 @property (strong, nonatomic) CLPlacemark *start_placemarker;
 
+@property (strong, nonatomic) MKMapItem *end_mapitem;
+@property (strong, nonatomic) MKMapItem *start_mapitem;
+
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;

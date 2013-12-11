@@ -90,6 +90,7 @@
                 MKCoordinateRegion region;
                 _start_latitude = _start_placemarker.location.coordinate.latitude;
                 _start_longitude = _start_placemarker.location.coordinate.longitude;
+                _start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
                 region.span = MKCoordinateSpanMake(spanX, spanY);
                 NSLog(@"long:%f,lat:%f", _start_latitude,_start_longitude);
                 [self calculateGas];
@@ -109,6 +110,7 @@
             MKCoordinateRegion region;
             _end_latitude = _end_placemarker.location.coordinate.latitude;
             _end_longitude = _end_placemarker.location.coordinate.longitude;
+            _end_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark: _end_placemarker]];
             region.span = MKCoordinateSpanMake(spanX, spanY);
             NSLog(@"long:%f,lat:%f", _end_latitude,_end_longitude);
             [self getDirections];
@@ -190,8 +192,8 @@
     MKDirectionsRequest *request =
     [[MKDirectionsRequest alloc] init];
     
-    request.source = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
-    request.destination = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_end_placemarker]];
+    request.source = _start_mapitem;
+    request.destination = _end_mapitem;
     
     request.requestsAlternateRoutes = NO;
     MKDirections *directions =
@@ -279,6 +281,7 @@
     NSLog(@"%f",locationManager.location.coordinate.latitude);
     _start_latitude = locationManager.location.coordinate.latitude;
     _start_longitude = locationManager.location.coordinate.longitude;
+    _start_mapitem = [MKMapItem mapItemForCurrentLocation];
     _startLocationText.text = @"Current Location";
     [self calculateGas];
 }
