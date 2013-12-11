@@ -39,7 +39,7 @@
 		1441568518208B9400ABDED9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441568418208B9400ABDED9 /* libz.dylib */; };
 		144156881820AA7800ABDED9 /* GBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144156871820AA7800ABDED9 /* GBMapViewController.m */; };
 		144156891820AA7800ABDED9 /* GBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144156871820AA7800ABDED9 /* GBMapViewController.m */; };
-		1441568B1820ACE700ABDED9 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441568A1820ACE700ABDED9 /* GoogleMaps.framework */; };
+		1441568B1820ACE700ABDED9 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441568A1820ACE700ABDED9 /* GoogleMaps.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1441568C1820ACE700ABDED9 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441568A1820ACE700ABDED9 /* GoogleMaps.framework */; };
 		1441568E1820AD4000ABDED9 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1441568D1820AD4000ABDED9 /* GoogleMaps.bundle */; };
 		1441568F1820AD4000ABDED9 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1441568D1820AD4000ABDED9 /* GoogleMaps.bundle */; };
