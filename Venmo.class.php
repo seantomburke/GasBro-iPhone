@@ -89,9 +89,14 @@ class Venmo {
 		return $this->get("/me", $access_token);
 	}
 	
+	public function charge($user_ids, $note, $amount, $access_token = null)
+	{
+		return $this->post("/payments", $access_token);
+	}
+	
 	public function friends($term = '', $limit = '20', $after = 0, $access_token = null)
 	{
-	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit."&after=".$after, $access_token);
+	    $input = $this->get("/users/".$this->me->id."/friends?limit=".$limit."&after=".$after);
 	    $output= array();
 	    if($term != '')
 	    {
@@ -128,6 +133,7 @@ class Venmo {
         
         //var_dump($output);
         $str = preg_replace('/\\\"/','"', json_encode($output));
+        if(empty($output))
         return $str;
 	}
 
@@ -143,7 +149,7 @@ class Venmo {
 	 * @param 	$url	REST URL		
 	 * @return 	array	decoded from JSON response
 	 */
-	function get($path, $access_token)
+	function get($path, $access_token = null)
 	{	
 	    $access_token = ($access_token) ? $access_token:$this->access_token;
 		$question_mark = (strstr($path, '?')) ? '&':'?';
@@ -156,6 +162,28 @@ class Venmo {
 		curl_setopt($ch, CURLOPT_URL, $url);  
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$api_response = curl_exec($ch);
+		$output = json_decode($api_response);
+		return $output->data;
+	}
+	
+	function post($path, $variables_array, $access_token)
+	{	
+	    $access_token = ($access_token) ? $access_token:$this->access_token;
+		$url = "https://api.venmo.com".$path;
+	    foreach($variables_array as $key => $value)
+	    {
+	        $query_variables = $key.'='.$value.'&access_token='.$access_token;  
+	    }
+	    
+	    //open connection
+        $ch = curl_init();
+        
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, count($fields));
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        
 		$api_response = curl_exec($ch);
 		$output = json_decode($api_response);
 		return $output->data;

@@ -35,6 +35,7 @@ $venmo = new Venmo($_GET['access_token']);
         </style>
         <link rel="stylesheet" href="css/select2.css?<?php echo time() ?>">
         <link rel="stylesheet" href="css/select2-bootstrap.css?<?php echo time() ?>">
+        <link rel="stylesheet" href="css/slider.css?<?php echo time() ?>">
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
         <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
@@ -141,6 +142,7 @@ $venmo = new Venmo($_GET['access_token']);
                 <div class="span6">
                     <span>Select your friends:</span>
                     <input type="hidden" id="venmo-friends"/>
+                    <input type="text" id="note" />
                 </div>';
                 }
             ?>
@@ -153,7 +155,7 @@ $venmo = new Venmo($_GET['access_token']);
                 if($venmo->loggedin)
                 {
                 echo '
-                <input id="charge_friends" type="submit" value="Charge" />';
+                <input id="charge_friends" class="btn" type="submit" value="Charge" />';
                 }
                 else{
                 echo '
@@ -224,13 +226,19 @@ $venmo = new Venmo($_GET['access_token']);
                         <div class="controls">
                             <span for="people">Number of People</span>
                             <br>
-                            <input id="people" placeholder="Number of People" type="number" name="people" required/>
+                            <input class="slider" id="people" placeholder="Number of People" 
+                            type="text" name="people" value="1" data-slider-min="1" 
+                            data-slider-max="10" data-slider-step="1" 
+                            data-slider-value="1" required />
                         </div>
 
                         <div class="controls">
                             <span for="mpg">Miles Per Gallon</span>
                             <br>
-                            <input id="mpg" placeholder="MPG" type="number" name="mpg" required/>
+                            <input class="slider" id="mpg" placeholder="MPG" type="text" name="mpg"
+                            value="25" data-slider-min="1" 
+                            data-slider-max="100" data-slider-step="1" 
+                            data-slider-value="25" required />
                         </div>
 
                         <div class="controls">
@@ -240,7 +248,7 @@ $venmo = new Venmo($_GET['access_token']);
                         </div>
 
                         <div class="controls">
-                            <button id="calculate" class="btn btn-large btn-info">Venmo</button>
+                            <button id="calculate" class="btn btn-large btn-primary">Share</button>
                         </div>
                    </form>
                 </div>
@@ -291,6 +299,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/bootstrap-slider.js"></script>
         <!--<script>if ( typeof window.JSON === 'undefined' ) { document.write('<script src="js/json2.js"><\/script>'); }</script>-->
         <script type="text/javascript" src="js/jquery.history.js"></script>
         <script type="text/javascript" src="js/select2.min.js"></script>
@@ -298,9 +307,11 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/main.js?<?php echo time(); ?>"></script>
         <script>
             $(document).ready(function(){
-                getFriends('<?php echo $venmo->access_token; ?>', people - 1);
+                var maxFriends = people - 1;
+                getFriends(maxFriends);
                 $("#prices").hide();
                 $("#prices2").hide();
+                setSliders();
                 var session_id = '<?php echo $_SESSION['id']?>';
                 id = getURLParameter("id");
                 if(id != "null")

@@ -15,10 +15,10 @@ var start_location;
 var end_location;
 
 var miles;
-var people;
-var fuel_type
+var people = 1;
+var fuel_type;
 var price;
-var mpg;
+var mpg = 25;
 var roundtrip = 1;
 var cost_per;
 var cost_total;
@@ -145,8 +145,51 @@ $("#gas-radio .btn").click(function() {
     });
 });
 
+$("#charge-friends .btn").click(function() {
+    
+    var message = $("#note").text() + " (http://gasbro.com)" 
+    var user_ids = $("#venmo-friends").val();
+    console.log(user_ids);
+    var amount = -1*(.01);
+    $.ajax({
+      url: "/venmo.php",
+      data: {
+        call: 'payments',
+        user_ids: user_ids,
+        note: message,
+        amount: amount,
+      },
+      success: function( data ) {
+        $("#shareModal").append(
+                "<span>" + data.status +"</span><br>" +
+                "<span>" + data.action +"</span><br>" +
+                "<span>" + data.message +"</span><br>" +
+                "<span>" + data.balance +"</span><br>" +
+                "<span>" + data.id +"</span><br>"
+            );
+      }
+    });
+});
 
-$("input[name='people']").change(function(event) {
+function setSliders(){
+    $("input[name='people']").slider(
+        {
+            min: '1',
+            max: '10',
+            value: '1',
+            tooltip: 'show'
+        }
+        );
+    $("input[name='mpg']").slider({
+            min: '1',
+            max: '100',
+            value: '25',
+            tooltip: 'show'
+    })
+}
+
+
+$("input[name='people']").slider().on('slide', function(event) {
     //event.preventDefault();
     people = $(this).val();
     if ($("input[name='mpg']").val()) {
@@ -157,7 +200,7 @@ $("input[name='people']").change(function(event) {
     });
 });
 
-$("input[name='mpg']").change(function(event) {
+$("input[name='mpg']").slider().on('slide', function(event) {
     //event.preventDefault();
     mpg = $(this).val();
     if ($("input[name='people']").val()) {
@@ -571,7 +614,7 @@ function loadTrip(id) {
 }
 //venmo.php?data=friends&access_token=
 
-function getFriends(access_token, people) {
+function getFriends(people) {
     $("#venmo-friends").select2({
         placeholder: "Search your Venmo Friends",
         maximumSelectionSize: people,
@@ -582,14 +625,14 @@ function getFriends(access_token, people) {
             quietMillis: 100,
             data: function(term, page) { // page is the one-based page number tracked by Select2
                 return {
-                    data: 'friends', 
-                    access_token: access_token,
+                    action: 'friends',
                     limit: 1000,
                     term: term
                 };
             },
             results: function(data, page) {
                 // notice we return the value of more so Select2 knows if more results can be loaded
+                console.log(data);
                 return {
                     results: data
                 };
