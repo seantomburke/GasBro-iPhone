@@ -43,7 +43,7 @@
     id result = [NSJSONSerialization dataWithJSONObject:self
                                                 options:kNilOptions error:&error];
     if (error != nil) return nil;
-    return result;    
+    return result;
 }
 @end
 
@@ -79,23 +79,29 @@
 }
 
 - (IBAction)startSearch:(UITextField *)sender {
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        [geocoder geocodeAddressString:sender.text completionHandler:^(NSArray *placemarks, NSError *error) {
-            if (error) {
-                NSLog(@"%@", error);
-            } else {
-                _start_placemarker = [placemarks lastObject];
-                float spanX = 1.00725;
-                float spanY = 1.00725;
-                MKCoordinateRegion region;
-                _start_latitude = _start_placemarker.location.coordinate.latitude;
-                _start_longitude = _start_placemarker.location.coordinate.longitude;
-                _start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
-                region.span = MKCoordinateSpanMake(spanX, spanY);
-                NSLog(@"long:%f,lat:%f", _start_latitude,_start_longitude);
-                [self calculateGas];
-            }
-        }];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:sender.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error) {
+            NSLog(@"%@", error);
+        } else {
+            _start_placemarker = [placemarks lastObject];
+            float spanX = 1.00725;
+            float spanY = 1.00725;
+            MKCoordinateRegion region;
+            _start_latitude = _start_placemarker.location.coordinate.latitude;
+            _start_longitude = _start_placemarker.location.coordinate.longitude;
+            _start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
+            region.span = MKCoordinateSpanMake(spanX, spanY);
+            NSLog(@"long:%f,lat:%f", _start_latitude,_start_longitude);
+            [self calculateGas];
+        }
+    }];
+}
+
+- (IBAction)updateGasType:(id)sender {
+    _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
+    [self calculateGas];
+    [self calculateCost];
 }
 
 - (IBAction)endSearch:(UITextField *)sender {
@@ -141,24 +147,19 @@
 
 - (void)calculateGas
 {
-        if(_start_longitude == 0)
-        {
-            NSLog(@"Failed to get location");
-            UIAlertView *errorAlert = [[UIAlertView alloc]
-                                       initWithTitle:@"Error" message:@"Failed to Get Your Location. Please try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [errorAlert show];
-            _startLocationText.text = @"Error Try Again";
-        }
-        else{
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f", _start_longitude, _start_latitude]];
+    if(_start_latitude != 0)
+    {
+        _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
+        
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&fuel_type=%@", _start_longitude, _start_latitude, _gas_type]];
     
-            dispatch_async(kBgQueue, ^{
-                NSData* data = [NSData dataWithContentsOfURL:
+    dispatch_async(kBgQueue, ^{
+        NSData* data = [NSData dataWithContentsOfURL:
                         url];
-                [self performSelectorOnMainThread:@selector(fetchedData:)
+        [self performSelectorOnMainThread:@selector(fetchedData:)
                                withObject:data waitUntilDone:YES];
-            });
-        }
+    });
+    }
 }
 
 - (void)calculateCost
@@ -244,10 +245,11 @@
     NSLog(@"stations: %@", gasStations); //3
     
     // 1) Get the first gas station
-    if(sizeof gasStations == 0)
+    if(gasStations == nil || [gasStations count] == 0)
     {
         UIAlertView *errorAlert = [[UIAlertView alloc]
-                                   initWithTitle:@"Error" message:@"No Gas Stations Near here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                   initWithTitle:@"No Gas Stations Found" message:@"Try typing in a nearby U.S. city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        _startLocationText.text = @"Location Error";
         [errorAlert show];
     }
     else
@@ -278,8 +280,12 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-    NSLog(@"%f",locationManager.location.coordinate.latitude);
-    _start_latitude = locationManager.location.coordinate.latitude;
+    int i = 0;
+    while (_start_latitude == 0 && i<9000) {
+        i++;
+        NSLog(@"%f",locationManager.location.coordinate.latitude);
+        _start_latitude = locationManager.location.coordinate.latitude;
+    }
     _start_longitude = locationManager.location.coordinate.longitude;
     _start_mapitem = [MKMapItem mapItemForCurrentLocation];
     _startLocationText.text = @"Current Location";
@@ -292,9 +298,12 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+    _startLocationText.text = @"Error Try Again";
     NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location. Make sure Location services are enabled in Settings>Privacy>Location Services" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    
     [errorAlert show];
 }
 

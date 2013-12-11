@@ -19,6 +19,7 @@
 @property (readwrite) Float64 end_longitude;
 @property (readwrite) Float64 end_latitude;
 @property (readwrite) Float64 price;
+@property (readwrite) NSString *gas_type;
 @property (readwrite) Float64 cost;
 @property (readwrite) Float64 total;
 @property (readwrite) Float64 miles;
@@ -44,6 +45,7 @@
 
 @property (strong, nonatomic) MKMapItem *end_mapitem;
 @property (strong, nonatomic) MKMapItem *start_mapitem;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gas_type_segment;
 
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;
@@ -51,6 +53,7 @@
 - (IBAction)roundtripSwitchChanged:(id)sender;
 - (IBAction)updateStartToLoading;
 - (IBAction)startSearch:(id)sender;
+- (IBAction)updateGasType:(id)sender;
 - (void)calculateGas;
 - (void)calculateCost;
 

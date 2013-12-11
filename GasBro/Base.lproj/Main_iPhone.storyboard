@@ -53,11 +53,14 @@
                                 <rect key="frame" x="20" y="134" width="280" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Regular"/>
+                                    <segment title="Reg"/>
                                     <segment title="Mid"/>
-                                    <segment title="Premium"/>
+                                    <segment title="Pre"/>
                                     <segment title="Diesel"/>
                                 </segments>
+                                <connections>
+                                    <action selector="updateGasType:" destination="vXZ-lx-hvc" eventType="valueChanged" id="9Fe-KP-8kH"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="People:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfX-Nx-bqu">
                                 <rect key="frame" x="20" y="326" width="59" height="33"/>
@@ -293,6 +296,8 @@
                         <outlet property="gasPerPersonLabel" destination="DZ1-Z0-UJM" id="UEN-29-BY4"/>
                         <outlet property="gasPriceLabel" destination="QJ8-O4-9cM" id="EOg-kB-KdU"/>
                         <outlet property="gasTotalLabel" destination="dJq-4T-6CZ" id="ucv-0e-wJ5"/>
+                        <outlet property="gas_type" destination="Z4o-1a-H81" id="t8V-3N-q2e"/>
+                        <outlet property="gas_type_segment" destination="Z4o-1a-H81" id="992-hK-bct"/>
                         <outlet property="mpgLabel" destination="5rE-Bo-qVA" id="vRR-TK-uaN"/>
                         <outlet property="mpgSlider" destination="X6o-We-onc" id="wNH-Fa-GaW"/>
                         <outlet property="peopleLabel" destination="k3s-k1-MmW" id="ucb-Di-mhq"/>
