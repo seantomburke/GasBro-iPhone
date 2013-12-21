@@ -1,4 +1,3 @@
-Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
 
 var Trip = Parse.Object.extend("Trip");
 var trip = new Trip();
