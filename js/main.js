@@ -15,7 +15,7 @@ var end_location;
 
 var miles;
 var people = 1;
-var fuel_type;
+var gas_type;
 var price;
 var mpg = 25;
 var roundtrip = 1;
@@ -138,7 +138,7 @@ $("input[name='end-location']").focusout(function(event) {
 
 $("#gas-radio .btn").click(function() {
     //console.log("gas clicked" + $(this).text());
-    $("#gas-type").val($(this).text());
+    $("#gas-type").val($(this).val());
     calculateGasPrice(start_lat, start_lng, function() {
         calculateCost();
     });
@@ -376,8 +376,8 @@ function compute() {
 }
 
 function calculateGasPrice(lat, lng, callback) {
-    fuel_type = $("#gas-type").val().toLowerCase();
-    //console.log(fuel_type);
+    gas_type = $("#gas-type").val();
+    //console.log(gas_type);
     var errors = 1
     if (!lat) {
         errors++;
@@ -387,7 +387,7 @@ function calculateGasPrice(lat, lng, callback) {
         errors++;
         //console.log("error: lng empty");
     }
-    if (!fuel_type) {
+    if (!gas_type) {
         errors++;
         //console.log("error: lng empty");
     }
@@ -400,7 +400,7 @@ function calculateGasPrice(lat, lng, callback) {
             data: {
                 latitude: lat,
                 longitude: lng,
-                fuel_type: fuel_type,
+                gas_type: gas_type,
                 sort_by: 'price',
                 distance: '2'
 
@@ -456,7 +456,7 @@ function getURLParameter(name) {
 
 function updateHistory(success) {
     var errors = 1;
-    if (fuel_type === undefined) {
+    if (gas_type === undefined) {
 
         errors++;
     }
@@ -515,7 +515,7 @@ function updateHistory(success) {
     if (errors == 1) {
         trip.save({
             mpg: mpg,
-            fuel_type: fuel_type,
+            gas_type: gas_type,
             people: people,
             start_location: start_location,
             end_location: end_location,

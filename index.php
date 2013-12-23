@@ -268,14 +268,14 @@ $venmo = new Venmo($_GET['access_token']);
                         </div>
                         
                         <div class="controls">
-                            <span for="end-location">Fuel Type</span>
+                            <span for="gas-radio">Gas Type</span>
                             <br>
                             <input id="gas-type" type="hidden" />
                             <div id="gas-radio" class="btn-group" data-toggle="buttons-radio">
-                              <button type="button" class="btn btn-primary">Reg</button>
-                              <button type="button" class="btn btn-primary">Mid</button>
-                              <button type="button" class="btn btn-primary">Pre</button>
-                              <button type="button" class="btn btn-primary">Diesel</button>
+                              <button type="button" value="0" class="btn btn-primary">Reg</button>
+                              <button type="button" value="1" class="btn btn-primary">Mid</button>
+                              <button type="button" value="2" class="btn btn-primary">Pre</button>
+                              <button type="button" value="3" class="btn btn-primary">Diesel</button>
                             </div>
                         </div>
 
