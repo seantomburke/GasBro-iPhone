@@ -19,7 +19,7 @@ $longitude = $_GET['longitude'];
 $latitude = $_GET['latitude']; 
 $distance = ($_GET['distance']) ? $_GET['distance']:'2';
 $gas_index = ($_GET['gas_type']) ? ($_GET['gas_type']):'0';
-$sort_by = ($_GET['sort_by']) ? $_GET['sort_by']:'distance';
+$sort_by = ($_GET['sort_by']) ? $_GET['sort_by']:'price';
 
 $gas_type = array('reg','mid','pre','diesel');
 
