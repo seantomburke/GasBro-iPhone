@@ -9,8 +9,6 @@
 #import "GBViewController.h"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
-#define kLatestKivaLoansURL [NSURL URLWithString: @"http://api.kivaws.org/v1/loans/search.json?status=fundraising"] //2
-
 
 @interface GBViewController ()
 
@@ -85,10 +83,6 @@
     [_endLocationText resignFirstResponder];
 }
 
--(void)updateStartToLoading {
-    _startLocationText.text = @"Loading...";
-}
-
 - (IBAction)startSearch:(UITextField *)sender {
     CLGeocoder *startgeocoder = [[CLGeocoder alloc] init];
     [startgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *startplacemarks, NSError *error) {
@@ -111,6 +105,8 @@
 
 - (IBAction)updateGasType:(id)sender {
     _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
+    NSInteger index = _gas_type_segment.selectedSegmentIndex;
+    _gas_index = index;
     [self calculateGas];
 }
 
@@ -160,8 +156,10 @@
     if(_start_latitude != 0)
     {
         _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
+        NSInteger index = _gas_type_segment.selectedSegmentIndex;
+        _gas_index = index;
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&fuel_type=%@", _start_longitude, _start_latitude, _gas_type]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%i", _start_longitude, _start_latitude, _gas_index]];
         
         dispatch_async(kBgQueue, ^{
             NSData* data = [NSData dataWithContentsOfURL:
@@ -169,8 +167,8 @@
             [self performSelectorOnMainThread:@selector(fetchedData:)
                                    withObject:data waitUntilDone:YES];
         });
+        
     }
-    
 }
 
 - (void)calculateCost
@@ -268,7 +266,6 @@
     else
     {
         int j=0;
-        NSString* city;
         NSNumber* price = 0;
         _price = 0;
         while(_price == 0 && j<[gasStations count])
@@ -277,19 +274,25 @@
             
             // 2) Get the funded amount and loan amount
             price = [station objectForKey:@"price"];
-            city = [station objectForKey:@"city"];
+            _city = [station objectForKey:@"city"];
             _price =    [price floatValue];
             j++;
         }
         
         // 3) Set the label appropriately
         humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
-                             city,
+                             _city,
                              _price];
         _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
         
         [self calculateCost];
         
+    }
+    
+    
+    if ([_startLocationText.text  isEqual: @"Current Location"])
+    {
+        _startLocationText.text = _city;
     }
 }
 
@@ -300,20 +303,33 @@
 }
 
 - (IBAction)getCurrentLocation:(id)sender {
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
-    int i = 0;
-    _start_latitude = 0;
-    while (_start_latitude == 0 && i<9000) {
-        i++;
-        NSLog(@"%f",locationManager.location.coordinate.latitude);
-        _start_latitude = locationManager.location.coordinate.latitude;
-    }
-    _start_longitude = locationManager.location.coordinate.longitude;
-    _start_mapitem = [MKMapItem mapItemForCurrentLocation];
-    _startLocationText.text = @"Current Location";
-    [self calculateGas];
+    
+    [_startLocationText setText:@"Current Location"];
+    dispatch_async(kBgQueue, ^{
+        
+        _start_longitude = 0;
+        _start_latitude = 0;
+        _start_placemarker = nil;
+        _start_mapitem = nil;
+        
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [locationManager startUpdatingLocation];
+        int i = 0;
+        _start_latitude = 0;
+        while (_start_latitude == 0 && i<1500) {
+            i++;
+            NSLog(@"%f",locationManager.location.coordinate.latitude);
+            _start_latitude = locationManager.location.coordinate.latitude;
+        }
+        _start_longitude = locationManager.location.coordinate.longitude;
+        _start_mapitem = [MKMapItem mapItemForCurrentLocation];
+        
+        [self calculateGas];
+    });
+    
+    
+    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{

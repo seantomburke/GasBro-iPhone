@@ -20,9 +20,12 @@
 @property (readwrite) Float64 end_latitude;
 @property (readwrite) Float64 price;
 @property (readwrite) NSString *gas_type;
+@property (readwrite) NSString *city;
+@property (readwrite) int gas_index;
 @property (readwrite) Float64 cost;
 @property (readwrite) Float64 total;
 @property (readwrite) Float64 miles;
+
 @property (readwrite) int people;
 @property (readwrite) int mpg;
 @property (readwrite) int roundtrip;

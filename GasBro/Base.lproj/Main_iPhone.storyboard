@@ -139,7 +139,6 @@
                                 </state>
                                 <connections>
                                     <action selector="getCurrentLocation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Jqp-2e-gCz"/>
-                                    <action selector="updateStartToLoading" destination="vXZ-lx-hvc" eventType="touchDown" id="Mtz-QO-5C0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZ1-Z0-UJM">
