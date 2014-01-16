@@ -49,6 +49,10 @@
 @implementation GBViewController{
     CLLocationManager *locationManager;
     
+    NSArray *activityItems;
+    
+    UIActivityViewController *activityController;
+    
 }
 
 - (void)viewDidLoad
@@ -59,6 +63,7 @@
     [self peopleSliderChanged:(self)];
     [self roundtripSwitchChanged:(self)];
     [self mpgSliderChanged:(self)];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
@@ -67,8 +72,6 @@
     
     
 }
-
-
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -108,6 +111,11 @@
     NSInteger index = _gas_type_segment.selectedSegmentIndex;
     _gas_index = index;
     [self calculateGas];
+}
+
+- (IBAction)infoButtonClicked:(id)sender {
+    _infoView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:_infoView animated:YES completion:nil];
 }
 
 - (IBAction)endSearch:(UITextField *)sender {
@@ -159,13 +167,25 @@
         NSInteger index = _gas_type_segment.selectedSegmentIndex;
         _gas_index = index;
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%i", _start_longitude, _start_latitude, _gas_index]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%li", _start_longitude, _start_latitude, (long)_gas_index]];
         
         dispatch_async(kBgQueue, ^{
             NSData* data = [NSData dataWithContentsOfURL:
                             url];
+            if(data != nil)
+            {
             [self performSelectorOnMainThread:@selector(fetchedData:)
                                    withObject:data waitUntilDone:YES];
+            }
+            else
+            {
+                UIAlertView *errorAlert = [[UIAlertView alloc]
+                                           initWithTitle:@"Network Error" message:@"No Connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                _startLocationText.text = @"Network Error";
+                _price = 0;
+                _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                [errorAlert show];
+            }
         });
         
     }
@@ -280,9 +300,9 @@
         }
         
         // 3) Set the label appropriately
-        humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
-                             _city,
-                             _price];
+        //humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
+        //                     _city,
+        //                     _price];
         _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
         
         [self calculateCost];
@@ -290,7 +310,7 @@
     }
     
     
-    if ([_startLocationText.text  isEqual: @"Current Location"])
+    if ([_startLocationText.text  isEqual: @"Locating..."])
     {
         _startLocationText.text = _city;
     }
@@ -304,7 +324,7 @@
 
 - (IBAction)getCurrentLocation:(id)sender {
     
-    [_startLocationText setText:@"Current Location"];
+    [_startLocationText setText:@"Locating..."];
     dispatch_async(kBgQueue, ^{
         
         _start_longitude = 0;
