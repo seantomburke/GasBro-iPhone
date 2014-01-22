@@ -395,14 +395,14 @@ function calculateGasPrice(lat, lng, callback) {
     if (errors === 1) {
         $.ajax({
             type: 'GET',
-            url: 'gas.php',
+            url: 'gas2.php',
             dataType: "json",
             data: {
                 latitude: lat,
                 longitude: lng,
                 gas_type: gas_type,
-                sort_by: 'price',
-                distance: '2'
+                sort_by: 'distance',
+                distance: '5'
 
             },
             success: function(data, status, response) {
