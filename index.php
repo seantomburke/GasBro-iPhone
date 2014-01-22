@@ -16,16 +16,16 @@ $venmo = new Venmo($_GET['access_token']);
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>GasBro</title>
+        <title>Gas Bro</title>
         <meta name="description" content="Easliy split the cost of gas with friends">
         <meta name="viewport" content="width=device-width">
-        <meta property="og:title" content="GasBro" />
+        <meta property="og:title" content="Gas Bro" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="http://wwww.gasbro.com/" />
         <meta property="og:image" content="/img/bro.png" />
         <meta property="og:description" content="Easily split the cost of gas with your friends!" />
         <meta property="og:url" content="http://wwww.gasbro.com/" />
-
+        <meta name="apple-itunes-app" content="app-id=798634160">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
             body {
@@ -57,7 +57,7 @@ $venmo = new Venmo($_GET['access_token']);
         });
     
         // Additional initialization code such as adding Event Listeners goes here
-      
+      /*
       Parse.FacebookUtils.logIn("user_likes,email", {
           success: function(user) {
             if (!user.existed()) {
@@ -82,6 +82,7 @@ $venmo = new Venmo($_GET['access_token']);
           }
         });
         
+      */
       };
           (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
@@ -97,17 +98,16 @@ $venmo = new Venmo($_GET['access_token']);
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-        <div id="navbar" class="navbar navbar-inverse">
+        <div id="navbar" class="navbar navbar-inverse hidden-phone">
             <div class="navbar-inner">
                 <div class="container">
-                    <!--
                     <a class="brand" href="#">Share</a>
-                        <div class="addthis_toolbox addthis_default_style ">
+                        <div class="addthis_toolbox addthis_default_style hidden-phone">
                         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
                         <a class="addthis_button_tweet"></a>
                         <a class="addthis_counter addthis_pill_style"></a>
                         </div>
-                    <div class="pull-right">-->
+                    <div class="pull-right">
                     <?php 
                     if($venmo->loggedin)
                     {
@@ -128,8 +128,8 @@ $venmo = new Venmo($_GET['access_token']);
                     else
                     {
                     echo '<form action="login.php" method="GET"><input class="logintripid" type="hidden" name="id" />
-                    <input type="submit" class="btn btn-info pull-right" value="Login with Venmo"/>
-                    <fb:login-button show-faces="false" class="pull-right" width="200" max-rows="1">Login with Facebook</fb:login-button>
+                    <input type="submit" class="btn btn-info pull-right hidden-phone" value="Login with Venmo"/>
+                    <!--<fb:login-button show-faces="false" class="pull-right" width="200" max-rows="1">Login with Facebook</fb:login-button>-->
                     </form>';
                      
                     }
@@ -142,10 +142,11 @@ $venmo = new Venmo($_GET['access_token']);
         <header class="jumbotron subhead">
             <div class="media">
               <a class="pull-left" href="http://www.gasbro.com/">
-                <img class="media-object" src="/img/bro.png" width="64">
+                <img class="media-object img-rounded" src="/img/bro.png" width="64">
               </a>
+              <a class="pull-right hidden-phone" href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
               <div class="media-body">
-                <h1 class="media-heading">GasBro</h1>
+                <h1 class="media-heading">Gas Bro</h1>
                 <p class="lead">Easliy split the cost of gas with friends</p>
               </div>
             </div>
@@ -156,7 +157,7 @@ $venmo = new Venmo($_GET['access_token']);
         <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="shareModalHeader">GasBro</h3>
+            <h3 id="shareModalHeader">Gas Bro</h3>
           </div>
           <div class="modal-body">
             <div class="row-fluid">
@@ -241,13 +242,33 @@ $venmo = new Venmo($_GET['access_token']);
           </div>
         </div>
         
+        <div id="iosModal" class="modal hide fade">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Download the iOS App Today!</h3>
+          </div>
+          <div class="modal-body">
+            <iframe src="https://app.io/K0ODaK?orientation=portrait&device=iphone5" height="607px" width="291px" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+            
+            
+          </div>
+          <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn">Close</a>
+          </div>
+        </div>
         
         
         
         
         <div class="container">
-            <div class="row">
-               <div class="span4 sidebar" >
+            <div class="row  hidden-phone">
+                
+                <div class="span4">
+                    <div id="map-frame" class="hidden-phone" style="height:607px;">
+                        <div id="map-canvas" style="height:100%;"></div>
+                    </div>
+                </div>
+               <div class="span4" >
                     <form class="form" id="main-form">
                         <div class="controls">
                             <span for="start-location">Start Location</span>
@@ -307,45 +328,51 @@ $venmo = new Venmo($_GET['access_token']);
                             <button id="calculate" class="btn btn-large btn-primary">Share</button>
                         </div>
                    </form>
-                </div>
-                <div class="span8">
-                    <div id="map-frame" class="hidden-phone" style="height:320px;">
-                        <div id="map-canvas" style="height:100%;"></div>
+                   
+                    <div id="prices" class="well">
+                            <div class="controls">
+                                <span>Cost of gas in <span id="gas_span"></span>:</span>
+                                <h1 id="gas" class=""></h1>
+                            </div>
+                            <div class="controls">
+                                <span>Cost per Person:</span>
+                                <h1 id="cost" class=""></h1>
+                            </div>
+                            <div class="controls">
+                                <span>Total Cost:</span>
+                                <h1 id="total" class=""></h1>
+                            </div>
                     </div>
+                </div>
+                
+                <div class="span4 hidden-tablet">
+                    <p class="text-center"><iframe src="https://app.io/K0ODaK?orientation=portrait&device=iphone5" height="607px" width="291px" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+                    <a href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a></p>
+              
+                </div>
+                
+                
+            </div>
+            
+            <div class="row visible-phone">
+                <div class="media">
+                <div class="text-center">
+                    <a class="text-center" href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}">
+                    <a href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"><img class="text-center" src="img/iPhone.png" /></a>
+                </div>
                 </div>
             </div>
-            <div id="prices" class="row">
-              <div class="span3">
-                  <div class="controls">
-                      Number of People:
-                      <h1 id="num_people2" class=""></h1>
-                  </div>
-              </div>
-                <div class="span3">
-                    <div class="controls">
-                        Cost of gas in <span id="gas_span"></span>:
-                        <h1 id="gas" class=""></h1>
-                    </div>
-                </div>
-                <div class="span3">
-                    <div class="controls">
-                        <span>Cost per Person:</span>
-                        <h1 id="cost" class=""></h1>
-                    </div>
-                </div>
-                <div class="span3">
-                    <div class="controls">
-                        <span>Total Cost:</span>
-                        <h1 id="total" class=""></h1>
-                    </div>
-                </div>
             </div>
-            <hr>
-            <footer>
-                <p>Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy; GasBro <?php echo date('Y');?></p>
-            </footer>
-
+            
+        <hr>
+        <footer>
+            <p class="text-center"> Developed by <a href="http://www.seantburke.com/?r=GasBro">Sean Thomas Burke</a> &copy; Nyquist Labs <?php echo date('Y');?></p>
+        </footer>
+        
         </div> <!-- /container -->
+        
+        
+        
         
         <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -362,21 +389,22 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/main.js?<?php echo time(); ?>"></script>
         <script>
             $(document).ready(function(){
-                var maxFriends = people - 1;
-                getFriends(maxFriends);
-                $("#prices").hide();
-                $("#prices2").hide();
-                setSliders();
-                var session_id = '<?php echo $_SESSION['id']?>';
+            
+                var session_id = '<?php echo $_SESSION['id'];?>';
                 id = getURLParameter("id");
                 if(id != "null")
                 {
                     //console.log(id);
                     loadTrip(id);
                 }
-                else{
+                else if(session_id != "null"){
                     loadTrip(session_id);
                 }
+                var maxFriends = people - 1;
+                getFriends(maxFriends);
+                $("#prices").hide();
+                $("#prices2").hide();
+                setSliders();
             });  
         </script>
         <script>

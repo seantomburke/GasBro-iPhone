@@ -395,7 +395,7 @@ function calculateGasPrice(lat, lng, callback) {
     if (errors === 1) {
         $.ajax({
             type: 'GET',
-            url: 'gas2.php',
+            url: 'gas.php',
             dataType: "json",
             data: {
                 latitude: lat,
@@ -663,4 +663,9 @@ function movieFormatResult(friend) {
 
 function movieFormatSelection(friend) {
     return friend.display_name;
+}
+
+
+function showIOS(){
+    $('#iosModal').modal('show');
 }
