@@ -57,6 +57,7 @@
 - (IBAction)startSearch:(id)sender;
 - (IBAction)updateGasType:(id)sender;
 - (IBAction)infoButtonClicked:(id)sender;
+- (IBAction) unwindToMain:(UIStoryboardSegue *)segue;
 
 
 - (void)calculateGas;

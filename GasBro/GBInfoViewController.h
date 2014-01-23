@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GBInfoViewController : UIViewController
+@interface GBInfoViewController : UIViewController {
+    
+}
+
+- (IBAction) unwindAction:(UIStoryboardSegue *)segue;
 
 @end

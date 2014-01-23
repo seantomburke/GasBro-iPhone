@@ -82,17 +82,17 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZ1-Z0-UJM">
-                                <rect key="frame" x="20" y="172" width="214" height="75"/>
+                                <rect key="frame" x="20" y="172" width="214" height="118"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="Cost per person"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="j2l-LM-xRf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-UltraLight" family="Avenir Next Condensed" pointSize="86"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-UltraLight" family="Avenir Next Condensed" pointSize="79"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="per person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a05-9Y-lJf">
-                                <rect key="frame" x="44" y="237" width="156" height="25"/>
+                                <rect key="frame" x="44" y="280" width="156" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="1Vb-5f-D9o"/>
@@ -101,7 +101,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJ8-O4-9cM">
-                                <rect key="frame" x="196" y="171" width="104" height="34"/>
+                                <rect key="frame" x="196" y="171" width="104" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="Cost of gas"/>
                                 <constraints>
@@ -111,7 +111,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gas Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gN-dT-00d">
-                                <rect key="frame" x="223" y="203" width="77" height="17"/>
+                                <rect key="frame" x="223" y="219" width="77" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="fFf-pF-Erd"/>
@@ -120,7 +120,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJq-4T-6CZ">
-                                <rect key="frame" x="196" y="221" width="104" height="34"/>
+                                <rect key="frame" x="196" y="221" width="104" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="Total cost of trip"/>
                                 <constraints>
@@ -130,7 +130,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vD4-sl-wYY">
-                                <rect key="frame" x="223" y="255" width="77" height="16"/>
+                                <rect key="frame" x="223" y="271" width="77" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                 <nil key="highlightedColor"/>
@@ -218,6 +218,17 @@
                                     <action selector="roundtripSwitchChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="a6t-Jn-uJW"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KR-AA-b1S">
+                                <rect key="frame" x="20" y="474" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="jN1-Ib-Y5l" kind="modal" id="M7s-Fj-xlw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -246,6 +257,7 @@
                             <constraint firstItem="vD4-sl-wYY" firstAttribute="height" secondItem="7gN-dT-00d" secondAttribute="height" id="LyM-dz-Y1g"/>
                             <constraint firstItem="vD4-sl-wYY" firstAttribute="top" secondItem="7gN-dT-00d" secondAttribute="bottom" constant="35" id="M9n-DA-m5v"/>
                             <constraint firstItem="oUS-Uc-1tt" firstAttribute="height" secondItem="X6o-We-onc" secondAttribute="height" id="QJL-gH-neN"/>
+                            <constraint firstItem="QDs-RS-05a" firstAttribute="top" secondItem="9KR-AA-b1S" secondAttribute="bottom" constant="23" id="Qzr-b7-ccN"/>
                             <constraint firstItem="Z4o-1a-H81" firstAttribute="trailing" secondItem="QJ8-O4-9cM" secondAttribute="trailing" id="RDf-NC-onA"/>
                             <constraint firstItem="dJq-4T-6CZ" firstAttribute="height" secondItem="QJ8-O4-9cM" secondAttribute="height" id="RpC-A7-zO2"/>
                             <constraint firstItem="XoE-Oo-xBj" firstAttribute="leading" secondItem="CeL-D6-lGe" secondAttribute="leading" id="Rr9-Rt-aX3"/>
@@ -253,6 +265,7 @@
                             <constraint firstItem="a05-9Y-lJf" firstAttribute="top" secondItem="Z4o-1a-H81" secondAttribute="bottom" constant="75" id="V8N-Ap-7w5"/>
                             <constraint firstItem="l1s-bg-SCT" firstAttribute="trailing" secondItem="k3s-k1-MmW" secondAttribute="trailing" id="Yc9-2U-0yM"/>
                             <constraint firstItem="7gN-dT-00d" firstAttribute="top" secondItem="QJ8-O4-9cM" secondAttribute="bottom" constant="-3" id="Zcf-bQ-4Be"/>
+                            <constraint firstItem="9KR-AA-b1S" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="bA3-GD-6Va"/>
                             <constraint firstItem="X6o-We-onc" firstAttribute="top" secondItem="4eq-X3-sHD" secondAttribute="bottom" constant="-6" id="ca2-Q0-F73"/>
                             <constraint firstItem="7gN-dT-00d" firstAttribute="trailing" secondItem="vD4-sl-wYY" secondAttribute="trailing" id="dm3-Bl-qMd"/>
                             <constraint firstItem="QDs-RS-05a" firstAttribute="top" secondItem="8HL-0Q-60V" secondAttribute="bottom" constant="53" id="eCY-Or-bFd"/>
@@ -295,6 +308,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="257" y="-12"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="xb1-Zu-fcb">
+            <objects>
+                <viewController modalTransitionStyle="flipHorizontal" id="jN1-Ib-Y5l" customClass="GBInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="omh-4G-BH4"/>
+                        <viewControllerLayoutGuide type="bottom" id="lvV-IG-Ir4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fbu-Ja-NRz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gas Bro" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lon-T6-hMh">
+                                <rect key="frame" x="20" y="20" width="285" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" label="People Indicator"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="32"/>
+                                <color key="textColor" red="0.8255349864" green="0.8255349864" blue="0.8255349864" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="7Qn-d3-VDz">
+                                <rect key="frame" x="20" y="198" width="280" height="254"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="260" id="FpG-Gh-eSQ"/>
+                                    <constraint firstAttribute="width" constant="280" id="kt7-Rv-hrV"/>
+                                </constraints>
+                                <string key="text">Thank you for downloading Gas Bro! My name is Sean Burke and this is my first application. I created this app for two reasons. One, I wanted to know if it was cheaper to drive or take the train from UCSD to UCI to visit my girlfriend and two, I needed an easy way to calculate and split the cost of gas with my friends when we went to Vegas. I hope you find this useful too, and if you have any suggestions please email me at sean@seantburke.com</string>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3D-yC-Jek">
+                                <rect key="frame" x="0.0" y="518" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="HLo-PL-o46" kind="unwind" unwindAction="unwindToMain:" id="Udt-Vr-Huf"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ⓒ Nyquist Labs 2014" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFx-0U-NpE">
+                                <rect key="frame" x="20" y="460" width="280" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" label="Cost of gas"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="HSV-io-So7"/>
+                                    <constraint firstAttribute="width" constant="280" id="dSY-IZ-txL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-UltraLight" family="Avenir Next Condensed" pointSize="24"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wFx-0U-NpE" firstAttribute="top" secondItem="7Qn-d3-VDz" secondAttribute="bottom" constant="8" id="6pV-k8-IKI"/>
+                            <constraint firstItem="7Qn-d3-VDz" firstAttribute="centerX" secondItem="wFx-0U-NpE" secondAttribute="centerX" id="MTv-eM-bFk"/>
+                            <constraint firstItem="lon-T6-hMh" firstAttribute="top" secondItem="omh-4G-BH4" secondAttribute="bottom" id="Xgl-vz-kRj"/>
+                            <constraint firstItem="7Qn-d3-VDz" firstAttribute="centerX" secondItem="lon-T6-hMh" secondAttribute="centerX" constant="-2.5" id="ehE-44-UO5"/>
+                            <constraint firstItem="I3D-yC-Jek" firstAttribute="leading" secondItem="fbu-Ja-NRz" secondAttribute="leading" constant="20" id="fkt-ej-uc1"/>
+                            <constraint firstItem="lvV-IG-Ir4" firstAttribute="top" secondItem="wFx-0U-NpE" secondAttribute="bottom" constant="58" id="jvM-8m-eLz"/>
+                            <constraint firstAttribute="centerX" secondItem="7Qn-d3-VDz" secondAttribute="centerX" id="oDY-jn-v1M"/>
+                            <constraint firstItem="lon-T6-hMh" firstAttribute="leading" secondItem="fbu-Ja-NRz" secondAttribute="leading" constant="20" id="pan-bh-eB3"/>
+                            <constraint firstItem="lvV-IG-Ir4" firstAttribute="top" secondItem="I3D-yC-Jek" secondAttribute="bottom" constant="23" id="wnA-UP-8r8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="XIS-wr-UZt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uhg-yD-Q1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="HLo-PL-o46" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="863" y="-7"/>
         </scene>
     </scenes>
     <resources>

@@ -49,6 +49,8 @@
 		1473665A17F6049D00F91B27 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 1473664917F6049D00F91B27 /* iTunesArtwork@2x */; };
 		1473665C17F6058B00F91B27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1473665B17F6058B00F91B27 /* Images.xcassets */; };
 		1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473665D17F60BE300F91B27 /* BroLaunchImage.png */; };
+		14C21E6C188E693E0084FE98 /* app-switch-ios-framework-master in Resources */ = {isa = PBXBuildFile; fileRef = 14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */; };
+		14C21E6D188E693E0084FE98 /* app-switch-ios-framework-master in Resources */ = {isa = PBXBuildFile; fileRef = 14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,9 +66,9 @@
 /* Begin PBXFileReference section */
 		140A86C5185725C400948020 /* BroLaunchImage4inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage4inch.png; sourceTree = "<group>"; };
 		141AF01F17F53AD000E6B058 /* GasBro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasBro.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		141AF02217F53AD000E6B058 /* Foundation.framework */ = {isa = PBXFileReference; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		141AF02417F53AD000E6B058 /* CoreGraphics.framework */ = {isa = PBXFileReference; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		141AF02617F53AD000E6B058 /* UIKit.framework */ = {isa = PBXFileReference; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		141AF02217F53AD000E6B058 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		141AF02417F53AD000E6B058 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		141AF02617F53AD000E6B058 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		141AF02A17F53AD000E6B058 /* GasBro-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GasBro-Info.plist"; sourceTree = "<group>"; };
 		141AF02C17F53AD000E6B058 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		141AF02E17F53AD000E6B058 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -87,21 +89,21 @@
 		142A75751887E26700B3F4AE /* GBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBInfoViewController.m; sourceTree = "<group>"; };
 		142A75771887F7FA00B3F4AE /* GBGasLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBGasLabel.h; sourceTree = "<group>"; };
 		142A75781887F7FA00B3F4AE /* GBGasLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBGasLabel.m; sourceTree = "<group>"; };
-		1441566A18208ABF00ABDED9 /* MapKit.framework */ = {isa = PBXFileReference; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1441566C18208ACB00ABDED9 /* AVFoundation.framework */ = {isa = PBXFileReference; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		1441566E18208ADF00ABDED9 /* CoreData.framework */ = {isa = PBXFileReference; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1441567018208AE400ABDED9 /* CoreText.framework */ = {isa = PBXFileReference; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		1441567218208AF200ABDED9 /* GLKit.framework */ = {isa = PBXFileReference; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		1441567418208AFB00ABDED9 /* ImageIO.framework */ = {isa = PBXFileReference; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		1441567618208B0900ABDED9 /* OpenGLES.framework */ = {isa = PBXFileReference; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		1441567818208B1A00ABDED9 /* QuartzCore.framework */ = {isa = PBXFileReference; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1441567A18208B3600ABDED9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		1441567C18208B6800ABDED9 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
-		1441567E18208B7800ABDED9 /* libicucore.A.dylib */ = {isa = PBXFileReference; name = libicucore.A.dylib; path = usr/lib/libicucore.A.dylib; sourceTree = SDKROOT; };
-		1441567F18208B7800ABDED9 /* libicucore.dylib */ = {isa = PBXFileReference; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		1441568218208B8A00ABDED9 /* libc++.dylib */ = {isa = PBXFileReference; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		1441568418208B9400ABDED9 /* libz.dylib */ = {isa = PBXFileReference; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		1473663717F5410B00F91B27 /* CoreLocation.framework */ = {isa = PBXFileReference; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1441566A18208ABF00ABDED9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1441566C18208ACB00ABDED9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1441566E18208ADF00ABDED9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1441567018208AE400ABDED9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1441567218208AF200ABDED9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		1441567418208AFB00ABDED9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		1441567618208B0900ABDED9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1441567818208B1A00ABDED9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1441567A18208B3600ABDED9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1441567C18208B6800ABDED9 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		1441567E18208B7800ABDED9 /* libicucore.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.A.dylib; path = usr/lib/libicucore.A.dylib; sourceTree = SDKROOT; };
+		1441567F18208B7800ABDED9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		1441568218208B8A00ABDED9 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		1441568418208B9400ABDED9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		1473663717F5410B00F91B27 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1473663917F6049D00F91B27 /* bro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bro.png; path = Images.xcassets/bro.png; sourceTree = "<group>"; };
 		1473663A17F6049D00F91B27 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "Images.xcassets/Icon-60.png"; sourceTree = "<group>"; };
 		1473663B17F6049D00F91B27 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Images.xcassets/Icon-60@2x.png"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		1473664917F6049D00F91B27 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Images.xcassets/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		1473665B17F6058B00F91B27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1473665D17F60BE300F91B27 /* BroLaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage.png; sourceTree = "<group>"; };
+		14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "app-switch-ios-framework-master"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,14 +131,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */,
+				141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */,
 				1441567B18208B3700ABDED9 /* SystemConfiguration.framework in Frameworks */,
 				1441567118208AE400ABDED9 /* CoreText.framework in Frameworks */,
 				1441566F18208ADF00ABDED9 /* CoreData.framework in Frameworks */,
+				1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */,
 				1441566D18208ACB00ABDED9 /* AVFoundation.framework in Frameworks */,
 				1441566B18208ABF00ABDED9 /* MapKit.framework in Frameworks */,
-				1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */,
-				141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */,
-				141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +222,7 @@
 		141AF02917F53AD000E6B058 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */,
 				140A86C5185725C400948020 /* BroLaunchImage4inch.png */,
 				1473665D17F60BE300F91B27 /* BroLaunchImage.png */,
 				1473663917F6049D00F91B27 /* bro.png */,
@@ -391,6 +395,7 @@
 				141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */,
 				1473665717F6049D00F91B27 /* Icon.png in Resources */,
 				1473665617F6049D00F91B27 /* Icon-Spotlight-40@2x.png in Resources */,
+				14C21E6C188E693E0084FE98 /* app-switch-ios-framework-master in Resources */,
 				1473665117F6049D00F91B27 /* Icon-Small-50.png in Resources */,
 				1473664B17F6049D00F91B27 /* Icon-60.png in Resources */,
 				1473665C17F6058B00F91B27 /* Images.xcassets in Resources */,
@@ -410,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				141AF04F17F53AD100E6B058 /* InfoPlist.strings in Resources */,
+				14C21E6D188E693E0084FE98 /* app-switch-ios-framework-master in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +567,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0",
@@ -575,7 +582,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1FA78B8B-A1A3-4156-A9B4-FDBC038C3FDB";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -586,7 +593,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0",
@@ -600,7 +608,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B7531994-BD15-44D7-B520-B00C7EC4F5E7";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
