@@ -444,7 +444,7 @@ addthis.bar.initialize({'default':{
 			"type": "button",
 			"text": "Like",
 			"verb": "follow",
-			"service": "twitter",
+			"service": "facebook",
 			"id": "gasbroapp"
 		}
 	},
