@@ -423,23 +423,9 @@ addthis.bar.initialize({'default':{
 	"buttonTextColor": "#FFFFFF"
 },rules:[
 	{
-		"name": "Facebook",
-		"match": {
-			"referringService": "facebook"
-		},
-		"message": "Like this app of Facebook!",
-		"action": {
-			"type": "button",
-			"text": "Like",
-			"verb": "follow",
-			"service": "facebook",
-			"id": "gasbroapp"
-		}
-	},
-	{
 		"name": "AnyOther",
 		"match": {},
-		"message": "Like this app of Facebook!",
+		"message": "Like this app on Facebook!",
 		"action": {
 			"type": "button",
 			"text": "Like",
