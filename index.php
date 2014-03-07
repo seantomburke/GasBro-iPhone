@@ -377,7 +377,6 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
         <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
@@ -386,27 +385,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/jquery.history.js"></script>
         <script type="text/javascript" src="js/select2.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
-        <script type="text/javascript" src="js/main.js?<?php echo time(); ?>"></script>
-        <script>
-            $(document).ready(function(){
-            
-                var session_id = '<?php echo $_SESSION['id'];?>';
-                id = getURLParameter("id");
-                if(id != "null")
-                {
-                    //console.log(id);
-                    loadTrip(id);
-                }
-                else if(session_id != "null"){
-                    loadTrip(session_id);
-                }
-                var maxFriends = people - 1;
-                getFriends(maxFriends);
-                $("#prices").hide();
-                $("#prices2").hide();
-                setSliders();
-            });  
-        </script>
+        <script type="text/javascript" src="js/main.js?v=1"></script>
         <script>
             var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -414,40 +393,62 @@ $venmo = new Venmo($_GET['access_token']);
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
         <!-- AddThis Welcome BEGIN -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
-<script type='text/javascript'>
-addthis.bar.initialize({'default':{
-	"backgroundColor": "#000000",
-	"buttonColor": "#098DF4",
-	"textColor": "#FFFFFF",
-	"buttonTextColor": "#FFFFFF"
-},rules:[
-	{
-		"name": "AnyOther",
-		"match": {},
-		"message": "Like this app on Facebook!",
-		"action": {
-			"type": "button",
-			"text": "Like",
-			"verb": "follow",
-			"service": "facebook",
-			"id": "gasbroapp"
-		}
-	},
-	{
-		"name": "www.seantburke.com",
-		"match": {
-			"referrer": "www.seantburke.com"
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404">
+</script>
+<script>
+
+	addthis.bar.initialize({'default':{
+		"backgroundColor": "#000000",
+		"buttonColor": "#098DF4",
+		"textColor": "#FFFFFF",
+		"buttonTextColor": "#FFFFFF"
+	},rules:[
+		{
+			"name": "AnyOther",
+			"match": {},
+			"message": "Like this app on Facebook!",
+			"action": {
+				"type": "button",
+				"text": "Like",
+				"verb": "follow",
+				"service": "facebook",
+				"id": "gasbroapp"
+			}
 		},
-		"message": "Thanks for checking out my app! Contact me for a free Promo code!",
-		"action": {
-			"type": "button",
-			"text": "Email Sean",
-			"verb": "link",
-			"url": "mailto:sean@seantburke.com"
+		{
+			"name": "www.seantburke.com",
+			"match": {
+				"referrer": "www.seantburke.com"
+			},
+			"message": "Thanks for checking out my app! Contact me for a free Promo code!",
+			"action": {
+				"type": "button",
+				"text": "Email Sean",
+				"verb": "link",
+				"url": "mailto:sean@seantburke.com"
+			}
 		}
-	}
-]});
+	]});
+	
+	var addthis_config = {"data_track_addressbar":true};
+    $(document).ready(function(){
+    
+        var session_id = '<?php echo $_SESSION['id'];?>';
+        id = getURLParameter("id");
+        if(id != "null")
+        {
+            //console.log(id);
+            loadTrip(id);
+        }
+        else if(session_id != "null"){
+            loadTrip(session_id);
+        }
+        var maxFriends = people - 1;
+        getFriends(maxFriends);
+        $("#prices").hide();
+        $("#prices2").hide();
+        setSliders();
+    });  
 </script>
 <!-- AddThis Welcome END -->
     </body>
