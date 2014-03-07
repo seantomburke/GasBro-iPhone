@@ -42,60 +42,7 @@ $venmo = new Venmo($_GET['access_token']);
     </head>
     <body data-spy="scroll" data-target="#navbar">
     <div id="fb-root"></div>
-    <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
-    <script>
-    Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
-      
-      window.fbAsyncInit = function() {
-        // init the FB JS SDK
-
-        Parse.FacebookUtils.init({
-          appId      : '529283730470617',                        // App ID from the app dashboard
-          channelUrl : '//www.gasbro.com/channel.php',
-          status     : true,                                 // Check Facebook Login status
-          xfbml      : true                                  // Look for social plugins on the page
-        });
-    
-        // Additional initialization code such as adding Event Listeners goes here
-      /*
-      Parse.FacebookUtils.logIn("user_likes,email", {
-          success: function(user) {
-            if (!user.existed()) {
-              console.log("User signed up and logged in through Facebook!");
-            } else {
-              console.log("User logged in through Facebook!");
-            }
-            
-            if (!Parse.FacebookUtils.isLinked(user)) {
-              Parse.FacebookUtils.link(user, null, {
-                success: function(user) {
-                  console.log("Woohoo, user logged in with Facebook!");
-                },
-                error: function(user, error) {
-                  console.log("User cancelled the Facebook login or did not fully authorize.");
-                }
-              });
-            }
-          },
-          error: function(user, error) {
-            console.log("User cancelled the Facebook login or did not fully authorize.");
-          }
-        });
-        
-      */
-      };
-          (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/all.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    
-
-       
-    </script>
-        <!--[if lt IE 7]>
+            <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
         <div id="navbar" class="navbar navbar-inverse hidden-phone">
@@ -374,6 +321,59 @@ $venmo = new Venmo($_GET['access_token']);
         
         
         
+            <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+            <script>
+            Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
+              
+              window.fbAsyncInit = function() {
+                // init the FB JS SDK
+        
+                Parse.FacebookUtils.init({
+                  appId      : '529283730470617',                        // App ID from the app dashboard
+                  channelUrl : '//www.gasbro.com/channel.php',
+                  status     : true,                                 // Check Facebook Login status
+                  xfbml      : true                                  // Look for social plugins on the page
+                });
+            
+                // Additional initialization code such as adding Event Listeners goes here
+              /*
+              Parse.FacebookUtils.logIn("user_likes,email", {
+                  success: function(user) {
+                    if (!user.existed()) {
+                      console.log("User signed up and logged in through Facebook!");
+                    } else {
+                      console.log("User logged in through Facebook!");
+                    }
+                    
+                    if (!Parse.FacebookUtils.isLinked(user)) {
+                      Parse.FacebookUtils.link(user, null, {
+                        success: function(user) {
+                          console.log("Woohoo, user logged in with Facebook!");
+                        },
+                        error: function(user, error) {
+                          console.log("User cancelled the Facebook login or did not fully authorize.");
+                        }
+                      });
+                    }
+                  },
+                  error: function(user, error) {
+                    console.log("User cancelled the Facebook login or did not fully authorize.");
+                  }
+                });
+                
+              */
+              };
+                  (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/en_US/all.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+               }(document, 'script', 'facebook-jssdk'));
+            
+        
+               
+            </script>
         <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
