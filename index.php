@@ -413,5 +413,42 @@ $venmo = new Venmo($_GET['access_token']);
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+        <!-- AddThis Welcome BEGIN -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404"></script>
+<script type='text/javascript'>
+addthis.bar.initialize({'default':{
+	"backgroundColor": "#000000",
+	"buttonColor": "#098DF4",
+	"textColor": "#FFFFFF",
+	"buttonTextColor": "#FFFFFF"
+},rules:[
+	{
+		"name": "AnyOther",
+		"match": {},
+		"message": "Like this app on Facebook!",
+		"action": {
+			"type": "button",
+			"text": "Like",
+			"verb": "follow",
+			"service": "facebook",
+			"id": "gasbroapp"
+		}
+	},
+	{
+		"name": "www.seantburke.com",
+		"match": {
+			"referrer": "www.seantburke.com"
+		},
+		"message": "Thanks for checking out my app! Contact me for a free Promo code!",
+		"action": {
+			"type": "button",
+			"text": "Email Sean",
+			"verb": "link",
+			"url": "mailto:sean@seantburke.com"
+		}
+	}
+]});
+</script>
+<!-- AddThis Welcome END -->
     </body>
 </html>
