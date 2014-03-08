@@ -27,17 +27,11 @@ $venmo = new Venmo($_GET['access_token']);
         <meta property="og:url" content="http://wwww.gasbro.com/" />
         <meta name="apple-itunes-app" content="app-id=798634160">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
-        <link rel="stylesheet" href="css/select2.css?<?php echo time() ?>">
-        <link rel="stylesheet" href="css/select2-bootstrap.css?<?php echo time() ?>">
-        <link rel="stylesheet" href="css/slider.css?<?php echo time() ?>">
+        <link rel="stylesheet" href="css/select2.css?version=1.0">
+        <link rel="stylesheet" href="css/select2-bootstrap.css?version=1.0">
+        <link rel="stylesheet" href="css/slider.css?version=1.0">
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/main.css?<?php echo time() ?>">
+        <link rel="stylesheet" href="css/main.css?version=1.0">
         <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
     </head>
     <body data-spy="scroll" data-target="#navbar">
@@ -89,7 +83,7 @@ $venmo = new Venmo($_GET['access_token']);
         <header class="jumbotron subhead">
             <div class="media">
               <a class="pull-left" href="http://www.gasbro.com/">
-                <img class="media-object img-rounded" src="/img/bro.png" width="64">
+                <img class="media-object img-rounded" src="/img/bro75.png" width="75">
               </a>
               <a class="pull-right hidden-phone" href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
               <div class="media-body">
@@ -321,59 +315,7 @@ $venmo = new Venmo($_GET['access_token']);
         
         
         
-            <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
-            <script>
-            Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
-              
-              window.fbAsyncInit = function() {
-                // init the FB JS SDK
-        
-                Parse.FacebookUtils.init({
-                  appId      : '529283730470617',                        // App ID from the app dashboard
-                  channelUrl : '//www.gasbro.com/channel.php',
-                  status     : true,                                 // Check Facebook Login status
-                  xfbml      : true                                  // Look for social plugins on the page
-                });
-            
-                // Additional initialization code such as adding Event Listeners goes here
-              /*
-              Parse.FacebookUtils.logIn("user_likes,email", {
-                  success: function(user) {
-                    if (!user.existed()) {
-                      console.log("User signed up and logged in through Facebook!");
-                    } else {
-                      console.log("User logged in through Facebook!");
-                    }
-                    
-                    if (!Parse.FacebookUtils.isLinked(user)) {
-                      Parse.FacebookUtils.link(user, null, {
-                        success: function(user) {
-                          console.log("Woohoo, user logged in with Facebook!");
-                        },
-                        error: function(user, error) {
-                          console.log("User cancelled the Facebook login or did not fully authorize.");
-                        }
-                      });
-                    }
-                  },
-                  error: function(user, error) {
-                    console.log("User cancelled the Facebook login or did not fully authorize.");
-                  }
-                });
-                
-              */
-              };
-                  (function(d, s, id){
-                 var js, fjs = d.getElementsByTagName(s)[0];
-                 if (d.getElementById(id)) {return;}
-                 js = d.createElement(s); js.id = id;
-                 js.src = "//connect.facebook.net/en_US/all.js";
-                 fjs.parentNode.insertBefore(js, fjs);
-               }(document, 'script', 'facebook-jssdk'));
-            
-        
-               
-            </script>
+        <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
         <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -387,10 +329,14 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/select2.js"></script>
         <script type="text/javascript" src="js/main.js?v=1"></script>
         <script>
-            var _gaq=[['_setAccount','UA-42611920-1'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        
+          ga('create', 'UA-42611920-1', 'gasbro.com');
+          ga('send', 'pageview');
+        
         </script>
         <!-- AddThis Welcome BEGIN -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404">
@@ -449,6 +395,58 @@ $venmo = new Venmo($_GET['access_token']);
         $("#prices2").hide();
         setSliders();
     });  
+    
+    Parse.initialize("XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7", "mXOANydxMFw3AHN6k8nSP1AifftrStFyPBRYLXGJ");
+          
+          window.fbAsyncInit = function() {
+            // init the FB JS SDK
+    
+            Parse.FacebookUtils.init({
+              appId      : '529283730470617',                        // App ID from the app dashboard
+              channelUrl : '//www.gasbro.com/channel.php',
+              status     : true,                                 // Check Facebook Login status
+              xfbml      : true                                  // Look for social plugins on the page
+            });
+        
+            // Additional initialization code such as adding Event Listeners goes here
+          /*
+          Parse.FacebookUtils.logIn("user_likes,email", {
+              success: function(user) {
+                if (!user.existed()) {
+                  console.log("User signed up and logged in through Facebook!");
+                } else {
+                  console.log("User logged in through Facebook!");
+                }
+                
+                if (!Parse.FacebookUtils.isLinked(user)) {
+                  Parse.FacebookUtils.link(user, null, {
+                    success: function(user) {
+                      console.log("Woohoo, user logged in with Facebook!");
+                    },
+                    error: function(user, error) {
+                      console.log("User cancelled the Facebook login or did not fully authorize.");
+                    }
+                  });
+                }
+              },
+              error: function(user, error) {
+                console.log("User cancelled the Facebook login or did not fully authorize.");
+              }
+            });
+            
+          */
+          };
+              (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        
+    
+           
+    
 </script>
 <!-- AddThis Welcome END -->
     </body>
