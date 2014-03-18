@@ -83,7 +83,7 @@ $venmo = new Venmo($_GET['access_token']);
         <header class="jumbotron subhead">
             <div class="media">
               <a class="pull-left" href="http://www.gasbro.com/">
-                <img class="media-object img-rounded" src="/img/bro75.png" width="75">
+                <img class="media-object img-rounded" src="/img/gasbro75.png" width="75">
               </a>
               <a class="pull-right hidden-phone" href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
               <div class="media-body">
@@ -337,7 +337,7 @@ $venmo = new Venmo($_GET['access_token']);
           ga('create', 'UA-42611920-1', 'gasbro.com');
           ga('send', 'pageview');
         
-        </script>
+        </script>img
         <!-- AddThis Welcome BEGIN -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404">
 </script>
