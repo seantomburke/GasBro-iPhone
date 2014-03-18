@@ -337,7 +337,7 @@ $venmo = new Venmo($_GET['access_token']);
           ga('create', 'UA-42611920-1', 'gasbro.com');
           ga('send', 'pageview');
         
-        </script>img
+        </script>
         <!-- AddThis Welcome BEGIN -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404">
 </script>
