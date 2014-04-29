@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import "GBInfoViewController.h"
 
-@interface GBViewController : UIViewController <CLLocationManagerDelegate>{
+@interface GBViewController : UIViewController <CLLocationManagerDelegate, UITextFieldDelegate>{
 }
 
 @property (readwrite) Float64 start_longitude;
@@ -59,7 +59,8 @@
 - (IBAction)infoButtonClicked:(id)sender;
 - (IBAction) unwindToMain:(UIStoryboardSegue *)segue;
 
-
+-(void) saveData;
+-(void) loadData;
 - (void)calculateGas;
 - (void)calculateCost;
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GBInfoViewController : UIViewController {
+@interface GBInfoViewController : UIViewController <UITextFieldDelegate> {
     
 }
 

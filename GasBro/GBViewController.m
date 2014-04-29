@@ -59,10 +59,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _gas_type = [defaults objectForKey:@"gasType"];
+    _mpg = [defaults doubleForKey:@"mpg"];
+    
     locationManager = [[CLLocationManager alloc] init];
     [self peopleSliderChanged:(self)];
     [self roundtripSwitchChanged:(self)];
     [self mpgSliderChanged:(self)];
+    
+    
+    _endLocationText.delegate = self;
+    _startLocationText.delegate = self;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -76,8 +85,16 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     // Any additional checks to ensure you have the correct textField here.
-    [_startLocationText resignFirstResponder];
-    [_endLocationText resignFirstResponder];
+    if(textField == _startLocationText)
+    {
+        [self startSearch:textField];
+        [_endLocationText becomeFirstResponder];
+    }
+    else
+    {
+        [self endSearch:textField];
+        [textField resignFirstResponder];
+    }
     return YES;
 }
 
@@ -332,6 +349,8 @@
         _start_placemarker = nil;
         _start_mapitem = nil;
         
+        
+        
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [locationManager startUpdatingLocation];
@@ -370,6 +389,31 @@
     
     
     [errorAlert show];
+}
+
+-(void)saveData
+{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:_gas_index forKey:@"gas_index"];
+    [defaults setInteger:_people forKey:@"people"];
+    [defaults setInteger:_mpg forKey:@"mpg"];
+    [defaults synchronize];
+}
+
+-(void)loadData
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"mpg"])
+    {
+        _people = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
+                                   objectForKey:@"people"] intValue];
+        
+        _mpg = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
+                                   objectForKey:@"mpg"] intValue];
+        
+        _gas_index = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
+                             objectForKey:@"gas_index"] intValue];
+    }
 }
 
 @end
