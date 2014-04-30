@@ -49,8 +49,6 @@
 		1473665A17F6049D00F91B27 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 1473664917F6049D00F91B27 /* iTunesArtwork@2x */; };
 		1473665C17F6058B00F91B27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1473665B17F6058B00F91B27 /* Images.xcassets */; };
 		1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473665D17F60BE300F91B27 /* BroLaunchImage.png */; };
-		14C21E6C188E693E0084FE98 /* app-switch-ios-framework-master in Resources */ = {isa = PBXBuildFile; fileRef = 14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */; };
-		14C21E6D188E693E0084FE98 /* app-switch-ios-framework-master in Resources */ = {isa = PBXBuildFile; fileRef = 14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,7 +121,6 @@
 		1473664917F6049D00F91B27 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Images.xcassets/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		1473665B17F6058B00F91B27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1473665D17F60BE300F91B27 /* BroLaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage.png; sourceTree = "<group>"; };
-		14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "app-switch-ios-framework-master"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,7 +219,6 @@
 		141AF02917F53AD000E6B058 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				14C21E6B188E693E0084FE98 /* app-switch-ios-framework-master */,
 				140A86C5185725C400948020 /* BroLaunchImage4inch.png */,
 				1473665D17F60BE300F91B27 /* BroLaunchImage.png */,
 				1473663917F6049D00F91B27 /* bro.png */,
@@ -314,7 +310,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = GB;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Nyquist Labs";
 				TargetAttributes = {
 					141AF01E17F53AD000E6B058 = {
@@ -395,7 +391,6 @@
 				141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */,
 				1473665717F6049D00F91B27 /* Icon.png in Resources */,
 				1473665617F6049D00F91B27 /* Icon-Spotlight-40@2x.png in Resources */,
-				14C21E6C188E693E0084FE98 /* app-switch-ios-framework-master in Resources */,
 				1473665117F6049D00F91B27 /* Icon-Small-50.png in Resources */,
 				1473664B17F6049D00F91B27 /* Icon-60.png in Resources */,
 				1473665C17F6058B00F91B27 /* Images.xcassets in Resources */,
@@ -415,7 +410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				141AF04F17F53AD100E6B058 /* InfoPlist.strings in Resources */,
-				14C21E6D188E693E0084FE98 /* app-switch-ios-framework-master in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,7 +486,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -532,7 +525,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -571,8 +563,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0/GoogleMapsSDKDemos",
 					/Users/Sean/Documents/iOS/iOS7/GasBro,
 					/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro,
 				);
@@ -597,8 +587,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0/GoogleMapsSDKDemos",
 					/Users/Sean/Documents/iOS/iOS7/GasBro,
 					/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro,
 				);
@@ -617,14 +605,11 @@
 		141AF05817F53AD100E6B058 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GasBro.app/GasBro";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0/GoogleMapsSDKDemos",
 					/Users/Sean/Documents/iOS/iOS7/GasBro,
 					/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro,
 				);
@@ -644,14 +629,11 @@
 		141AF05917F53AD100E6B058 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GasBro.app/GasBro";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0",
-					"/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro/GoogleMaps-iOS-1.5.0/GoogleMapsSDKDemos",
 					/Users/Sean/Documents/iOS/iOS7/GasBro,
 					/Users/Sean/Documents/iOS/iOS7/GasBro/GasBro,
 				);

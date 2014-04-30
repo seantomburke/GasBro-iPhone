@@ -22,7 +22,6 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "BroLaunchImage-2.png",
       "scale" : "1x"
     },
     {
@@ -30,7 +29,6 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "BroLaunchImage-4.png",
       "scale" : "1x"
     },
     {
@@ -38,7 +36,6 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "BroLaunchImage-3.png",
       "scale" : "2x"
     },
     {
@@ -46,7 +43,6 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "BroLaunchImage-5.png",
       "scale" : "2x"
     }
   ],

@@ -26,6 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/hawaiianchimp/picture?height=960&type=normal&width=960"];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    [profile setImage:[[UIImage alloc] initWithData:data]];
 	// Do any additional setup after loading the view.
 }
 
@@ -37,6 +41,11 @@
 
 - (IBAction) unwindAction:(UIStoryboardSegue *)segue{
     
+}
+
+- (IBAction)openSean:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
 }
 
 

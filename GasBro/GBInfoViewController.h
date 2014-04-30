@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface GBInfoViewController : UIViewController <UITextFieldDelegate> {
-    
+    IBOutlet UIImageView *profile;
+    IBOutlet UIScrollView *scroll;
 }
 
 - (IBAction) unwindAction:(UIStoryboardSegue *)segue;
