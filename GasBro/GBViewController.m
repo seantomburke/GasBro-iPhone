@@ -11,7 +11,9 @@
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
 @interface GBViewController ()
-
+@property (readwrite) IBOutlet UIView *topView;
+@property (readwrite) IBOutlet UIView *bottomView;
+@property (readwrite) IBOutlet MKMapView *mapView;
 @end
 
 
@@ -46,18 +48,30 @@
 @end
 
 
-@implementation GBViewController{
+@implementation
+
+GBViewController{
     CLLocationManager *locationManager;
     
     NSArray *activityItems;
     
     UIActivityViewController *activityController;
     
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.topView.opaque = NO;
+    self.bottomView.opaque = NO;
+    
+    //map stufff
+    [_mapView setDelegate:self];
+    _mapView.showsUserLocation = YES;
+    //[_mapView setShowsUserLocation:YES];
+    //[_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+
 	// Do any additional setup after loading the view, typically from a nib.
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -73,13 +87,51 @@
     _endLocationText.delegate = self;
     _startLocationText.delegate = self;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+    UITapGestureRecognizer *maptap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
+                                   action:@selector(hidePanels)];
     
-    [self.view addGestureRecognizer:tap];
+    [_mapView addGestureRecognizer:maptap];
+    
+    UITapGestureRecognizer *nonmaptaptop = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(showPanels)];
+    
+    [_topView addGestureRecognizer:nonmaptaptop];
+    
+    UITapGestureRecognizer *nonmaptapbottom = [[UITapGestureRecognizer alloc]
+                                         initWithTarget:self
+                                         action:@selector(showPanels)];
+    
+    [_bottomView addGestureRecognizer:nonmaptapbottom];
     
     
+}
+
+-(void)hidePanels {
+    [self dismissKeyboard];
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         _topView.frame = CGRectMake(0, -100, _topView.bounds.size.width, _topView.bounds.size.height);// its final location
+                     }];
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         _bottomView.frame = CGRectMake(0, self.view.bounds.size.height - _bottomView.bounds.size.height + 100, _bottomView.bounds.size.width, _bottomView.bounds.size.height);// its final location
+                     }];
+}
+
+
+-(void)showPanels {
+    
+    [self dismissKeyboard];
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         _topView.frame = CGRectMake(0, 0, _topView.bounds.size.width, _topView.bounds.size.height);// its final location
+                     }];
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         _bottomView.frame = CGRectMake(0, self.view.bounds.size.height - _bottomView.bounds.size.height, _bottomView.bounds.size.width, _bottomView.bounds.size.height);// its final location
+                     }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -110,14 +162,12 @@
             NSLog(@"%@", error);
         } else {
             _start_placemarker = [startplacemarks lastObject];
+            _start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
             float spanX = 1.00725;
             float spanY = 1.00725;
             MKCoordinateRegion region;
-            _start_latitude = _start_placemarker.location.coordinate.latitude;
-            _start_longitude = _start_placemarker.location.coordinate.longitude;
-            _start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
             region.span = MKCoordinateSpanMake(spanX, spanY);
-            NSLog(@"long:%f,lat:%f", _start_latitude,_start_longitude);
+            NSLog(@"long:%f,lat:%f", _start_placemarker.location.coordinate.latitude,_start_placemarker.location.coordinate.longitude);
             [self calculateGas];
         }
     }];
@@ -142,14 +192,12 @@
             NSLog(@"%@", error);
         } else {
             _end_placemarker = [endplacemarks lastObject];
+            _end_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_end_placemarker]];
             float spanX = 1.00725;
             float spanY = 1.00725;
             MKCoordinateRegion region;
-            _end_latitude = _end_placemarker.location.coordinate.latitude;
-            _end_longitude = _end_placemarker.location.coordinate.longitude;
-            _end_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark: _end_placemarker]];
             region.span = MKCoordinateSpanMake(spanX, spanY);
-            NSLog(@"long:%f,lat:%f", _end_latitude,_end_longitude);
+            NSLog(@"long:%f,lat:%f", _end_placemarker.location.coordinate.latitude,_end_placemarker.location.coordinate.longitude);
             [self getDirections];
         }
     }];
@@ -178,13 +226,13 @@
 
 - (void)calculateGas
 {
-    if(_start_latitude != 0)
+    if(_start_placemarker.location.coordinate.latitude != 0)
     {
         _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
         NSInteger index = _gas_type_segment.selectedSegmentIndex;
         _gas_index = index;
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%li", _start_longitude, _start_latitude, (long)_gas_index]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%li", _start_placemarker.location.coordinate.longitude, _start_placemarker.location.coordinate.latitude, (long)_gas_index]];
         
         dispatch_async(kBgQueue, ^{
             NSData* data = [NSData dataWithContentsOfURL:
@@ -263,7 +311,7 @@
     {
         _miles += route.distance;
         
-        //[addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+        [_mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
         
         for (MKRouteStep *step in route.steps)
         {
@@ -273,8 +321,74 @@
     }
     _miles = _miles/1609.34;
     NSLog(@"Miles:%f", _miles);
-    
+    MKCoordinateRegion region = [self zoomToCenter:_mapView withStart:_start_placemarker.location.coordinate withEnd:_end_placemarker.location.coordinate];
+    NSLog([NSString stringWithFormat:@"long: %f long: %f", _start_placemarker.location.coordinate.longitude, _end_placemarker.location.coordinate.longitude]);
+    NSLog([NSString stringWithFormat:@"lat: %f lat: %f", _start_placemarker.location.coordinate.latitude, _end_placemarker.location.coordinate.latitude]);
+    NSLog([NSString stringWithFormat:@"long: %f lat: %f", region.center.longitude, region.center.latitude]);
+    [_mapView setRegion:region];
     [self calculateCost];
+}
+
+- (MKCoordinateRegion)zoomToCenter:(MKMapView *)mapView withStart:(CLLocationCoordinate2D)start withEnd:(CLLocationCoordinate2D)end {
+    CLLocationCoordinate2D locationCenter;
+    MKCoordinateSpan locationSpan;
+    float border = 1.5;
+    if(start.longitude > end.longitude)
+    {
+        locationCenter.longitude = ((start.longitude - end.longitude)/2 + end.longitude);
+        locationSpan.longitudeDelta = (start.longitude - end.longitude)*border;
+    }
+    else
+    {
+        locationCenter.longitude = ((end.longitude - start.longitude)/2 + start.longitude);
+        locationSpan.longitudeDelta = (end.longitude - start.longitude)*border;
+    }
+    
+    if(start.latitude > end.latitude)
+    {
+        locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude);
+        locationSpan.latitudeDelta = (start.latitude - end.latitude)*border;
+    }
+    else
+    {
+        locationCenter.latitude = ((end.latitude - start.latitude)/2 + start.latitude);
+        locationSpan.latitudeDelta = (end.latitude - start.latitude)*border;
+    }
+    
+    MKCoordinateRegion region = MKCoordinateRegionMake(locationCenter, locationSpan);
+    return region;
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay
+{
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineView* aView = [[MKPolylineView alloc]initWithPolyline:(MKPolyline*)overlay] ;
+        aView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+        aView.lineWidth = 10;
+        return aView;
+    }
+    return nil;
+}
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    // If it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    // Handle any custom annotations.
+    if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
+        // Try to dequeue an existing pin view first.
+        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        if (!pinView)
+        {
+            // If an existing pin view was not available, create one.
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+            pinView.canShowCallout = YES;
+        } else {
+            pinView.annotation = annotation;
+        }
+        return pinView;
+    }
+    return nil;
 }
 
 - (void)fetchedData:(NSData *)responseData {
@@ -326,6 +440,9 @@
         
     }
     
+    [_mapView setShowsUserLocation:YES];
+    [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    
     
     if ([_startLocationText.text  isEqual: @"Locating..."])
     {
@@ -344,26 +461,24 @@
     [_startLocationText setText:@"Locating..."];
     dispatch_async(kBgQueue, ^{
         
-        _start_longitude = 0;
-        _start_latitude = 0;
-        _start_placemarker = nil;
         _start_mapitem = nil;
-        
-        
         
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [locationManager startUpdatingLocation];
         int i = 0;
-        _start_latitude = 0;
-        while (_start_latitude == 0 && i<1500) {
+        int lat = 0;
+        while (lat == 0 && i<1500) {
             i++;
             NSLog(@"%f",locationManager.location.coordinate.latitude);
-            _start_latitude = locationManager.location.coordinate.latitude;
+            lat = locationManager.location.coordinate.latitude;
         }
-        _start_longitude = locationManager.location.coordinate.longitude;
+        _start_placemarker = [[MKPlacemark alloc] initWithCoordinate:locationManager.location.coordinate addressDictionary:NULL];
         _start_mapitem = [MKMapItem mapItemForCurrentLocation];
-        
+        MKPointAnnotation  *annotation = [[MKPointAnnotation alloc] init];
+        annotation.coordinate = _start_placemarker.location.coordinate;
+        [_mapView addAnnotation:annotation];
+        [locationManager stopUpdatingLocation];
         [self calculateGas];
     });
     

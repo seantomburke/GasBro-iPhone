@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1405E8711915685900367835 /* GBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E8701915685900367835 /* GBAnnotation.m */; };
 		140A86C6185725C400948020 /* BroLaunchImage4inch.png in Resources */ = {isa = PBXBuildFile; fileRef = 140A86C5185725C400948020 /* BroLaunchImage4inch.png */; };
 		141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02217F53AD000E6B058 /* Foundation.framework */; };
 		141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02617F53AD000E6B058 /* UIKit.framework */; };
@@ -62,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1405E86F1915685900367835 /* GBAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAnnotation.h; sourceTree = "<group>"; };
+		1405E8701915685900367835 /* GBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAnnotation.m; sourceTree = "<group>"; };
 		140A86C5185725C400948020 /* BroLaunchImage4inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage4inch.png; sourceTree = "<group>"; };
 		141AF01F17F53AD000E6B058 /* GasBro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasBro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		141AF02217F53AD000E6B058 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -210,6 +213,8 @@
 				142A75781887F7FA00B3F4AE /* GBGasLabel.m */,
 				142A75741887E26700B3F4AE /* GBInfoViewController.h */,
 				142A75751887E26700B3F4AE /* GBInfoViewController.m */,
+				1405E86F1915685900367835 /* GBAnnotation.h */,
+				1405E8701915685900367835 /* GBAnnotation.m */,
 				1473665B17F6058B00F91B27 /* Images.xcassets */,
 				141AF02917F53AD000E6B058 /* Supporting Files */,
 			);
@@ -423,6 +428,7 @@
 				142A75761887E26700B3F4AE /* GBInfoViewController.m in Sources */,
 				141AF02F17F53AD000E6B058 /* main.m in Sources */,
 				142A75791887F7FA00B3F4AE /* GBGasLabel.m in Sources */,
+				1405E8711915685900367835 /* GBAnnotation.m in Sources */,
 				141AF03C17F53AD000E6B058 /* GBViewController.m in Sources */,
 				141AF03317F53AD000E6B058 /* GBAppDelegate.m in Sources */,
 			);
