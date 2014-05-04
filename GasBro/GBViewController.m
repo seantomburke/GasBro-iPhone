@@ -170,6 +170,9 @@ GBViewController{
             region.center = _start_placemarker.location.coordinate;
             [_mapView setRegion:region animated:YES];
             NSLog(@"long:%f,lat:%f", _start_placemarker.location.coordinate.latitude,_start_placemarker.location.coordinate.longitude);
+            MKPointAnnotation  *annotation = [[MKPointAnnotation alloc] init];
+            annotation.coordinate = _start_placemarker.location.coordinate;
+            [_mapView addAnnotation:annotation];
             [self calculateGas];
         }
     }];
@@ -201,6 +204,9 @@ GBViewController{
             region.span = MKCoordinateSpanMake(spanX, spanY);
             NSLog(@"long:%f,lat:%f", _end_placemarker.location.coordinate.latitude,_end_placemarker.location.coordinate.longitude);
             [self getDirections];
+            MKPointAnnotation  *annotation = [[MKPointAnnotation alloc] init];
+            annotation.coordinate = _end_placemarker.location.coordinate;
+            [_mapView addAnnotation:annotation];
         }
     }];
 }
