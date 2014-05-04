@@ -68,7 +68,7 @@ GBViewController{
     
     //map stufff
     [_mapView setDelegate:self];
-    _mapView.showsUserLocation = YES;
+    //_mapView.showsUserLocation = YES;
     //[_mapView setShowsUserLocation:YES];
     //[_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
 
@@ -167,6 +167,8 @@ GBViewController{
             float spanY = 1.00725;
             MKCoordinateRegion region;
             region.span = MKCoordinateSpanMake(spanX, spanY);
+            region.center = _start_placemarker.location.coordinate;
+            [_mapView setRegion:region animated:YES];
             NSLog(@"long:%f,lat:%f", _start_placemarker.location.coordinate.latitude,_start_placemarker.location.coordinate.longitude);
             [self calculateGas];
         }
@@ -325,14 +327,14 @@ GBViewController{
     NSLog([NSString stringWithFormat:@"long: %f long: %f", _start_placemarker.location.coordinate.longitude, _end_placemarker.location.coordinate.longitude]);
     NSLog([NSString stringWithFormat:@"lat: %f lat: %f", _start_placemarker.location.coordinate.latitude, _end_placemarker.location.coordinate.latitude]);
     NSLog([NSString stringWithFormat:@"long: %f lat: %f", region.center.longitude, region.center.latitude]);
-    [_mapView setRegion:region];
+    [_mapView setRegion:region animated:YES];
     [self calculateCost];
 }
 
 - (MKCoordinateRegion)zoomToCenter:(MKMapView *)mapView withStart:(CLLocationCoordinate2D)start withEnd:(CLLocationCoordinate2D)end {
     CLLocationCoordinate2D locationCenter;
     MKCoordinateSpan locationSpan;
-    float border = 1.5;
+    float border = 2;
     if(start.longitude > end.longitude)
     {
         locationCenter.longitude = ((start.longitude - end.longitude)/2 + end.longitude);
