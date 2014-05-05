@@ -13,6 +13,7 @@
 
 @interface GBInfoViewController ()
 @property (strong, nonatomic) GBCache *cache;
+@property (strong, nonatomic) UIImage *facebook_image;
 @end
 
 
@@ -27,32 +28,42 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    UIImage *cached_image = [_cache getProfileImage];
-    if(!cached_image)
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if(!_facebook_image)
     {
-        [profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
+        [_profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
         NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/hawaiianchimp/picture?height=154&type=normal&width=154"];
         dispatch_async(kBgQueue, ^{
-        
+            
             NSData *data = [NSData dataWithContentsOfURL:url];
             if(data != nil)
             {
                 [self performSelectorOnMainThread:@selector(setProfileImage:)
-                                   withObject:data waitUntilDone:YES];
+                                       withObject:data waitUntilDone:YES];
             }
             else
             {
-                [profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
+                [_profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
             }
         });
     }
     else
     {
-        [profile setImage:cached_image];
+        [_profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
     }
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self
+                                      action:@selector(openSeanLink)];
+    
+    [_profile addGestureRecognizer:tap];
            
 	// Do any additional setup after loading the view.
 }
@@ -67,6 +78,10 @@
     
 }
 
+-(void)openSeanLink{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
+}
+
 - (IBAction)openSean:(id)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
@@ -78,10 +93,10 @@
 }
 
 - (void)setProfileImage:(NSData *)data {
-    UIImage *profile_image = [[UIImage alloc] initWithData:data];
-    [profile setImage:profile_image];
-    [_cache storeProfileImage:profile_image];
+    _facebook_image = [[UIImage alloc] initWithData:data];
+    [_profile setImage:_facebook_image];
 }
+
 
 
 

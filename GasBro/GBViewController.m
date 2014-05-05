@@ -327,10 +327,8 @@
     _miles = _miles/1609.34;
     NSLog(@"Miles:%f", _miles);
     MKCoordinateRegion region = [self zoomToCenter:_mapView withStart:_start_placemarker.location.coordinate withEnd:_end_placemarker.location.coordinate];
-    NSLog([NSString stringWithFormat:@"long: %f long: %f", _start_placemarker.location.coordinate.longitude, _end_placemarker.location.coordinate.longitude]);
-    NSLog([NSString stringWithFormat:@"lat: %f lat: %f", _start_placemarker.location.coordinate.latitude, _end_placemarker.location.coordinate.latitude]);
-    NSLog([NSString stringWithFormat:@"long: %f lat: %f", region.center.longitude, region.center.latitude]);
     [_mapView setRegion:region animated:YES];
+    [self hidePanels];
     [self calculateCost];
 }
 
