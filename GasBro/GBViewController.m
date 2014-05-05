@@ -77,6 +77,7 @@
     [self roundtripSwitchChanged:(self)];
     [self mpgSliderChanged:(self)];
     
+    [self setNeedsStatusBarAppearanceUpdate];
     
     _endLocationText.delegate = self;
     _startLocationText.delegate = self;
@@ -100,6 +101,10 @@
     [_bottomView addGestureRecognizer:nonmaptapbottom];
     
     
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
 }
 
 -(void)hidePanels {
@@ -171,7 +176,7 @@
                  {
                      NSLog(@"%@", error);
                      UIAlertView *errorAlert = [[UIAlertView alloc]
-                                                initWithTitle:@"Country Error" message:@"Please choose a location within the U.S." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                initWithTitle:@"Country Error" message:@"Gas Bro currently only works in the U.S. Please choose a location within the U.S." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                      //_startLocationText.text = @"Network Error";
                      _price = 0;
                      _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
@@ -219,7 +224,7 @@
                      NSLog(@"long:%f,lat:%f", _start_placemarker.location.coordinate.latitude,_start_placemarker.location.coordinate.longitude);
                      _start_annotation = [[GBAnnotation alloc] init];
                      _start_annotation.coordinate = _start_placemarker.location.coordinate;
-                     _start_annotation.title = @"Start";
+                     _start_annotation.title = @"Start Location";
                      [_mapView addAnnotation:_start_annotation];
                      [_mapView selectAnnotation:_start_annotation animated:YES];
                      [self calculateGas];
@@ -295,7 +300,7 @@
                     [self getDirections];
                     _end_annotation = [[MKPointAnnotation alloc] init];
                     _end_annotation.coordinate = _end_placemarker.location.coordinate;
-                    _end_annotation.title = @"End";
+                    _end_annotation.title = @"Destination";
                     _end_annotation.subtitle = _endLocationText.text;
                     [_mapView addAnnotation:_end_annotation];
                     _end_annotation.subtitle = addr;
@@ -309,7 +314,7 @@
 - (IBAction)getCurrentLocation:(id)sender {
     
     [_startLocationText setText:@"Locating..."];
-    
+    _startLocationText.clearsOnBeginEditing = YES;
     _mapView.showsUserLocation = YES;
     [_mapView setShowsUserLocation:YES];
     [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
@@ -634,6 +639,7 @@
     if ([_startLocationText.text  isEqual: @"Locating..."])
     {
         _startLocationText.text = _city;
+        _startLocationText.clearsOnBeginEditing = NO;
     }
 }
 
