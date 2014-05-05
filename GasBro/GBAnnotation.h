@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface GBAnnotation : NSObject <MKAnnotation>
+@interface GBAnnotation : MKAnnotationView <MKAnnotation>
 
 
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
-@property (copy, nonatomic) NSString *title;
-@property (copy, nonatomic) NSString *subTitle;
+@property (copy, nonatomic, readwrite) NSString *title;
+@property (copy, nonatomic, readwrite) NSString *subTitle;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate;
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title;

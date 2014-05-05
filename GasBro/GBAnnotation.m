@@ -10,21 +10,29 @@
 
 @implementation GBAnnotation
 
+@synthesize coordinate;
+@synthesize title;
+@synthesize subtitle;
 
 
-
-+(void)initWithLocation:(CLLocationCoordinate2D)coordinate{
-    
+-(id)initWithLocation:(CLLocationCoordinate2D)coordinates{
+    self = [super init];
+    [self setCoordinate:coordinates];
+    return self;
 }
 
-+(void)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title{
-    
+-(id)initWithLocation:(CLLocationCoordinate2D)coordinates withTitle:(NSString*)titles{
+    self = [self initWithLocation:coordinates];
+    [self setTitle:titles];
+    return self;
 }
 
-+(void)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title withSubTitle:(NSString*)subtitle{
-    
+-(id)initWithLocation:(CLLocationCoordinate2D)coordinates withTitle:(NSString*)titles withSubTitle:(NSString*)subtitles{
+    self = [self initWithLocation:coordinate withTitle:title];
+    [self setSubTitle:subtitles];
+    return self;
 }
-+(void)annotationView{
-    
+-(id)annotationView{
+    return self;
 }
 @end
