@@ -7,18 +7,22 @@
 //
 
 #import "GBInfoViewController.h"
+#import "GBViewController.h"
+#import "GBCache.h"
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
 @interface GBInfoViewController ()
-
+@property (strong, nonatomic) GBCache *cache;
 @end
+
 
 @implementation GBInfoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Custom initialization
+        self.cache = [[GBCache alloc] init];
     }
     return self;
 }
@@ -26,10 +30,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/hawaiianchimp/picture?height=960&type=normal&width=960"];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    [profile setImage:[[UIImage alloc] initWithData:data]];
+    UIImage *cached_image = [_cache getProfileImage];
+    if(!cached_image)
+    {
+        [profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
+        NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/hawaiianchimp/picture?height=154&type=normal&width=154"];
+        dispatch_async(kBgQueue, ^{
+        
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            if(data != nil)
+            {
+                [self performSelectorOnMainThread:@selector(setProfileImage:)
+                                   withObject:data waitUntilDone:YES];
+            }
+            else
+            {
+                [profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
+            }
+        });
+    }
+    else
+    {
+        [profile setImage:cached_image];
+    }
+           
 	// Do any additional setup after loading the view.
 }
 
@@ -51,6 +75,12 @@
 
 - (IBAction)infoButtonClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)setProfileImage:(NSData *)data {
+    UIImage *profile_image = [[UIImage alloc] initWithData:data];
+    [profile setImage:profile_image];
+    [_cache storeProfileImage:profile_image];
 }
 
 

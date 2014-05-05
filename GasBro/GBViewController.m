@@ -7,14 +7,9 @@
 //
 
 #import "GBViewController.h"
+#import "GBCache.h"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
-
-@interface GBViewController ()
-@property (readwrite) IBOutlet UIView *topView;
-@property (readwrite) IBOutlet UIView *bottomView;
-@property (readwrite) IBOutlet MKMapView *mapView;
-@end
 
 
 
@@ -47,18 +42,20 @@
 }
 @end
 
-
-@implementation
-
-GBViewController{
+@interface GBViewController (){
     CLLocationManager *locationManager;
     
     NSArray *activityItems;
     
     UIActivityViewController *activityController;
-    
-    
+
 }
+
+@end
+
+@implementation GBViewController
+
+@synthesize cache;
 
 - (void)viewDidLoad
 {

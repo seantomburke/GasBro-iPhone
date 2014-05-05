@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "GBInfoViewController.h"
+#import "GBCache.h"
 
 @interface GBViewController : UIViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
 }
@@ -45,6 +46,12 @@
 @property (strong, nonatomic, readwrite) MKMapItem *start_mapitem;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gas_type_segment;
 @property (weak, nonatomic) IBOutlet GBInfoViewController *infoView;
+
+@property (readwrite) IBOutlet UIView *topView;
+@property (readwrite) IBOutlet UIView *bottomView;
+@property (readwrite) IBOutlet MKMapView *mapView;
+@property (readwrite, strong, nonatomic) GBCache *cache;
+
 
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;

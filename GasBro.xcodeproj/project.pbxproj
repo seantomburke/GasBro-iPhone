@@ -50,6 +50,7 @@
 		1473665A17F6049D00F91B27 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 1473664917F6049D00F91B27 /* iTunesArtwork@2x */; };
 		1473665C17F6058B00F91B27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1473665B17F6058B00F91B27 /* Images.xcassets */; };
 		1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473665D17F60BE300F91B27 /* BroLaunchImage.png */; };
+		147DF16B1917056B004855B2 /* GBCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 147DF16A1917056B004855B2 /* GBCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,8 @@
 		1473664917F6049D00F91B27 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Images.xcassets/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		1473665B17F6058B00F91B27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1473665D17F60BE300F91B27 /* BroLaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage.png; sourceTree = "<group>"; };
+		147DF1691917056B004855B2 /* GBCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBCache.h; sourceTree = "<group>"; };
+		147DF16A1917056B004855B2 /* GBCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +216,8 @@
 				142A75781887F7FA00B3F4AE /* GBGasLabel.m */,
 				142A75741887E26700B3F4AE /* GBInfoViewController.h */,
 				142A75751887E26700B3F4AE /* GBInfoViewController.m */,
+				147DF1691917056B004855B2 /* GBCache.h */,
+				147DF16A1917056B004855B2 /* GBCache.m */,
 				1405E86F1915685900367835 /* GBAnnotation.h */,
 				1405E8701915685900367835 /* GBAnnotation.m */,
 				1473665B17F6058B00F91B27 /* Images.xcassets */,
@@ -429,6 +434,7 @@
 				141AF02F17F53AD000E6B058 /* main.m in Sources */,
 				142A75791887F7FA00B3F4AE /* GBGasLabel.m in Sources */,
 				1405E8711915685900367835 /* GBAnnotation.m in Sources */,
+				147DF16B1917056B004855B2 /* GBCache.m in Sources */,
 				141AF03C17F53AD000E6B058 /* GBViewController.m in Sources */,
 				141AF03317F53AD000E6B058 /* GBAppDelegate.m in Sources */,
 			);
