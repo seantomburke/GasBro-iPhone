@@ -11,7 +11,8 @@
 #import <MapKit/MapKit.h>
 #import "GBInfoViewController.h"
 #import "GBCache.h"
-#import "GBAnnotation.h"
+#import "GBStartAnnotation.h"
+#import "GBEndAnnotation.h"
 
 @interface GBViewController : UIViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
 }
@@ -53,8 +54,8 @@
 @property (readwrite) IBOutlet MKMapView *mapView;
 @property (readwrite, strong, nonatomic) GBCache *cache;
 
-@property (readwrite, strong) GBAnnotation *start_annotation;
-@property (readwrite, strong) MKPointAnnotation *end_annotation;
+@property (readwrite, strong) GBStartAnnotation *start_annotation;
+@property (readwrite, strong) GBEndAnnotation *end_annotation;
 
 
 - (IBAction)getCurrentLocation:(id)sender;

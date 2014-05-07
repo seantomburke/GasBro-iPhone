@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1405E8711915685900367835 /* GBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E8701915685900367835 /* GBAnnotation.m */; };
 		140A86C6185725C400948020 /* BroLaunchImage4inch.png in Resources */ = {isa = PBXBuildFile; fileRef = 140A86C5185725C400948020 /* BroLaunchImage4inch.png */; };
 		141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02217F53AD000E6B058 /* Foundation.framework */; };
 		141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02617F53AD000E6B058 /* UIKit.framework */; };
@@ -51,6 +50,9 @@
 		1473665C17F6058B00F91B27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1473665B17F6058B00F91B27 /* Images.xcassets */; };
 		1473665E17F60BE300F91B27 /* BroLaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473665D17F60BE300F91B27 /* BroLaunchImage.png */; };
 		147DF16B1917056B004855B2 /* GBCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 147DF16A1917056B004855B2 /* GBCache.m */; };
+		14BC9B06191AC5D60028CB4B /* GBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BC9B05191AC5D60028CB4B /* GBAnnotation.m */; };
+		14BC9B16191AD3AA0028CB4B /* GBStartAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BC9B15191AD3AA0028CB4B /* GBStartAnnotation.m */; };
+		14BC9B19191AD3D30028CB4B /* GBEndAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BC9B18191AD3D30028CB4B /* GBEndAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		1405E86F1915685900367835 /* GBAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAnnotation.h; sourceTree = "<group>"; };
-		1405E8701915685900367835 /* GBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAnnotation.m; sourceTree = "<group>"; };
 		140A86C5185725C400948020 /* BroLaunchImage4inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage4inch.png; sourceTree = "<group>"; };
 		141AF01F17F53AD000E6B058 /* GasBro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasBro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		141AF02217F53AD000E6B058 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,6 +128,11 @@
 		1473665D17F60BE300F91B27 /* BroLaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BroLaunchImage.png; sourceTree = "<group>"; };
 		147DF1691917056B004855B2 /* GBCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBCache.h; sourceTree = "<group>"; };
 		147DF16A1917056B004855B2 /* GBCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBCache.m; sourceTree = "<group>"; };
+		14BC9B05191AC5D60028CB4B /* GBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAnnotation.m; sourceTree = "<group>"; };
+		14BC9B14191AD3AA0028CB4B /* GBStartAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBStartAnnotation.h; sourceTree = "<group>"; };
+		14BC9B15191AD3AA0028CB4B /* GBStartAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBStartAnnotation.m; sourceTree = "<group>"; };
+		14BC9B17191AD3D30028CB4B /* GBEndAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBEndAnnotation.h; sourceTree = "<group>"; };
+		14BC9B18191AD3D30028CB4B /* GBEndAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBEndAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,7 +225,11 @@
 				147DF1691917056B004855B2 /* GBCache.h */,
 				147DF16A1917056B004855B2 /* GBCache.m */,
 				1405E86F1915685900367835 /* GBAnnotation.h */,
-				1405E8701915685900367835 /* GBAnnotation.m */,
+				14BC9B05191AC5D60028CB4B /* GBAnnotation.m */,
+				14BC9B14191AD3AA0028CB4B /* GBStartAnnotation.h */,
+				14BC9B15191AD3AA0028CB4B /* GBStartAnnotation.m */,
+				14BC9B17191AD3D30028CB4B /* GBEndAnnotation.h */,
+				14BC9B18191AD3D30028CB4B /* GBEndAnnotation.m */,
 				1473665B17F6058B00F91B27 /* Images.xcassets */,
 				141AF02917F53AD000E6B058 /* Supporting Files */,
 			);
@@ -430,10 +440,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14BC9B16191AD3AA0028CB4B /* GBStartAnnotation.m in Sources */,
+				14BC9B06191AC5D60028CB4B /* GBAnnotation.m in Sources */,
 				142A75761887E26700B3F4AE /* GBInfoViewController.m in Sources */,
 				141AF02F17F53AD000E6B058 /* main.m in Sources */,
+				14BC9B19191AD3D30028CB4B /* GBEndAnnotation.m in Sources */,
 				142A75791887F7FA00B3F4AE /* GBGasLabel.m in Sources */,
-				1405E8711915685900367835 /* GBAnnotation.m in Sources */,
 				147DF16B1917056B004855B2 /* GBCache.m in Sources */,
 				141AF03C17F53AD000E6B058 /* GBViewController.m in Sources */,
 				141AF03317F53AD000E6B058 /* GBAppDelegate.m in Sources */,

@@ -1,24 +1,18 @@
 //
-//  GBAnnotation.m
+//  GBStartAnnotation.m
 //  GasBro
 //
-//  Created by Sean Thomas Burke on 5/3/14.
+//  Created by Sean Thomas Burke on 5/7/14.
 //  Copyright (c) 2014 Nyquist Labs. All rights reserved.
 //
 
 #import "GBAnnotation.h"
 
 @implementation GBAnnotation
-
-@synthesize coordinate;
+@synthesize color;
 @synthesize title;
 @synthesize subtitle;
-@synthesize color;
-
--(id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
-{
-    return [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
-}
+@synthesize coordinate;
 
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinates{
     self = [super init];
@@ -33,8 +27,8 @@
 }
 
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinates withTitle:(NSString*)titles withSubTitle:(NSString*)subtitles{
-    self = [self initWithLocation:coordinate withTitle:title];
-    [self setSubTitle:subtitles];
+    self = [self initWithLocation:coordinate withTitle:titles];
+    [self setSubtitle:subtitles];
     return self;
 }
 
@@ -44,7 +38,6 @@
     pinView = [[MKPinAnnotationView alloc] init];
     pinView.canShowCallout = YES;
     pinView.animatesDrop = TRUE;
-    [pinView setPinColor:color];
     return pinView;
 }
 @end

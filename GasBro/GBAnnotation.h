@@ -9,17 +9,24 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface GBAnnotation : MKAnnotationView <MKAnnotation>
-
+@interface GBAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 @property (copy, nonatomic, readwrite) NSString *title;
-@property (copy, nonatomic, readwrite) NSString *subTitle;
-@property (readwrite) MKPinAnnotationColor color;
+@property (copy, nonatomic, readwrite) NSString *subtitle;
+@property (nonatomic, readwrite) MKPinAnnotationColor color;
 
--(id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate;
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title;
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title withSubTitle:(NSString*)subtitle;
 -(MKAnnotationView *)annotationView;
+-(MKPinAnnotationColor)color;
+-(NSString *)title;
+-(NSString *)subTitle;
+@end
+
+@protocol GBAnnotation <MKAnnotation>
+
+-(MKPinAnnotationColor)color;
+
 @end

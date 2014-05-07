@@ -8,6 +8,8 @@
 
 #import "GBViewController.h"
 #import "GBCache.h"
+#import "GBStartAnnotation.h"
+#import "GBEndAnnotation.h"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
@@ -54,7 +56,6 @@
 @end
 
 @implementation GBViewController
-
 @synthesize cache;
 
 - (void)viewDidLoad
@@ -138,12 +139,12 @@
     // Any additional checks to ensure you have the correct textField here.
     if(textField == _startLocationText)
     {
-        [self startSearch:textField];
+        [self startSearch:textField withError:true];
         [_endLocationText becomeFirstResponder];
     }
     else
     {
-        [self endSearch:textField];
+        [self endSearch:textField withError:true];
         [textField resignFirstResponder];
     }
     return YES;
@@ -153,8 +154,7 @@
     [_startLocationText resignFirstResponder];
     [_endLocationText resignFirstResponder];
 }
-
-- (IBAction)startSearch:(UITextField *)sender {
+-(void)startSearch:(UITextField*)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
         _startLocationText.clearsOnBeginEditing = NO;
@@ -168,7 +168,8 @@
                  //_startLocationText.text = @"Network Error";
                  _price = 0;
                  _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
-                 [errorAlert show];
+                 if(showError)
+                     [errorAlert show];
                  
              } else {
                  _start_placemarker = [startplacemarks lastObject];
@@ -180,7 +181,8 @@
                      //_startLocationText.text = @"Network Error";
                      _price = 0;
                      _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
-                     [errorAlert show];
+                     if(showError)
+                         [errorAlert show];
                  }
                  else
                  {
@@ -213,8 +215,11 @@
                      {
                          [addr appendString:s.postalCode];
                      }
-                     _startLocationText.text = addr;
-                     [_start_annotation setSubTitle:addr];
+                     if([addr  isEqual: @""])
+                         _startLocationText.text = addr;
+                     [_mapView removeAnnotation:_start_annotation];
+                     _start_annotation = [[GBStartAnnotation alloc] init];
+                     [_start_annotation setColor:MKPinAnnotationColorGreen];
                      float spanX = 1.00725;
                      float spanY = 1.00725;
                      MKCoordinateRegion region;
@@ -222,9 +227,9 @@
                      region.center = _start_placemarker.location.coordinate;
                      [_mapView setRegion:region animated:YES];
                      NSLog(@"long:%f,lat:%f", _start_placemarker.location.coordinate.latitude,_start_placemarker.location.coordinate.longitude);
-                     _start_annotation = [[GBAnnotation alloc] init];
-                     _start_annotation.coordinate = _start_placemarker.location.coordinate;
-                     _start_annotation.title = @"Start Location";
+                     [_start_annotation setCoordinate:_start_placemarker.location.coordinate];
+                     [_start_annotation setTitle:@"Start Location"];
+                     [_start_annotation setSubtitle:addr];
                      [_mapView addAnnotation:_start_annotation];
                      [_mapView selectAnnotation:_start_annotation animated:YES];
                      [self calculateGas];
@@ -232,24 +237,29 @@
              }
          }];
     }
+    
+}
+- (IBAction)startSearch:(UITextField *)sender{
+    [self startSearch:sender withError:false];
 }
 
-- (IBAction)endSearch:(UITextField *)sender {
+- (void)endSearch:(UITextField *)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
         CLGeocoder *endgeocoder = [[CLGeocoder alloc] init];
         [endgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *endplacemarks, NSError *error) {
-            if (error) {
+            if (error && showError) {
                 NSLog(@"%@", error);
                 UIAlertView *errorAlert = [[UIAlertView alloc]
                                            initWithTitle:[NSString stringWithFormat:@"%@ not found", sender.text] message:@"Please check for spelling errors and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 //_startLocationText.text = @"Network Error";
                 //_price = 0;
                 //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
-                [errorAlert show];
+                if(showError)
+                    [errorAlert show];
             } else {
                 _end_placemarker = [endplacemarks lastObject];
-                if(![_end_placemarker.country  isEqual: @"United States"])
+                if(![_end_placemarker.country  isEqual: @"United States"] && showError)
                 {
                     NSLog(@"%@", error);
                     UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -257,7 +267,8 @@
                     //_startLocationText.text = @"Network Error";
                     //_price = 0;
                     //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
-                    [errorAlert show];
+                    if(showError)
+                        [errorAlert show];
                 }
                 else
                 {
@@ -289,8 +300,17 @@
                     {
                         [addr appendString:s.postalCode];
                     }
-                    _endLocationText.text = addr;
-                    _end_annotation.subtitle = addr;
+                    
+                    [_mapView removeAnnotation:_end_annotation];
+                    _end_annotation = [[GBEndAnnotation alloc] init];
+                    
+                    if(![addr isEqual:@""])
+                    {
+                        [_endLocationText setText:addr];
+                        [_end_annotation setSubtitle:addr];
+                    }
+                    
+                    [_end_annotation setTitle:@"Destination"];
                     
                     float spanX = 1.00725;
                     float spanY = 1.00725;
@@ -298,17 +318,19 @@
                     region.span = MKCoordinateSpanMake(spanX, spanY);
                     NSLog(@"long:%f,lat:%f", _end_placemarker.location.coordinate.latitude,_end_placemarker.location.coordinate.longitude);
                     [self getDirections];
-                    _end_annotation = [[MKPointAnnotation alloc] init];
-                    _end_annotation.coordinate = _end_placemarker.location.coordinate;
-                    _end_annotation.title = @"Destination";
-                    _end_annotation.subtitle = _endLocationText.text;
+                    [_end_annotation setColor:MKPinAnnotationColorRed];
+                    [_end_annotation setCoordinate:_end_placemarker.location.coordinate];
                     [_mapView addAnnotation:_end_annotation];
-                    _end_annotation.subtitle = addr;
+                    [_end_annotation setSubtitle:addr];
                     [_mapView selectAnnotation:_end_annotation animated:YES];
                 }
             }
         }];
     }
+}
+
+- (IBAction)endSearch:(UITextField *)sender {
+    [self endSearch:sender withError:false];
 }
 
 - (IBAction)getCurrentLocation:(id)sender {
@@ -338,7 +360,7 @@
                     NSLog(@"%@", error);
                     UIAlertView *errorAlert = [[UIAlertView alloc]
                                                initWithTitle:@"Current Location Failed" message:@"Could not find Current Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    //_startLocationText.text = @"Network Error";
+                    _startLocationText.text = @"Network Error";
                     _price = 0;
                     _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
                     [errorAlert show];
@@ -372,13 +394,19 @@
                         [addr appendString:s.postalCode];
                     }
                     _startLocationText.text = addr;
+                    _mapView.userLocation.subtitle = addr;
                 }
             }];
+        }
+        else
+        {
+            _startLocationText.text = @"Location Error";
+            _startLocationText.clearsOnBeginEditing = YES;
         }
         _start_placemarker = [[MKPlacemark alloc] initWithCoordinate:locationManager.location.coordinate addressDictionary:NULL];
         _start_mapitem = [MKMapItem mapItemForCurrentLocation];
         
-        //[locationManager stopUpdatingLocation];
+        [locationManager stopUpdatingLocation];
         [self calculateGas];
     });
     
@@ -505,7 +533,8 @@
     for (MKRoute *route in response.routes)
     {
         _miles += route.distance;
-        
+         
+        [_mapView removeOverlays:[_mapView overlays]];
         [_mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
         
         for (MKRouteStep *step in route.steps)
@@ -546,44 +575,87 @@
     return nil;
 }
 
--(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    // If it's the user location, just return nil.
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // in case it's the user location, we already have an annotation, so just return nil
     if ([annotation isKindOfClass:[MKUserLocation class]])
     {
         return nil;
     }
-    if ([annotation isKindOfClass:[GBAnnotation class]])
+    
+    // handle our three custom annotations
+    //
+    if ([annotation isKindOfClass:[GBStartAnnotation class]]) // for Golden Gate Bridge
     {
-        // Try to dequeue an existing pin view first.
-        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:@"start_annotations"];
-        if (!pinView)
+        // try to dequeue an existing pin view first
+        static NSString *startAnnotationIdentifier = @"startPins";
+        
+        MKPinAnnotationView *pinView =
+        (MKPinAnnotationView *) [theMapView dequeueReusableAnnotationViewWithIdentifier:startAnnotationIdentifier];
+        if (pinView == nil)
         {
-            // If an existing pin view was not available, create one.
-            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"start_annotations"];
-            pinView.canShowCallout = YES;
-            pinView.animatesDrop = TRUE;
-            [pinView setPinColor:MKPinAnnotationColorGreen];
-        } else {
+            // if an existing pin view was not available, create one
+            MKPinAnnotationView *startPinView = [[MKPinAnnotationView alloc]
+                                                  initWithAnnotation:annotation reuseIdentifier:startAnnotationIdentifier];
+            startPinView.pinColor = MKPinAnnotationColorGreen;
+            startPinView.animatesDrop = YES;
+            startPinView.canShowCallout = YES;
+            
+            // add a detail disclosure button to the callout which will open a new view controller page
+            //
+            // note: when the detail disclosure button is tapped, we respond to it via:
+            //       calloutAccessoryControlTapped delegate method
+            //
+            // by using "calloutAccessoryControlTapped", it's a convenient way to find out which annotation was tapped
+            //
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+            startPinView.rightCalloutAccessoryView = rightButton;
+            
+            return startPinView;
+        }
+        else
+        {
             pinView.annotation = annotation;
         }
         return pinView;
     }
-    // Handle any custom annotations.
-    if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
-        // Try to dequeue an existing pin view first.
-        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:@"non_gas_stations"];
-        if (!pinView)
+    else if ([annotation isKindOfClass:[GBEndAnnotation class]])   // for City of San Francisco
+    {
+        // try to dequeue an existing pin view first
+        static NSString *endAnnotationIdentifier = @"endPins";
+        
+        MKPinAnnotationView *pinView =
+        (MKPinAnnotationView *) [theMapView dequeueReusableAnnotationViewWithIdentifier:endAnnotationIdentifier];
+        if (pinView == nil)
         {
-            // If an existing pin view was not available, create one.
-            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"non_gas_stations"];
-            pinView.canShowCallout = YES;
-            pinView.animatesDrop = TRUE;
-            [pinView setPinColor:MKPinAnnotationColorRed];
-        } else {
+            // if an existing pin view was not available, create one
+            MKPinAnnotationView *startPinView = [[MKPinAnnotationView alloc]
+                                                 initWithAnnotation:annotation reuseIdentifier:endAnnotationIdentifier];
+            startPinView.pinColor = MKPinAnnotationColorRed;
+            startPinView.animatesDrop = YES;
+            startPinView.canShowCallout = YES;
+            
+            // add a detail disclosure button to the callout which will open a new view controller page
+            //
+            // note: when the detail disclosure button is tapped, we respond to it via:
+            //       calloutAccessoryControlTapped delegate method
+            //
+            // by using "calloutAccessoryControlTapped", it's a convenient way to find out which annotation was tapped
+            //
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+            startPinView.rightCalloutAccessoryView = rightButton;
+            
+            return startPinView;
+        }
+        else
+        {
             pinView.annotation = annotation;
         }
         return pinView;
     }
+    
     return nil;
 }
 
@@ -605,7 +677,7 @@
     {
         UIAlertView *errorAlert = [[UIAlertView alloc]
                                    initWithTitle:@"No Gas Stations Nearby" message:@"Try typing in the nearest U.S. city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        //_startLocationText.text = @"Location Error";
+        _startLocationText.text = @"Location Error";
         _price = 0;
         _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
         [errorAlert show];
