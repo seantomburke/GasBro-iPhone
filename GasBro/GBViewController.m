@@ -731,6 +731,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+    
+    [manager stopUpdatingLocation];
     _startLocationText.text = @"Location Error";
     NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]

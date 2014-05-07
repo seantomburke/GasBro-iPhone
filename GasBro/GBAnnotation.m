@@ -26,7 +26,7 @@
     return self;
 }
 
--(id)initWithLocation:(CLLocationCoordinate2D)coordinates withTitle:(NSString*)titles withSubTitle:(NSString*)subtitles{
+-(id)initWithLocation:(CLLocationCoordinate2D)coordinates withTitle:(NSString*)titles withSubtitle:(NSString*)subtitles{
     self = [self initWithLocation:coordinate withTitle:titles];
     [self setSubtitle:subtitles];
     return self;

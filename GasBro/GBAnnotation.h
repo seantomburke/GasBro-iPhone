@@ -18,11 +18,8 @@
 
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate;
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title;
--(id)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title withSubTitle:(NSString*)subtitle;
+-(id)initWithLocation:(CLLocationCoordinate2D)coordinate withTitle:(NSString*)title withSubtitle:(NSString*)subtitle;
 -(MKAnnotationView *)annotationView;
--(MKPinAnnotationColor)color;
--(NSString *)title;
--(NSString *)subTitle;
 @end
 
 @protocol GBAnnotation <MKAnnotation>
