@@ -13,7 +13,12 @@
 @synthesize coordinate;
 @synthesize title;
 @synthesize subtitle;
+@synthesize color;
 
+-(id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
+{
+    return [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+}
 
 -(id)initWithLocation:(CLLocationCoordinate2D)coordinates{
     self = [super init];
@@ -32,7 +37,14 @@
     [self setSubTitle:subtitles];
     return self;
 }
--(id)annotationView{
-    return self;
+
+-(MKPinAnnotationView *)annotationView{
+    MKPinAnnotationView *pinView;
+    // If an existing pin view was not available, create one.
+    pinView = [[MKPinAnnotationView alloc] init];
+    pinView.canShowCallout = YES;
+    pinView.animatesDrop = TRUE;
+    [pinView setPinColor:color];
+    return pinView;
 }
 @end
