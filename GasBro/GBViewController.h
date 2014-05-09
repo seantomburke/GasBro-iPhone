@@ -13,6 +13,7 @@
 #import "GBCache.h"
 #import "GBStartAnnotation.h"
 #import "GBEndAnnotation.h"
+#import "GBCurrentLocation.h"
 
 @interface GBViewController : UIViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
 }
@@ -43,6 +44,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *startLocationText;
 @property (weak, nonatomic) IBOutlet UITextField *endLocationText;
 @property (weak, nonatomic) IBOutlet UISwitch *roundtripSwitch;
+
+@property (weak, nonatomic) IBOutlet GBCurrentLocation *currentLocationButton;
 @property (strong, nonatomic) IBOutlet MKMapView *routeMap;
 @property (strong, nonatomic, readwrite) MKMapItem *end_mapitem;
 @property (strong, nonatomic, readwrite) MKMapItem *start_mapitem;

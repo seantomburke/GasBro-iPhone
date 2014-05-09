@@ -57,6 +57,7 @@
 
 @implementation GBViewController
 @synthesize cache;
+@synthesize currentLocationButton;
 
 - (void)viewDidLoad
 {
@@ -336,10 +337,8 @@
 - (IBAction)getCurrentLocation:(id)sender {
     
     [_startLocationText setText:@"Locating..."];
+    [currentLocationButton setHighlighted:YES];
     _startLocationText.clearsOnBeginEditing = YES;
-    _mapView.showsUserLocation = YES;
-    [_mapView setShowsUserLocation:YES];
-    [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     dispatch_async(kBgQueue, ^{
         locationManager.delegate = self;
@@ -352,6 +351,10 @@
             NSLog(@"%f",locationManager.location.coordinate.latitude);
             lat = locationManager.location.coordinate.latitude;
         }
+        
+        _mapView.showsUserLocation = YES;
+        [_mapView setShowsUserLocation:YES];
+        [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
         if(locationManager.location.coordinate.latitude != 0)
         {
             CLGeocoder *currentgeocoder = [[CLGeocoder alloc] init];
@@ -361,6 +364,7 @@
                     UIAlertView *errorAlert = [[UIAlertView alloc]
                                                initWithTitle:@"Current Location Failed" message:@"Could not find Current Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     _startLocationText.text = @"Network Error";
+                    [currentLocationButton setHighlighted:NO];
                     _price = 0;
                     _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
                     [errorAlert show];
@@ -400,9 +404,14 @@
         }
         else
         {
-            _startLocationText.text = @"Location Error";
+            if(![_startLocationText isEditing])
+            {
+            [_startLocationText setText:@"Location Error"];
             _startLocationText.clearsOnBeginEditing = YES;
+            }
         }
+        
+        [currentLocationButton setHighlighted:NO];
         _start_placemarker = [[MKPlacemark alloc] initWithCoordinate:locationManager.location.coordinate addressDictionary:NULL];
         _start_mapitem = [MKMapItem mapItemForCurrentLocation];
         
@@ -610,7 +619,7 @@
             //
             UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
-            startPinView.rightCalloutAccessoryView = rightButton;
+            //startPinView.rightCalloutAccessoryView = rightButton;
             
             return startPinView;
         }
@@ -645,7 +654,7 @@
             //
             UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
-            startPinView.rightCalloutAccessoryView = rightButton;
+            //startPinView.rightCalloutAccessoryView = rightButton;
             
             return startPinView;
         }
@@ -708,6 +717,7 @@
         
     }
     
+    [currentLocationButton setHighlighted:NO];
     if ([_startLocationText.text  isEqual: @"Locating..."])
     {
         _startLocationText.text = _city;

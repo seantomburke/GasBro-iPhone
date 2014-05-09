@@ -53,6 +53,8 @@
 		14BC9B06191AC5D60028CB4B /* GBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BC9B05191AC5D60028CB4B /* GBAnnotation.m */; };
 		14BC9B16191AD3AA0028CB4B /* GBStartAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BC9B15191AD3AA0028CB4B /* GBStartAnnotation.m */; };
 		14BC9B19191AD3D30028CB4B /* GBEndAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BC9B18191AD3D30028CB4B /* GBEndAnnotation.m */; };
+		14F3BDD5191CC73D00F170BB /* GBRoundTripSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F3BDD4191CC73D00F170BB /* GBRoundTripSwitch.m */; };
+		14F3BDD8191CD71B00F170BB /* GBCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F3BDD7191CD71B00F170BB /* GBCurrentLocation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +135,10 @@
 		14BC9B15191AD3AA0028CB4B /* GBStartAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBStartAnnotation.m; sourceTree = "<group>"; };
 		14BC9B17191AD3D30028CB4B /* GBEndAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBEndAnnotation.h; sourceTree = "<group>"; };
 		14BC9B18191AD3D30028CB4B /* GBEndAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBEndAnnotation.m; sourceTree = "<group>"; };
+		14F3BDD3191CC73D00F170BB /* GBRoundTripSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBRoundTripSwitch.h; sourceTree = "<group>"; };
+		14F3BDD4191CC73D00F170BB /* GBRoundTripSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBRoundTripSwitch.m; sourceTree = "<group>"; };
+		14F3BDD6191CD71B00F170BB /* GBCurrentLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBCurrentLocation.h; sourceTree = "<group>"; };
+		14F3BDD7191CD71B00F170BB /* GBCurrentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBCurrentLocation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +221,10 @@
 				141AF03117F53AD000E6B058 /* GBAppDelegate.h */,
 				141AF03217F53AD000E6B058 /* GBAppDelegate.m */,
 				141AF03417F53AD000E6B058 /* Main_iPhone.storyboard */,
+				14F3BDD3191CC73D00F170BB /* GBRoundTripSwitch.h */,
+				14F3BDD4191CC73D00F170BB /* GBRoundTripSwitch.m */,
+				14F3BDD6191CD71B00F170BB /* GBCurrentLocation.h */,
+				14F3BDD7191CD71B00F170BB /* GBCurrentLocation.m */,
 				141AF03717F53AD000E6B058 /* Main_iPad.storyboard */,
 				141AF03A17F53AD000E6B058 /* GBViewController.h */,
 				141AF03B17F53AD000E6B058 /* GBViewController.m */,
@@ -448,6 +458,8 @@
 				142A75791887F7FA00B3F4AE /* GBGasLabel.m in Sources */,
 				147DF16B1917056B004855B2 /* GBCache.m in Sources */,
 				141AF03C17F53AD000E6B058 /* GBViewController.m in Sources */,
+				14F3BDD8191CD71B00F170BB /* GBCurrentLocation.m in Sources */,
+				14F3BDD5191CC73D00F170BB /* GBRoundTripSwitch.m in Sources */,
 				141AF03317F53AD000E6B058 /* GBAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
