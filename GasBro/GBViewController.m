@@ -336,6 +336,9 @@
     [_startLocationText setText:@"Locating..."];
     [currentLocationButton setSelected:YES];
     _startLocationText.clearsOnBeginEditing = YES;
+    _mapView.showsUserLocation = YES;
+    [_mapView setShowsUserLocation:YES];
+    [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     dispatch_async(kBgQueue, ^{
         locationManager.delegate = self;
@@ -349,9 +352,7 @@
             lat = locationManager.location.coordinate.latitude;
         }
         
-        _mapView.showsUserLocation = YES;
-        [_mapView setShowsUserLocation:YES];
-        [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+        
         if(locationManager.location.coordinate.latitude != 0)
         {
             CLGeocoder *currentgeocoder = [[CLGeocoder alloc] init];
@@ -414,6 +415,8 @@
         _start_mapitem = [MKMapItem mapItemForCurrentLocation];
         
         [locationManager stopUpdatingLocation];
+        
+        [_mapView selectAnnotation:_mapView.userLocation animated:YES];
         [self calculateGas];
     });
     
