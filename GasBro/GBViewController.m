@@ -113,10 +113,7 @@
     [self dismissKeyboard];
     [UIView animateWithDuration:.25
                      animations:^{
-                         _topView.frame = CGRectMake(0, -100, _topView.bounds.size.width, _topView.bounds.size.height);// its final location
-                     }];
-    [UIView animateWithDuration:.25
-                     animations:^{
+                         _topView.frame = CGRectMake(0, -100, _topView.bounds.size.width, _topView.bounds.size.height);
                          _bottomView.frame = CGRectMake(0, self.view.bounds.size.height - _bottomView.bounds.size.height + 100, _bottomView.bounds.size.width, _bottomView.bounds.size.height);// its final location
                      }];
 }
@@ -337,7 +334,7 @@
 - (IBAction)getCurrentLocation:(id)sender {
     
     [_startLocationText setText:@"Locating..."];
-    [currentLocationButton setHighlighted:YES];
+    [currentLocationButton setSelected:YES];
     _startLocationText.clearsOnBeginEditing = YES;
     
     dispatch_async(kBgQueue, ^{
@@ -364,7 +361,6 @@
                     UIAlertView *errorAlert = [[UIAlertView alloc]
                                                initWithTitle:@"Current Location Failed" message:@"Could not find Current Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     _startLocationText.text = @"Network Error";
-                    [currentLocationButton setHighlighted:NO];
                     _price = 0;
                     _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
                     [errorAlert show];
@@ -398,6 +394,7 @@
                         [addr appendString:s.postalCode];
                     }
                     _startLocationText.text = addr;
+                    [currentLocationButton setSelected:NO];
                     _mapView.userLocation.subtitle = addr;
                 }
             }];
@@ -406,12 +403,13 @@
         {
             if(![_startLocationText isEditing])
             {
-            [_startLocationText setText:@"Location Error"];
+                [_startLocationText setText:@"Location Error"];
+
+                [currentLocationButton setSelected:NO];
             _startLocationText.clearsOnBeginEditing = YES;
             }
         }
         
-        [currentLocationButton setHighlighted:NO];
         _start_placemarker = [[MKPlacemark alloc] initWithCoordinate:locationManager.location.coordinate addressDictionary:NULL];
         _start_mapitem = [MKMapItem mapItemForCurrentLocation];
         
@@ -687,6 +685,8 @@
         UIAlertView *errorAlert = [[UIAlertView alloc]
                                    initWithTitle:@"No Gas Stations Nearby" message:@"Try typing in the nearest U.S. city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         _startLocationText.text = @"Location Error";
+        [currentLocationButton setSelected:NO];
+
         _price = 0;
         _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
         [errorAlert show];
@@ -717,12 +717,13 @@
         
     }
     
-    [currentLocationButton setHighlighted:NO];
     if ([_startLocationText.text  isEqual: @"Locating..."])
     {
         _startLocationText.text = _city;
         _startLocationText.clearsOnBeginEditing = NO;
     }
+    
+    [currentLocationButton setSelected:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -744,6 +745,7 @@
     
     [manager stopUpdatingLocation];
     _startLocationText.text = @"Location Error";
+    [currentLocationButton setSelected:NO];
     NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Location Error" message:@"Failed to Get Your Location. Make sure Location services are enabled in Settings>Privacy>Location Services" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

@@ -29,6 +29,7 @@
 		1441566F18208ADF00ABDED9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441566E18208ADF00ABDED9 /* CoreData.framework */; };
 		1441567118208AE400ABDED9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441567018208AE400ABDED9 /* CoreText.framework */; };
 		1441567B18208B3700ABDED9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441567A18208B3600ABDED9 /* SystemConfiguration.framework */; };
+		144F69B0191F6D35000F81F1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441567818208B1A00ABDED9 /* QuartzCore.framework */; };
 		1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1473663717F5410B00F91B27 /* CoreLocation.framework */; };
 		1473664A17F6049D00F91B27 /* bro.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663917F6049D00F91B27 /* bro.png */; };
 		1473664B17F6049D00F91B27 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 1473663A17F6049D00F91B27 /* Icon-60.png */; };
@@ -146,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144F69B0191F6D35000F81F1 /* QuartzCore.framework in Frameworks */,
 				141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */,
 				141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */,
 				1441567B18208B3700ABDED9 /* SystemConfiguration.framework in Frameworks */,
