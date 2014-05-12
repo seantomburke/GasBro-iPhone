@@ -403,6 +403,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="XIS-wr-UZt"/>
                     <connections>
+                        <outlet property="paragraph_text" destination="7Qn-d3-VDz" id="Aqi-vR-8Tx"/>
                         <outlet property="profile" destination="BXQ-Zj-MEX" id="jec-ok-8Nc"/>
                         <outlet property="scroll" destination="m9E-Mj-6P8" id="R5C-Ja-2Mu"/>
                     </connections>

@@ -14,51 +14,58 @@
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
-
-
-@interface NSDictionary(JSONCategories)
-+(NSDictionary*)dictionaryWithContentsOfJSONURLString:
-(NSString*)urlAddress;
--(NSData*)toJSON;
-@end
-
-@implementation NSDictionary(JSONCategories)
-+(NSDictionary*)dictionaryWithContentsOfJSONURLString:
-(NSString*)urlAddress
-{
-    NSData* data = [NSData dataWithContentsOfURL:
-                    [NSURL URLWithString: urlAddress] ];
-    __autoreleasing NSError* error = nil;
-    id result = [NSJSONSerialization JSONObjectWithData:data
-                                                options:kNilOptions error:&error];
-    if (error != nil) return nil;
-    return result;
-}
-
--(NSData*)toJSON
-{
-    NSError* error = nil;
-    id result = [NSJSONSerialization dataWithJSONObject:self
-                                                options:kNilOptions error:&error];
-    if (error != nil) return nil;
-    return result;
-}
-@end
-
 @interface GBViewController (){
     CLLocationManager *locationManager;
     
-    NSArray *activityItems;
-    
-    UIActivityViewController *activityController;
-    
 }
 
 @end
 
-@implementation GBViewController
-@synthesize cache;
+@implementation GBViewController{}
+
+@synthesize price;
+@synthesize gas_type;
+@synthesize share_text;
+@synthesize city;
+@synthesize gas_index;
+@synthesize cost;
+@synthesize total;
+@synthesize miles;
+@synthesize start_placemarker;
+@synthesize end_placemarker;
+
+@synthesize people;
+@synthesize mpg;
+@synthesize roundtrip;
+
+@synthesize peopleLabel;
+@synthesize mpgLabel;
+@synthesize peopleSlider;
+@synthesize mpgSlider;
+@synthesize gasPriceLabel;
+@synthesize gasTotalLabel;
+@synthesize gasPerPersonLabel;
+@synthesize startLocationText;
+@synthesize endLocationText;
+@synthesize roundtripSwitch;
+
 @synthesize currentLocationButton;
+@synthesize routeMap;
+@synthesize end_mapitem;
+@synthesize start_mapitem;
+@synthesize gas_type_segment;
+@synthesize infoView;
+
+@synthesize topView;
+@synthesize bottomView;
+@synthesize mapView;
+@synthesize cache;
+
+@synthesize start_annotation;
+@synthesize end_annotation;
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -70,15 +77,15 @@
     [super viewDidLoad];
     self.topView.opaque = NO;
     self.bottomView.opaque = NO;
-    [_mapView setDelegate:self];
+    [mapView setDelegate:self];
     
     //map stufff
     
 	// Do any additional setup after loading the view, typically from a nib.
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _gas_type = [defaults objectForKey:@"gasType"];
-    _mpg = [defaults doubleForKey:@"mpg"];
+    gas_type = [defaults objectForKey:@"gasType"];
+    mpg = [defaults doubleForKey:@"mpg"];
     
     locationManager = [[CLLocationManager alloc] init];
     [self peopleSliderChanged:(self)];
@@ -87,26 +94,26 @@
     
     [self setNeedsStatusBarAppearanceUpdate];
     
-    _endLocationText.delegate = self;
-    _startLocationText.delegate = self;
+    endLocationText.delegate = self;
+    startLocationText.delegate = self;
     
     UITapGestureRecognizer *maptap = [[UITapGestureRecognizer alloc]
                                       initWithTarget:self
                                       action:@selector(hidePanels)];
     
-    [_mapView addGestureRecognizer:maptap];
+    [mapView addGestureRecognizer:maptap];
     
     UITapGestureRecognizer *nonmaptaptop = [[UITapGestureRecognizer alloc]
                                             initWithTarget:self
                                             action:@selector(showPanels)];
     
-    [_topView addGestureRecognizer:nonmaptaptop];
+    [topView addGestureRecognizer:nonmaptaptop];
     
     UITapGestureRecognizer *nonmaptapbottom = [[UITapGestureRecognizer alloc]
                                                initWithTarget:self
                                                action:@selector(showPanels)];
     
-    [_bottomView addGestureRecognizer:nonmaptapbottom];
+    [bottomView addGestureRecognizer:nonmaptapbottom];
     
 }
 
@@ -118,8 +125,8 @@
     [self dismissKeyboard];
     [UIView animateWithDuration:.25
                      animations:^{
-                         _topView.frame = CGRectMake(0, -100, _topView.bounds.size.width, _topView.bounds.size.height);
-                         _bottomView.frame = CGRectMake(0, self.view.bounds.size.height - _bottomView.bounds.size.height + 100, _bottomView.bounds.size.width, _bottomView.bounds.size.height);// its final location
+                         topView.frame = CGRectMake(0, -100, topView.bounds.size.width, topView.bounds.size.height);
+                         bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height + 100, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
                      }];
 }
 
@@ -129,21 +136,21 @@
     [self dismissKeyboard];
     [UIView animateWithDuration:.25
                      animations:^{
-                         _topView.frame = CGRectMake(0, 0, _topView.bounds.size.width, _topView.bounds.size.height);// its final location
+                         topView.frame = CGRectMake(0, 0, topView.bounds.size.width, topView.bounds.size.height);// its final location
                      }];
     [UIView animateWithDuration:.25
                      animations:^{
-                         _bottomView.frame = CGRectMake(0, self.view.bounds.size.height - _bottomView.bounds.size.height, _bottomView.bounds.size.width, _bottomView.bounds.size.height);// its final location
+                         bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
                      }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     // Any additional checks to ensure you have the correct textField here.
-    if(textField == _startLocationText)
+    if(textField == startLocationText)
     {
         [self startSearch:textField withError:true];
-        [_endLocationText becomeFirstResponder];
+        [endLocationText becomeFirstResponder];
     }
     else
     {
@@ -154,13 +161,13 @@
 }
 
 -(void)dismissKeyboard {
-    [_startLocationText resignFirstResponder];
-    [_endLocationText resignFirstResponder];
+    [startLocationText resignFirstResponder];
+    [endLocationText resignFirstResponder];
 }
 -(void)startSearch:(UITextField*)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
-        _startLocationText.clearsOnBeginEditing = NO;
+        startLocationText.clearsOnBeginEditing = NO;
         CLGeocoder *startgeocoder = [[CLGeocoder alloc] init];
         [startgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *startplacemarks, NSError *error)
          {
@@ -168,30 +175,30 @@
                  NSLog(@"%@", error);
                  UIAlertView *errorAlert = [[UIAlertView alloc]
                                             initWithTitle:[NSString stringWithFormat:@"%@ not found", sender.text] message:@"Please check for spelling errors and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                 //_startLocationText.text = @"Network Error";
-                 _price = 0;
-                 _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                 //startLocationText.text = @"Network Error";
+                 price = 0;
+                 gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                  if(showError)
                      [errorAlert show];
                  
              } else {
-                 _start_placemarker = [startplacemarks lastObject];
-                 if(![_start_placemarker.country  isEqual: @"United States"])
+                 start_placemarker = [startplacemarks lastObject];
+                 if(![start_placemarker.country  isEqual: @"United States"])
                  {
                      NSLog(@"%@", error);
                      UIAlertView *errorAlert = [[UIAlertView alloc]
                                                 initWithTitle:@"Country Error" message:@"Gas Bro currently only works in the U.S. Please choose a location within the U.S." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                     //_startLocationText.text = @"Network Error";
-                     _price = 0;
-                     _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                     //startLocationText.text = @"Network Error";
+                     price = 0;
+                     gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                      if(showError)
                          [errorAlert show];
                  }
                  else
                  {
                      
-                     _start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_start_placemarker]];
-                     MKPlacemark *s = _start_placemarker;
+                     start_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:start_placemarker]];
+                     MKPlacemark *s = start_placemarker;
                      NSMutableString *addr = [[NSMutableString alloc] init];
                      if(s.subThoroughfare)
                      {
@@ -219,22 +226,22 @@
                          [addr appendString:s.postalCode];
                      }
                      if([addr  isEqual: @""])
-                         _startLocationText.text = addr;
-                     [_mapView removeAnnotation:_start_annotation];
-                     _start_annotation = [[GBStartAnnotation alloc] init];
-                     [_start_annotation setColor:MKPinAnnotationColorGreen];
+                         startLocationText.text = addr;
+                     [mapView removeAnnotation:start_annotation];
+                     start_annotation = [[GBStartAnnotation alloc] init];
+                     [start_annotation setColor:MKPinAnnotationColorGreen];
                      float spanX = 1.00725;
                      float spanY = 1.00725;
                      MKCoordinateRegion region;
                      region.span = MKCoordinateSpanMake(spanX, spanY);
-                     region.center = _start_placemarker.location.coordinate;
-                     [_mapView setRegion:region animated:YES];
-                     NSLog(@"long:%f,lat:%f", _start_placemarker.location.coordinate.latitude,_start_placemarker.location.coordinate.longitude);
-                     [_start_annotation setCoordinate:_start_placemarker.location.coordinate];
-                     [_start_annotation setTitle:@"Start Location"];
-                     [_start_annotation setSubtitle:addr];
-                     [_mapView addAnnotation:_start_annotation];
-                     [_mapView selectAnnotation:_start_annotation animated:YES];
+                     region.center = start_placemarker.location.coordinate;
+                     [mapView setRegion:region animated:YES];
+                     NSLog(@"long:%f,lat:%f", start_placemarker.location.coordinate.latitude,start_placemarker.location.coordinate.longitude);
+                      [start_annotation setCoordinate:start_placemarker.location.coordinate];
+                      [start_annotation setTitle:@"Start Location"];
+                      [start_annotation setSubtitle:addr];
+                      [mapView addAnnotation:start_annotation];
+                      [mapView selectAnnotation:start_annotation animated:YES];
                      [self calculateGas];
                  }
              }
@@ -257,26 +264,26 @@
                                            initWithTitle:[NSString stringWithFormat:@"%@ not found", sender.text] message:@"Please check for spelling errors and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 //_startLocationText.text = @"Network Error";
                 //_price = 0;
-                //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f",price];
                 if(showError)
                     [errorAlert show];
             } else {
-                _end_placemarker = [endplacemarks lastObject];
-                if(![_end_placemarker.country  isEqual: @"United States"] && showError)
+                end_placemarker = [endplacemarks lastObject];
+                if(! [end_placemarker.country  isEqual: @"United States"] && showError)
                 {
                     NSLog(@"%@", error);
                     UIAlertView *errorAlert = [[UIAlertView alloc]
                                                initWithTitle:@"Country Error" message:@"Please choose a location within the U.S." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     //_startLocationText.text = @"Network Error";
                     //_price = 0;
-                    //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                    //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                     if(showError)
                         [errorAlert show];
                 }
                 else
                 {
-                    _end_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:_end_placemarker]];
-                    MKPlacemark *s = _end_placemarker;
+                    end_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:end_placemarker]];
+                    MKPlacemark *s = end_placemarker;
                     NSMutableString *addr = [[NSMutableString alloc] init];
                     if(s.subThoroughfare)
                     {
@@ -304,28 +311,28 @@
                         [addr appendString:s.postalCode];
                     }
                     
-                    [_mapView removeAnnotation:_end_annotation];
-                    _end_annotation = [[GBEndAnnotation alloc] init];
+                     [mapView removeAnnotation:end_annotation];
+                    end_annotation = [[GBEndAnnotation alloc] init];
                     
                     if(![addr isEqual:@""])
                     {
-                        [_endLocationText setText:addr];
-                        [_end_annotation setSubtitle:addr];
+                         [endLocationText setText:addr];
+                         [end_annotation setSubtitle:addr];
                     }
                     
-                    [_end_annotation setTitle:@"Destination"];
+                     [end_annotation setTitle:@"Destination"];
                     
                     float spanX = 1.00725;
                     float spanY = 1.00725;
                     MKCoordinateRegion region;
                     region.span = MKCoordinateSpanMake(spanX, spanY);
-                    NSLog(@"long:%f,lat:%f", _end_placemarker.location.coordinate.latitude,_end_placemarker.location.coordinate.longitude);
+                    NSLog(@"long:%f,lat:%f", end_placemarker.location.coordinate.latitude,end_placemarker.location.coordinate.longitude);
                     [self getDirections];
-                    [_end_annotation setColor:MKPinAnnotationColorRed];
-                    [_end_annotation setCoordinate:_end_placemarker.location.coordinate];
-                    [_mapView addAnnotation:_end_annotation];
-                    [_end_annotation setSubtitle:addr];
-                    [_mapView selectAnnotation:_end_annotation animated:YES];
+                     [end_annotation setColor:MKPinAnnotationColorRed];
+                     [end_annotation setCoordinate:end_placemarker.location.coordinate];
+                     [mapView addAnnotation:end_annotation];
+                     [end_annotation setSubtitle:addr];
+                     [mapView selectAnnotation:end_annotation animated:YES];
                 }
             }
         }];
@@ -338,12 +345,12 @@
 
 - (IBAction)getCurrentLocation:(id)sender {
     
-    [_startLocationText setText:@"Locating..."];
+     [startLocationText setText:@"Locating..."];
     [currentLocationButton setSelected:YES];
-    _startLocationText.clearsOnBeginEditing = YES;
-    _mapView.showsUserLocation = YES;
-    [_mapView setShowsUserLocation:YES];
-    [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    startLocationText.clearsOnBeginEditing = YES;
+    mapView.showsUserLocation = YES;
+     [mapView setShowsUserLocation:YES];
+     [mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     dispatch_async(kBgQueue, ^{
         locationManager.delegate = self;
@@ -366,9 +373,9 @@
                     NSLog(@"%@", error);
                     UIAlertView *errorAlert = [[UIAlertView alloc]
                                                initWithTitle:@"Current Location Failed" message:@"Could not find Current Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    _startLocationText.text = @"Network Error";
-                    _price = 0;
-                    _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                    startLocationText.text = @"Network Error";
+                    price = 0;
+                    gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                     [errorAlert show];
                     
                 } else {
@@ -399,29 +406,29 @@
                     {
                         [addr appendString:s.postalCode];
                     }
-                    _startLocationText.text = addr;
+                    startLocationText.text = addr;
                     [currentLocationButton setSelected:NO];
-                    _mapView.userLocation.subtitle = addr;
+                    mapView.userLocation.subtitle = addr;
                 }
             }];
         }
         else
         {
-            if(![_startLocationText isEditing])
+            if(! [startLocationText isEditing])
             {
-                [_startLocationText setText:@"Location Error"];
+                 [startLocationText setText:@"Location Error"];
 
                 [currentLocationButton setSelected:NO];
-            _startLocationText.clearsOnBeginEditing = YES;
+            startLocationText.clearsOnBeginEditing = YES;
             }
         }
         
-        _start_placemarker = [[MKPlacemark alloc] initWithCoordinate:locationManager.location.coordinate addressDictionary:NULL];
-        _start_mapitem = [MKMapItem mapItemForCurrentLocation];
+        start_placemarker = [[MKPlacemark alloc] initWithCoordinate:locationManager.location.coordinate addressDictionary:NULL];
+        start_mapitem = [MKMapItem mapItemForCurrentLocation];
         
         [locationManager stopUpdatingLocation];
         
-        [_mapView selectAnnotation:_mapView.userLocation animated:YES];
+         [mapView selectAnnotation:mapView.userLocation animated:YES];
         [self calculateGas];
     });
     
@@ -430,47 +437,47 @@
 }
 
 - (IBAction)updateGasType:(id)sender {
-    _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
-    NSInteger index = _gas_type_segment.selectedSegmentIndex;
-    _gas_index = index;
+    gas_type =  [gas_type_segment titleForSegmentAtIndex:gas_type_segment.selectedSegmentIndex].lowercaseString;
+    NSInteger index = gas_type_segment.selectedSegmentIndex;
+    gas_index = index;
     [self calculateGas];
 }
 
 - (IBAction)infoButtonClicked:(id)sender {
-    _infoView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:_infoView animated:YES completion:nil];
+    infoView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:infoView animated:YES completion:nil];
 }
 
 
 - (IBAction)peopleSliderChanged:(id)sender {
-    _peopleLabel.text = [NSString stringWithFormat:@"%d", (int) _peopleSlider.value];
-    _people = _peopleSlider.value;
+    peopleLabel.text = [NSString stringWithFormat:@"%d", (int) peopleSlider.value];
+    people = peopleSlider.value;
     [self calculateCost];
 }
 
 - (IBAction)mpgSliderChanged:(id)sender {
-    _mpgLabel.text = [NSString stringWithFormat:@"%d", (int) _mpgSlider.value];
-    _mpg = _mpgSlider.value;
+    mpgLabel.text = [NSString stringWithFormat:@"%d", (int) mpgSlider.value];
+    mpg = mpgSlider.value;
     [self calculateCost];
 }
 
 - (IBAction)roundtripSwitchChanged:(id)sender {
-    if(_roundtripSwitch.on)
-        _roundtrip = 2;
+    if(roundtripSwitch.on)
+        roundtrip = 2;
     else
-        _roundtrip = 1;
+        roundtrip = 1;
     [self calculateCost];
 }
 
 - (void)calculateGas
 {
-    if(_start_placemarker.location.coordinate.latitude != 0)
+    if(start_placemarker.location.coordinate.latitude != 0)
     {
-        _gas_type = [_gas_type_segment titleForSegmentAtIndex:_gas_type_segment.selectedSegmentIndex].lowercaseString;
-        NSInteger index = _gas_type_segment.selectedSegmentIndex;
-        _gas_index = index;
+        gas_type =  [gas_type_segment titleForSegmentAtIndex:gas_type_segment.selectedSegmentIndex].lowercaseString;
+        NSInteger index = gas_type_segment.selectedSegmentIndex;
+        gas_index = index;
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%li", _start_placemarker.location.coordinate.longitude, _start_placemarker.location.coordinate.latitude, (long)_gas_index]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%li", start_placemarker.location.coordinate.longitude, start_placemarker.location.coordinate.latitude, (long)gas_index]];
         
         dispatch_async(kBgQueue, ^{
             NSData* data = [NSData dataWithContentsOfURL:
@@ -485,8 +492,8 @@
                 UIAlertView *errorAlert = [[UIAlertView alloc]
                                            initWithTitle:@"Network Error" message:@"No Connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 //_startLocationText.text = @"Network Error";
-                _price = 0;
-                _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+                price = 0;
+                gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                 [errorAlert show];
             }
         });
@@ -496,27 +503,27 @@
 
 - (void)calculateCost
 {
-    _total = (_price*_miles*_roundtrip)/_mpg;
-    _cost = _total/_people;
+    total = (price*miles*roundtrip)/mpg;
+    cost = total/people;
     
-    NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", _cost];
-    NSString *total_string = [NSString stringWithFormat:@"$%0.2f", _total];
+    NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", cost];
+    NSString *total_string = [NSString stringWithFormat:@"$%0.2f", total];
     
     if([cost_string length] > 6) {
         // The source string is long enough to grab a substring of.
-        _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.0f", _cost];
+        gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.0f", cost];
     }
     else {
         // The source string is already less than fifty characters.
-        _gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", _cost];
+        gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", cost];
     }
     
     if([total_string length] > 6){
-        _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.0f", _total];
+        gasTotalLabel.text = [NSString stringWithFormat:@"$%0.0f", total];
     }
     else{
         
-        _gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", _total];
+        gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", total];
     }
 }
 
@@ -525,8 +532,8 @@
     MKDirectionsRequest *request =
     [[MKDirectionsRequest alloc] init];
     
-    request.source = _start_mapitem;
-    request.destination = _end_mapitem;
+    request.source = start_mapitem;
+    request.destination = end_mapitem;
     
     request.requestsAlternateRoutes = NO;
     MKDirections *directions =
@@ -544,13 +551,13 @@
 
 -(void)showRoute:(MKDirectionsResponse *)response
 {
-    _miles = 0;
+    miles = 0;
     for (MKRoute *route in response.routes)
     {
-        _miles += route.distance;
+        miles += route.distance;
          
-        [_mapView removeOverlays:[_mapView overlays]];
-        [_mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+         [mapView removeOverlays: [mapView overlays]];
+         [mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
         
         for (MKRouteStep *step in route.steps)
         {
@@ -558,14 +565,14 @@
         }
         
     }
-    _miles = _miles/1609.34;
-    NSLog(@"Miles:%f", _miles);
-    [self zoomToCenter:_mapView withStart:_start_placemarker.location.coordinate withEnd:_end_placemarker.location.coordinate animated:YES];
+    miles = miles/1609.34;
+    NSLog(@"Miles:%f", miles);
+    [self zoomToCenter:mapView withStart:start_placemarker.location.coordinate withEnd:end_placemarker.location.coordinate animated:YES];
     [self hidePanels];
     [self calculateCost];
 }
 
-- (void)zoomToCenter:(MKMapView *)mapView withStart:(CLLocationCoordinate2D)start withEnd:(CLLocationCoordinate2D)end animated:(BOOL)animate{
+- (void)zoomToCenter:(MKMapView *)map withStart:(CLLocationCoordinate2D)start withEnd:(CLLocationCoordinate2D)end animated:(BOOL)animate{
     CLLocationCoordinate2D locationCenter;
     MKCoordinateSpan locationSpan;
     int border = 2;
@@ -576,7 +583,7 @@
     locationSpan.latitudeDelta = fabsf(start.latitude - end.latitude)*border;
     
     MKCoordinateRegion region = MKCoordinateRegionMake(locationCenter, locationSpan);
-    [mapView setRegion:region animated:animate];
+    [map setRegion:region animated:animate];
 }
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay
@@ -692,43 +699,43 @@
     {
         UIAlertView *errorAlert = [[UIAlertView alloc]
                                    initWithTitle:@"No Gas Stations Nearby" message:@"Try typing in the nearest U.S. city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        _startLocationText.text = @"Location Error";
+        startLocationText.text = @"Location Error";
         [currentLocationButton setSelected:NO];
 
-        _price = 0;
-        _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+        price = 0;
+        gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
         [errorAlert show];
     }
     else
     {
         int j=0;
-        NSNumber* price = 0;
-        _price = 0;
-        while(_price == 0 && j<[gasStations count])
+        NSNumber* temp_price = 0;
+        price = 0;
+        while(temp_price == 0 && j<[gasStations count])
         {
             NSDictionary* station = [gasStations objectAtIndex:j];
             
             // 2) Get the funded amount and loan amount
-            price = [station objectForKey:@"price"];
-            _city = [station objectForKey:@"city"];
-            _price =    [price floatValue];
+            temp_price = [station objectForKey:@"price"];
+            city = [station objectForKey:@"city"];
+            price = [temp_price floatValue];
             j++;
         }
         
         // 3) Set the label appropriately
         //humanReadble.text = [NSString stringWithFormat:@"The Cost of gas in %@ is $%0.2f",
-        //                     _city,
-        //                     _price];
-        _gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", _price];
+        //                     city,
+        //                     price];
+        gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
         
         [self calculateCost];
         
     }
     
-    if ([_startLocationText.text  isEqual: @"Locating..."])
+    if ( [startLocationText.text  isEqual: @"Locating..."])
     {
-        _startLocationText.text = _city;
-        _startLocationText.clearsOnBeginEditing = NO;
+        startLocationText.text = city;
+        startLocationText.clearsOnBeginEditing = NO;
     }
     
     [currentLocationButton setSelected:NO];
@@ -752,7 +759,7 @@
 {
     
     [manager stopUpdatingLocation];
-    _startLocationText.text = @"Location Error";
+    startLocationText.text = @"Location Error";
     [currentLocationButton setSelected:NO];
     NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -760,16 +767,16 @@
     
     
     [errorAlert show];
-    _startLocationText.clearsOnBeginEditing = YES;
+    startLocationText.clearsOnBeginEditing = YES;
 }
 
 -(void)saveData
 {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:_gas_index forKey:@"gas_index"];
-    [defaults setInteger:_people forKey:@"people"];
-    [defaults setInteger:_mpg forKey:@"mpg"];
+    [defaults setInteger:gas_index forKey:@"gas_index"];
+    [defaults setInteger:people forKey:@"people"];
+    [defaults setInteger:mpg forKey:@"mpg"];
     [defaults synchronize];
 }
 
@@ -777,13 +784,13 @@
 {
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"mpg"])
     {
-        _people = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
+        people = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
                                 objectForKey:@"people"] intValue];
         
-        _mpg = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
+        mpg = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
                              objectForKey:@"mpg"] intValue];
         
-        _gas_index = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
+        gas_index = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
                                    objectForKey:@"gas_index"] intValue];
     }
 }
