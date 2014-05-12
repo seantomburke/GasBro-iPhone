@@ -14,8 +14,9 @@
 #import "GBStartAnnotation.h"
 #import "GBEndAnnotation.h"
 #import "GBCurrentLocation.h"
+#import "GAITrackedViewController.h"
 
-@interface GBViewController : UIViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
+@interface GBViewController : GAITrackedViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
 }
 
 

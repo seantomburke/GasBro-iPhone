@@ -10,6 +10,7 @@
 #import "GBCache.h"
 #import "GBStartAnnotation.h"
 #import "GBEndAnnotation.h"
+#import "GAI.h"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
@@ -59,6 +60,11 @@
 @synthesize cache;
 @synthesize currentLocationButton;
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.screenName = @"About Screen";
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -101,7 +107,6 @@
                                                action:@selector(showPanels)];
     
     [_bottomView addGestureRecognizer:nonmaptapbottom];
-    
     
 }
 

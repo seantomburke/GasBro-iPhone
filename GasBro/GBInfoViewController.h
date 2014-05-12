@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface GBInfoViewController : UIViewController <UITextFieldDelegate> {
+@interface GBInfoViewController : GAITrackedViewController <UITextFieldDelegate> {
 }
 @property IBOutlet UIImageView *profile;
 @property IBOutlet UIScrollView *scroll;

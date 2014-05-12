@@ -7,12 +7,8 @@
 //
 
 #import "GBCache.h"
+static GBCache* gbCache = nil;
 
-@interface GBCache(){
-    
-}
-
-@end
 @implementation GBCache
 @synthesize cache;
 
@@ -32,6 +28,14 @@
 -(UIImage*)getProfileImage{
     UIImage *image = [cache objectForKey:@"profile"];
     return image;
+}
+
++(void)load{
+    gbCache = [[GBCache alloc] init];
+}
+
++(GBCache*)gbCache {
+    return gbCache;
 }
 
 

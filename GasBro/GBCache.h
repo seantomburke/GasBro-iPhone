@@ -14,5 +14,6 @@
 
 -(void)storeProfileImage:(UIImage *)image;
 -(UIImage*)getProfileImage;
-
++(void)load;
++(GBCache*)gbCache;
 @end

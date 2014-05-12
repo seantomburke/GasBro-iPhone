@@ -12,7 +12,6 @@
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
 @interface GBInfoViewController ()
-@property (strong, nonatomic) GBCache *cache;
 @property (strong, nonatomic) UIImage *facebook_image;
 @end
 
@@ -23,7 +22,6 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.cache = [[GBCache alloc] init];
     }
     return self;
 }
@@ -31,6 +29,10 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    GBCache *shared = [GBCache gbCache];
+    _facebook_image = [shared getProfileImage];
+    
     if(!_facebook_image)
     {
         [_profile setImage:[UIImage imageNamed:@"iTunesArtwork"]];
@@ -55,6 +57,12 @@
     }
     
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.screenName = @"About Screen";
+}
+
 
 - (void)viewDidLoad
 {
