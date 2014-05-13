@@ -60,7 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.screenName = @"About Screen";
+    self.screenName = @"Info Screen";
 }
 
 

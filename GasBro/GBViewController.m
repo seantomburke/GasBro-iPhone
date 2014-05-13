@@ -11,6 +11,10 @@
 #import "GBStartAnnotation.h"
 #import "GBEndAnnotation.h"
 #import "GAI.h"
+#import "GAIFields.h"
+#import "GAITracker.h"
+#import "GAILogger.h"
+#import "GAIDictionaryBuilder.h"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
@@ -69,7 +73,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.screenName = @"About Screen";
+    self.screenName = @"Home Screen";
 }
 
 - (void)viewDidLoad
@@ -167,6 +171,13 @@
 -(void)startSearch:(UITextField*)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:[GAIFields customDimensionForIndex:1] value:sender.text];
+        [tracker set:kGAIScreenName value:@"Home screen"];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"start_text"
+                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
+        
         startLocationText.clearsOnBeginEditing = NO;
         CLGeocoder *startgeocoder = [[CLGeocoder alloc] init];
         [startgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *startplacemarks, NSError *error)
@@ -225,8 +236,14 @@
                      {
                          [addr appendString:s.postalCode];
                      }
-                     if([addr  isEqual: @""])
+                     if(![addr isEqual: @""])
+                     {
                          startLocationText.text = addr;
+                         [tracker set:[GAIFields customDimensionForIndex:1] value:startLocationText.text];
+                         [tracker set:kGAIScreenName value:@"Home screen"];
+                         [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"start_addr"
+                                                                           forKey:[GAIFields customDimensionForIndex:1]] build]];
+                     }
                      [mapView removeAnnotation:start_annotation];
                      start_annotation = [[GBStartAnnotation alloc] init];
                      [start_annotation setColor:MKPinAnnotationColorGreen];
@@ -256,6 +273,12 @@
 - (void)endSearch:(UITextField *)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:[GAIFields customDimensionForIndex:1] value:sender.text];
+        [tracker set:kGAIScreenName value:@"Home screen"];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"end_text"
+                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
         CLGeocoder *endgeocoder = [[CLGeocoder alloc] init];
         [endgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *endplacemarks, NSError *error) {
             if (error && showError) {
@@ -318,6 +341,11 @@
                     {
                          [endLocationText setText:addr];
                          [end_annotation setSubtitle:addr];
+                        id tracker = [[GAI sharedInstance] defaultTracker];
+                        [tracker set:[GAIFields customDimensionForIndex:1] value:endLocationText.text];
+                        [tracker set:kGAIScreenName value:@"Home screen"];
+                        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"end_addr"
+                                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
                     }
                     
                      [end_annotation setTitle:@"Destination"];
@@ -345,12 +373,12 @@
 
 - (IBAction)getCurrentLocation:(id)sender {
     
-     [startLocationText setText:@"Locating..."];
+    [startLocationText setText:@"Locating..."];
     [currentLocationButton setSelected:YES];
     startLocationText.clearsOnBeginEditing = YES;
     mapView.showsUserLocation = YES;
-     [mapView setShowsUserLocation:YES];
-     [mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    [mapView setShowsUserLocation:YES];
+    [mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     dispatch_async(kBgQueue, ^{
         locationManager.delegate = self;
@@ -409,6 +437,8 @@
                     startLocationText.text = addr;
                     [currentLocationButton setSelected:NO];
                     mapView.userLocation.subtitle = addr;
+                    
+                    [mapView selectAnnotation:mapView.userLocation animated:YES];
                 }
             }];
         }
@@ -428,7 +458,6 @@
         
         [locationManager stopUpdatingLocation];
         
-         [mapView selectAnnotation:mapView.userLocation animated:YES];
         [self calculateGas];
     });
     
