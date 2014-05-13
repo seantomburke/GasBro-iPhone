@@ -60,7 +60,7 @@ if(!$latitude){
 
 
 echo get($latitude,$longitude,$distance,$gas_type[$gas_index],$sort_by,$api_key);
-include_once('analytics.php');
+//include_once('analytics.php');
 ?>
 
 
