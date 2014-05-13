@@ -85,7 +85,7 @@ $venmo = new Venmo($_GET['access_token']);
               <a class="pull-left" href="http://www.gasbro.com/">
                 <img class="media-object img-rounded" src="/img/gasbro75.png" width="75">
               </a>
-              <a class="pull-right hidden-phone" href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
+              <a class="pull-right hidden-phone" href="http://www.appstore.com/gasbro" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
               <div class="media-body">
                 <h1 class="media-heading">Gas Bro</h1>
                 <p class="lead">Easliy split the cost of gas with friends</p>
@@ -288,7 +288,7 @@ $venmo = new Venmo($_GET['access_token']);
                 
                 <div class="span4 hidden-tablet">
                     <p class="text-center"><iframe src="https://app.io/K0ODaK?orientation=portrait&device=iphone5" height="607px" width="291px" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
-                    <a href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a></p>
+                    <a href="http://www.appstore.com/gasbro" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a></p>
               
                 </div>
                 
@@ -298,8 +298,8 @@ $venmo = new Venmo($_GET['access_token']);
             <div class="row visible-phone">
                 <div class="media">
                 <div class="text-center">
-                    <a class="text-center" href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}">
-                    <a href="https://itunes.apple.com/us/app/gas-bro/id798634160?mt=8&uo=4" target="itunes_store"><img class="text-center" src="img/iPhone.png" /></a>
+                    <a class="text-center" href="http://www.appstore.com/gasbro" target="itunes_store"style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}">
+                    <a href="http://www.appstore.com/gasbro" target="itunes_store"><img class="text-center" src="img/iPhone.png" /></a>
                 </div>
                 </div>
             </div>
