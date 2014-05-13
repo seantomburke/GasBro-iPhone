@@ -51,7 +51,7 @@
 @property (strong, nonatomic, readwrite) MKMapItem *end_mapitem;
 @property (strong, nonatomic, readwrite) MKMapItem *start_mapitem;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gas_type_segment;
-@property (weak, nonatomic) IBOutlet GBInfoViewController *infoView;
+@property (readonly) IBOutlet GBInfoViewController *infoView;
 
 @property (readwrite) IBOutlet UIView *topView;
 @property (readwrite) IBOutlet UIView *bottomView;
