@@ -9,6 +9,11 @@
 #import "GBInfoViewController.h"
 #import "GBViewController.h"
 #import "GBCache.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAITracker.h"
+#import "GAILogger.h"
+#import "GAIDictionaryBuilder.h"
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
 @interface GBInfoViewController ()
@@ -17,6 +22,16 @@
 
 
 @implementation GBInfoViewController
+{
+    id<GAITracker> tracker;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.screenName = @"Info Screen";
+    tracker = [[GAI sharedInstance] defaultTracker];
+}
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -58,12 +73,6 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.screenName = @"Info Screen";
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -87,20 +96,25 @@
 }
 
 -(void)openSeanLink{
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To www.seantburke.com" value:nil] build]];
+    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
 }
 
 - (IBAction)openSean:(id)sender
 {
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To www.seantburke.com" value:nil] build]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
 }
 
 
 - (IBAction)infoButtonClicked:(id)sender {
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To Home Page" value:nil] build]];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setProfileImage:(NSData *)data {
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Profile Image" label:@"Set to Facebook" value:nil] build]];
     _facebook_image = [[UIImage alloc] initWithData:data];
     [_profile setImage:_facebook_image];
 }

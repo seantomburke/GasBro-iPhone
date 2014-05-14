@@ -18,14 +18,11 @@
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
-@interface GBViewController (){
-    CLLocationManager *locationManager;
-    
+@implementation GBViewController{
+    id<GAITracker> tracker;
 }
 
-@end
-
-@implementation GBViewController{}
+CLLocationManager *locationManager;
 
 @synthesize price;
 @synthesize gas_type;
@@ -54,7 +51,6 @@
 @synthesize roundtripSwitch;
 
 @synthesize currentLocationButton;
-@synthesize routeMap;
 @synthesize end_mapitem;
 @synthesize start_mapitem;
 @synthesize gas_type_segment;
@@ -74,10 +70,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.screenName = @"Home Screen";
+    tracker = [[GAI sharedInstance] defaultTracker];
 }
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     self.topView.opaque = NO;
     self.bottomView.opaque = NO;
@@ -128,6 +126,11 @@
 -(void)hidePanels {
     
     [self dismissKeyboard];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"hidePanels"
+                    label:@"Panels Hidden"
+                    value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
                          topView.frame = CGRectMake(0, -100, topView.bounds.size.width, topView.bounds.size.height);
@@ -142,6 +145,11 @@
 -(void)showPanels {
     
     [self dismissKeyboard];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"showPanels"
+                    label:@"Panels Hidden"
+                    value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
                          topView.frame = CGRectMake(0, 0, topView.bounds.size.width, topView.bounds.size.height);// its final location
@@ -171,42 +179,58 @@
     [startLocationText resignFirstResponder];
     [endLocationText resignFirstResponder];
 }
+
+-(void)alert:(NSString*)title withMessage:(NSString*)message withButton:(NSString*)button
+{
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Error"
+                    action:title
+                    label:message
+                    value:nil] build]];
+    
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:title
+                               message:message
+                               delegate:nil
+                               cancelButtonTitle:button
+                               otherButtonTitles:nil];
+    [errorAlert show];
+}
 -(void)startSearch:(UITextField*)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
         
-        id tracker = [[GAI sharedInstance] defaultTracker];
-        [tracker set:[GAIFields customDimensionForIndex:1] value:sender.text];
-        [tracker set:kGAIScreenName value:@"Home screen"];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"start_text"
-                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
+        [tracker send:[[GAIDictionaryBuilder
+                        createEventWithCategory:@"Location"
+                        action:@"Start Search Field"
+                        label:sender.text
+                        value:nil] build]];
         
         startLocationText.clearsOnBeginEditing = NO;
         CLGeocoder *startgeocoder = [[CLGeocoder alloc] init];
         [startgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *startplacemarks, NSError *error)
          {
              if (error) {
-                 NSLog(@"%@", error);
-                 UIAlertView *errorAlert = [[UIAlertView alloc]
-                                            initWithTitle:[NSString stringWithFormat:@"%@ not found", sender.text] message:@"Please check for spelling errors and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                 //startLocationText.text = @"Network Error";
+                 NSString *title = [NSString stringWithFormat:@"%@ not found", sender.text];
+                 NSString *message = @"Please check for spelling errors and try again";
+                 NSString *button = @"OK";
                  price = 0;
                  gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                  if(showError)
-                     [errorAlert show];
+                     [self alert:title withMessage:message withButton:button];
                  
              } else {
                  start_placemarker = [startplacemarks lastObject];
                  if(![start_placemarker.country  isEqual: @"United States"])
                  {
                      NSLog(@"%@", error);
-                     UIAlertView *errorAlert = [[UIAlertView alloc]
-                                                initWithTitle:@"Country Error" message:@"Gas Bro currently only works in the U.S. Please choose a location within the U.S." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                     //startLocationText.text = @"Network Error";
+                     NSString *title = @"Country Error";
+                     NSString *message = @"Gas Bro currently only works in the U.S. Please choose a location within the U.S.";
+                     NSString *button = @"OK";
                      price = 0;
                      gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                      if(showError)
-                         [errorAlert show];
+                         [self alert:title withMessage:message withButton:button];
                  }
                  else
                  {
@@ -242,10 +266,11 @@
                      if(![addr isEqual: @""])
                      {
                          startLocationText.text = addr;
-                         [tracker set:[GAIFields customDimensionForIndex:1] value:startLocationText.text];
-                         [tracker set:kGAIScreenName value:@"Home screen"];
-                         [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"start_addr"
-                                                                           forKey:[GAIFields customDimensionForIndex:1]] build]];
+                         [tracker send:[[GAIDictionaryBuilder
+                                         createEventWithCategory:@"Location"
+                                         action:@"Start Address Geocoded"
+                                         label:addr
+                                         value:nil] build]];
                      }
                      [mapView removeAnnotation:start_annotation];
                      start_annotation = [[GBStartAnnotation alloc] init];
@@ -276,38 +301,25 @@
 - (void)endSearch:(UITextField *)sender withError:(BOOL)showError{
     if(![sender.text isEqualToString:@""])
     {
-        
-        id tracker = [[GAI sharedInstance] defaultTracker];
-        [tracker set:[GAIFields customDimensionForIndex:1] value:sender.text];
-        [tracker set:kGAIScreenName value:@"Home screen"];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"end_text"
-                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
+        [tracker send:[[GAIDictionaryBuilder
+                        createEventWithCategory:@"Location"
+                        action:@"End Address Field"
+                        label:sender.text
+                        value:nil] build]];
         CLGeocoder *endgeocoder = [[CLGeocoder alloc] init];
         [endgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *endplacemarks, NSError *error) {
             if (error && showError) {
                 NSLog(@"%@", error);
-                UIAlertView *errorAlert = [[UIAlertView alloc]
-                                           initWithTitle:[NSString stringWithFormat:@"%@ not found", sender.text] message:@"Please check for spelling errors and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                NSString *title = [NSString stringWithFormat:@"%@ not found", sender.text];
+                NSString *message = @"Please check for spelling errors and try again";
+                NSString *button = @"OK";
                 //_startLocationText.text = @"Network Error";
                 //_price = 0;
                 //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f",price];
                 if(showError)
-                    [errorAlert show];
+                    [self alert:title withMessage:message withButton:button];
             } else {
                 end_placemarker = [endplacemarks lastObject];
-                if(! [end_placemarker.country  isEqual: @"United States"] && showError)
-                {
-                    NSLog(@"%@", error);
-                    UIAlertView *errorAlert = [[UIAlertView alloc]
-                                               initWithTitle:@"Country Error" message:@"Please choose a location within the U.S." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    //_startLocationText.text = @"Network Error";
-                    //_price = 0;
-                    //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
-                    if(showError)
-                        [errorAlert show];
-                }
-                else
-                {
                     end_mapitem = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithPlacemark:end_placemarker]];
                     MKPlacemark *s = end_placemarker;
                     NSMutableString *addr = [[NSMutableString alloc] init];
@@ -344,11 +356,11 @@
                     {
                          [endLocationText setText:addr];
                          [end_annotation setSubtitle:addr];
-                        id tracker = [[GAI sharedInstance] defaultTracker];
-                        [tracker set:[GAIFields customDimensionForIndex:1] value:endLocationText.text];
-                        [tracker set:kGAIScreenName value:@"Home screen"];
-                        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"end_addr"
-                                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
+                        [tracker send:[[GAIDictionaryBuilder
+                                       createEventWithCategory:@"Location"
+                                       action:@"End Location Geocoded"
+                                       label:addr
+                                       value:nil] build]];
                     }
                     
                      [end_annotation setTitle:@"Destination"];
@@ -365,7 +377,6 @@
                      [end_annotation setSubtitle:addr];
                      [mapView selectAnnotation:end_annotation animated:YES];
                 }
-            }
         }];
     }
 }
@@ -402,12 +413,13 @@
             [currentgeocoder reverseGeocodeLocation:locationManager.location completionHandler:^(NSArray *startplacemarks, NSError *error){
                 if (error) {
                     NSLog(@"%@", error);
-                    UIAlertView *errorAlert = [[UIAlertView alloc]
-                                               initWithTitle:@"Current Location Failed" message:@"Could not find Current Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    NSString *title = @"Current Location Failed" ;
+                    NSString *message = @"Could not find Current Location" ;
+                    NSString *button = @"OK";
                     startLocationText.text = @"Network Error";
                     price = 0;
                     gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
-                    [errorAlert show];
+                    [self alert:title withMessage:message withButton:button];
                     
                 } else {
                     MKPlacemark *s = [startplacemarks lastObject];
@@ -441,6 +453,13 @@
                     [currentLocationButton setSelected:NO];
                     mapView.userLocation.subtitle = addr;
                     
+                    
+                    [tracker send:[[GAIDictionaryBuilder
+                                    createEventWithCategory:@"Location"
+                                    action:@"Getting Current Location"
+                                    label:addr
+                                    value:nil] build]];
+                    
                     [mapView selectAnnotation:mapView.userLocation animated:YES];
                 }
             }];
@@ -463,7 +482,11 @@
         
         [self calculateGas];
     });
-    
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Location"
+                    action:@"Current Location Clicked"
+                    label:locationManager.location.description
+                    value:nil] build]];
     
     
 }
@@ -471,12 +494,23 @@
 - (IBAction)updateGasType:(id)sender {
     gas_type =  [gas_type_segment titleForSegmentAtIndex:gas_type_segment.selectedSegmentIndex].lowercaseString;
     NSInteger index = gas_type_segment.selectedSegmentIndex;
+    
     gas_index = index;
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"Gas Type Segment Changed"
+                    label:gas_type
+                    value:[NSNumber numberWithFloat:gas_index]] build]];
     [self calculateGas];
 }
 
 - (IBAction)infoButtonClicked:(id)sender {
     infoView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"Page Navigation"
+                    label:@"To Info Page"
+                    value:nil] build]];
     [self presentViewController:infoView animated:YES completion:nil];
 }
 
@@ -484,12 +518,22 @@
 - (IBAction)peopleSliderChanged:(id)sender {
     peopleLabel.text = [NSString stringWithFormat:@"%d", (int) peopleSlider.value];
     people = peopleSlider.value;
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"People Slider Changed"
+                    label:[NSString stringWithFormat:@"%f", peopleSlider.value]
+                    value:[NSNumber numberWithFloat:peopleSlider.value]] build]];
     [self calculateCost];
 }
 
 - (IBAction)mpgSliderChanged:(id)sender {
     mpgLabel.text = [NSString stringWithFormat:@"%d", (int) mpgSlider.value];
     mpg = mpgSlider.value;
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"MPG Slider Changed"
+                    label:[NSString stringWithFormat:@"%f", mpgSlider.value]
+                    value:[NSNumber numberWithFloat:mpgSlider.value]] build]];
     [self calculateCost];
 }
 
@@ -498,6 +542,11 @@
         roundtrip = 2;
     else
         roundtrip = 1;
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"MPG Slider Changed"
+                    label:[NSString stringWithFormat:@"%i", roundtrip]
+                    value:[NSNumber numberWithInt:roundtrip]] build]];
     [self calculateCost];
 }
 
@@ -510,6 +559,11 @@
         gas_index = index;
         
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.gasbro.com/gas.php?longitude=%f&latitude=%f&gas_type=%li", start_placemarker.location.coordinate.longitude, start_placemarker.location.coordinate.latitude, (long)gas_index]];
+        [tracker send:[[GAIDictionaryBuilder
+                        createEventWithCategory:@"Calculations"
+                        action:@"Calculating Gas Price"
+                        label:nil
+                        value:nil] build]];
         
         dispatch_async(kBgQueue, ^{
             NSData* data = [NSData dataWithContentsOfURL:
@@ -521,12 +575,12 @@
             }
             else
             {
-                UIAlertView *errorAlert = [[UIAlertView alloc]
-                                           initWithTitle:@"Network Error" message:@"No Connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                //_startLocationText.text = @"Network Error";
+                NSString *title = @"Network Error" ;
+                NSString *message = @"No Connection" ;
+                NSString *button = @"OK";
                 price = 0;
                 gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
-                [errorAlert show];
+                [self alert:title withMessage:message withButton:button];
             }
         });
         
@@ -557,6 +611,16 @@
         
         gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", total];
     }
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Calculations"
+                    action:@"Total Cost"
+                    label:gasTotalLabel.text
+                    value:[NSNumber numberWithFloat:total]] build]];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Calculations"
+                    action:@"Per Person Cost"
+                    label:gasPerPersonLabel.text
+                    value:[NSNumber numberWithFloat:cost]] build]];
 }
 
 - (void)getDirections
@@ -729,14 +793,16 @@
     // 1) Get the first gas station
     if(gasStations == nil || [gasStations count] == 0)
     {
-        UIAlertView *errorAlert = [[UIAlertView alloc]
-                                   initWithTitle:@"No Gas Stations Nearby" message:@"Try typing in the nearest U.S. city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString *title = @"No Gas Stations Nearby" ;
+        NSString *message = @"Try typing in the nearest U.S. city" ;
+        NSString *button = @"OK";
         startLocationText.text = @"Location Error";
         [currentLocationButton setSelected:NO];
 
         price = 0;
         gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
-        [errorAlert show];
+        
+        [self alert:title withMessage:message withButton:button];
     }
     else
     {
@@ -751,6 +817,16 @@
             temp_price = [station objectForKey:@"price"];
             city = [station objectForKey:@"city"];
             price = [temp_price floatValue];
+            [tracker send:[[GAIDictionaryBuilder
+                            createEventWithCategory:@"Location"
+                            action:@"Gas Station Location"
+                            label:city
+                            value:[NSNumber numberWithFloat:price]] build]];
+            [tracker send:[[GAIDictionaryBuilder
+                            createEventWithCategory:@"Calculations"
+                            action:@"Gas Price"
+                            label:gasPriceLabel.text
+                            value:[NSNumber numberWithFloat:price]] build]];
             j++;
         }
         
@@ -776,11 +852,21 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Error"
+                    action:@"Memory Warning"
+                    label:nil
+                    value:nil] build]];
     // Dispose of any resources that can be recreated.
 }
 
 - (IBAction) unwindToMain:(UIStoryboardSegue *)segue{
     //nothing
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UI"
+                    action:@"Page Navigation"
+                    label:@"To Home Page"
+                    value:nil] build]];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
@@ -794,11 +880,11 @@
     startLocationText.text = @"Location Error";
     [currentLocationButton setSelected:NO];
     NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Location Error" message:@"Failed to Get Your Location. Make sure Location services are enabled in Settings>Privacy>Location Services" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    NSString *title = @"Location Error" ;
+    NSString *message = @"Failed to Get Your Location. Make sure Location services are enabled in Settings>Privacy>Location Services" ;
+    NSString *button = @"OK";
     
-    
-    [errorAlert show];
+    [self alert:title withMessage:message withButton:button];
     startLocationText.clearsOnBeginEditing = YES;
 }
 
