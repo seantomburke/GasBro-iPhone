@@ -126,11 +126,15 @@
 }
 
 -(void)hidePanels {
+    
     [self dismissKeyboard];
     [UIView animateWithDuration:.25
                      animations:^{
                          topView.frame = CGRectMake(0, -100, topView.bounds.size.width, topView.bounds.size.height);
                          bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height + 100, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
+                         
+                         bottomView.alpha = .7;
+                         topView.alpha = .7;
                      }];
 }
 
@@ -141,10 +145,9 @@
     [UIView animateWithDuration:.25
                      animations:^{
                          topView.frame = CGRectMake(0, 0, topView.bounds.size.width, topView.bounds.size.height);// its final location
-                     }];
-    [UIView animateWithDuration:.25
-                     animations:^{
                          bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
+                         bottomView.alpha = .91;
+                         topView.alpha = .91;
                      }];
 }
 

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "421663708.237161"
+            timestampString = "421735685.174039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "868"
-            endingLineNumber = "868">
+            startingLineNumber = "871"
+            endingLineNumber = "871">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

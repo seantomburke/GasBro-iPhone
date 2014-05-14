@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nfF-YV-Fr4">
-                                <rect key="frame" x="0.0" y="137" width="320" height="431"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Wb-si-GiN">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Wb-si-GiN">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="252"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -191,7 +191,7 @@
                                     <constraint firstItem="dJq-4T-6CZ" firstAttribute="trailing" secondItem="vD4-sl-wYY" secondAttribute="trailing" id="ysV-w8-i7S"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iO8-Ee-79T">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iO8-Ee-79T">
                                 <rect key="frame" x="0.0" y="394" width="320" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -275,7 +275,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nfF-YV-Fr4" firstAttribute="leading" secondItem="iO8-Ee-79T" secondAttribute="leading" id="5lR-Ih-WVa"/>
-                            <constraint firstItem="nfF-YV-Fr4" firstAttribute="top" secondItem="LYv-GA-Tar" secondAttribute="bottom" constant="117" id="7Pr-14-mcf"/>
+                            <constraint firstItem="nfF-YV-Fr4" firstAttribute="top" secondItem="LYv-GA-Tar" secondAttribute="bottom" id="7Pr-14-mcf"/>
                             <constraint firstItem="nfF-YV-Fr4" firstAttribute="bottom" secondItem="iO8-Ee-79T" secondAttribute="bottom" id="9hC-4y-YRc"/>
                             <constraint firstItem="5Wb-si-GiN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="CFR-Zr-ldu"/>
                             <constraint firstAttribute="bottom" secondItem="nfF-YV-Fr4" secondAttribute="bottom" id="EJd-bp-48p"/>
