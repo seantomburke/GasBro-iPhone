@@ -154,8 +154,8 @@ CLLocationManager *locationManager;
                      animations:^{
                          topView.frame = CGRectMake(0, 0, topView.bounds.size.width, topView.bounds.size.height);// its final location
                          bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
-                         bottomView.alpha = .91;
-                         topView.alpha = .91;
+                         bottomView.alpha = .90;
+                         topView.alpha = .90;
                      }];
 }
 
