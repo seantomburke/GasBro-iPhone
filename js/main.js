@@ -257,8 +257,8 @@ $("#current-location").popover({
         show: 900,
         hide: 10
     }
-    ga('send', 'event', 'UI', 'Display current location popover');
 });
+
 $("#current-location").click(function() {
     $("#current-location").button("loading");
     google.maps.event.addDomListener(window, 'load', mapCurrentLocation());
