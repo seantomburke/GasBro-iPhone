@@ -117,7 +117,7 @@ $("input[name='start-location']").focusout(function(event) {
 
 function setStart() {
     getGPS($(this).val(), function(location) {
-    	ga('send', 'event', 'Location', 'Get Current Location', $(this).val(), location.coords.latitude);
+    	ga('send', 'event', 'Location', 'setStart', $(this).val(), location.coords.latitude);
         //console.log("location");
         //console.log(location);
         start_lat = location.lat();
@@ -136,6 +136,7 @@ function setStart() {
 $("input[name='end-location']").focusout(function(event) {
     //event.preventDefault();
     calcRoute();
+    ga('send', 'event', 'Location', 'End Location', $(this).val());
 });
 
 $("#gas-radio .btn").click(function() {
@@ -215,7 +216,7 @@ $("input[name='mpg']").slider().on('slide', function(event) {
 $("#calculate").click(function(event) {
     event.preventDefault();
     showModal();
-	ga('send', 'event', 'UI', 'Display Modal');
+	ga('send', 'event', 'UI', 'Display Modal', 'modal');
 });
 
 function updateAll() {
