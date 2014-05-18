@@ -296,34 +296,37 @@ function getAddress(location, output) {
 function calcRoute(callback) {
     start_location = $("input[name='start-location']").val();
     end_location = $("input[name='end-location']").val();
-    var request = {
-        origin: start_location,
-        destination: end_location,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, function(response, status) {
-        //console.log("Directions response");
-        //console.log(response);
-        miles = metersToMiles(response.routes[0].legs[0].distance.value);
-        ga('send', 'event', 'Calculations', 'Calculating Route', 'miles', miles);
-        if (response.routes) {
-            start_lat = response.routes[0].legs[0].start_location.lat();
-            start_lng = response.routes[0].legs[0].start_location.lng();
-            end_lat = response.routes[0].legs[0].end_location.lat();
-            end_lng = response.routes[0].legs[0].end_location.lng();
-        }
-
-
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-
-        if (callback) {
-            callback();
-        }
-    });
-
-    directionsDisplay.setMap(map);
+    if(start_location && end_location)
+    {
+	    var request = {
+	        origin: start_location,
+	        destination: end_location,
+	        travelMode: google.maps.TravelMode.DRIVING
+	    };
+	    directionsService.route(request, function(response, status) {
+	        //console.log("Directions response");
+	        //console.log(response);
+	        miles = metersToMiles(response.routes[0].legs[0].distance.value);
+	        ga('send', 'event', 'Calculations', 'Calculating Route', 'miles', miles);
+	        if (response.routes) {
+	            start_lat = response.routes[0].legs[0].start_location.lat();
+	            start_lng = response.routes[0].legs[0].start_location.lng();
+	            end_lat = response.routes[0].legs[0].end_location.lat();
+	            end_lng = response.routes[0].legs[0].end_location.lng();
+	        }
+	
+	
+	        if (status == google.maps.DirectionsStatus.OK) {
+	            directionsDisplay.setDirections(response);
+	        }
+	
+	        if (callback) {
+	            callback();
+	        }
+	    });
+	
+	    directionsDisplay.setMap(map);
+	}
 }
 
 
