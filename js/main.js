@@ -60,6 +60,7 @@ function mapCurrentLocation() {
                 getAddress(location, function(result) {
                     $("input[name='start-location']").val(result);
                 });
+                ga('send', 'event', 'Location', 'Get Current Location', result, location.coords.latitude);
                 $("input[name='start-location']").addClass("input-primary");
                 $("#current-location-group").addClass("info");
                 $("#current-location").addClass("btn-primary");
@@ -116,6 +117,7 @@ $("input[name='start-location']").focusout(function(event) {
 
 function setStart() {
     getGPS($(this).val(), function(location) {
+    	ga('send', 'event', 'Location', 'Get Current Location', $(this).val(), location.coords.latitude);
         //console.log("location");
         //console.log(location);
         start_lat = location.lat();
@@ -139,17 +141,18 @@ $("input[name='end-location']").focusout(function(event) {
 $("#gas-radio .btn").click(function() {
     //console.log("gas clicked" + $(this).text());
     $("#gas-type").val($(this).val());
+    ga('send', 'event', 'Calculations', 'Gas Type Changed', $(this).val(), $(this).val());
     calculateGasPrice(start_lat, start_lng, function() {
         calculateCost();
     });
 });
 
 $("#charge-friends .btn").click(function() {
-    
     var message = $("#note").text() + " (http://gasbro.com)" 
     var user_ids = $("#venmo-friends").val();
     console.log(user_ids);
     var amount = -1*(.01);
+    ga('send', 'event', 'Venmo', 'Charge Friends', message, amount);
     $.ajax({
       url: "/venmo.php",
       data: {
@@ -191,6 +194,7 @@ function setSliders(){
 $("input[name='people']").slider().on('slide', function(event) {
     //event.preventDefault();
     people = $(this).val();
+    ga('send', 'event', 'Calculations', 'People slider changed', 'people', people);
     if ($("input[name='mpg']").val()) {
         calculateCost();
     }
@@ -202,6 +206,7 @@ $("input[name='people']").slider().on('slide', function(event) {
 $("input[name='mpg']").slider().on('slide', function(event) {
     //event.preventDefault();
     mpg = $(this).val();
+    ga('send', 'event', 'Calculations', 'People slider mpg', 'mpg', mpg);
     if ($("input[name='people']").val()) {
         calculateCost();
     }
@@ -210,7 +215,7 @@ $("input[name='mpg']").slider().on('slide', function(event) {
 $("#calculate").click(function(event) {
     event.preventDefault();
     showModal();
-
+	ga('send', 'event', 'UI', 'Display Modal');
 });
 
 function updateAll() {
@@ -242,6 +247,7 @@ $("input[name='roundtrip']").on('click', function(event) {
         roundtrip = 1;
     }
     calculateCost();
+    ga('send', 'event', 'Calculations', 'Roundtrip clicked','roundtrip', roundtrip);
 });
 
 
@@ -251,6 +257,7 @@ $("#current-location").popover({
         show: 900,
         hide: 10
     }
+    ga('send', 'event', 'UI', 'Display current location popover');
 });
 $("#current-location").click(function() {
     $("#current-location").button("loading");
@@ -298,6 +305,7 @@ function calcRoute(callback) {
         //console.log("Directions response");
         //console.log(response);
         miles = metersToMiles(response.routes[0].legs[0].distance.value);
+        ga('send', 'event', 'Calculations', 'Calculating Route', 'miles', miles);
         if (response.routes) {
             start_lat = response.routes[0].legs[0].start_location.lat();
             start_lng = response.routes[0].legs[0].start_location.lng();
@@ -364,6 +372,8 @@ function calculateCost(success) {
 function compute() {
     cost_per = ((((miles / mpg) * price) * roundtrip) / people).toFixed(2);
     cost_total = (((miles / mpg) * price) * roundtrip).toFixed(2);
+    ga('send', 'event', 'Calculations', 'Cost', 'per person', cost_per);
+    ga('send', 'event', 'Calculations', 'Cost', 'total', cost_total);
     $("#cost").html("$" + cost_per);
     $("#total").html("$" + cost_total);
     $("#cost2").html("$" + cost_per);
@@ -421,6 +431,8 @@ function calculateGasPrice(lat, lng, callback) {
                 else {
 
                     price = data.stations[i].price;
+                    
+                    ga('send', 'event', 'Calculations', 'Gas Price', 'price', price);
                     $("#gas_span").html(city);
                     $("#gas_span2").html(city);
                     $("#gas").html("$" + price);
@@ -536,6 +548,7 @@ function updateHistory(success) {
                 }, 'GasBro: ' + city + ' to ' + end_location, '?id=' + result.id);
                 $(".logintripid").val(result.id);
                 $("#url").val(document.URL);
+                ga('send', 'event', 'Parse', 'Save Trip', 'tripID', result.id);
             },
             error: function(model, error) {
                 $(".error").show();
@@ -601,12 +614,14 @@ function loadTrip(id) {
             History.pushState({
                 id: id
             }, document.title + ": " + city + " to " + end_location, '?id=' + id);
+            ga('send', 'event', 'Parse', 'Load Trip', 'tripID', id);
 
         },
 
         error: function(object, error) {
             // error is an instance of Parse.Error.
             console.log("error occurred");
+            ga('send', 'event', 'Parse', 'Load Trip', 'error', error);
         }
 
     });
@@ -614,6 +629,8 @@ function loadTrip(id) {
 //venmo.php?data=friends&access_token=
 
 function getFriends(people) {
+	
+	ga('send', 'event', 'Venmo', 'Get Friends', 'people', people);
     $("#venmo-friends").select2({
         placeholder: "Search your Venmo Friends",
         maximumSelectionSize: people,

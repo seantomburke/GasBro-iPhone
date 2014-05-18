@@ -269,10 +269,6 @@ $venmo = new Venmo($_GET['access_token']);
                                 <input id="roundtrip" type="checkbox" name="roundtrip"><span>Roundtrip?</span>
                             </label>
                         </div>
-
-                        <div class="controls">
-                            <button id="calculate" class="btn btn-large btn-primary">Share</button>
-                        </div>
                    </form>
                    
                     <div id="prices" class="well">
@@ -287,6 +283,9 @@ $venmo = new Venmo($_GET['access_token']);
                             <div class="controls">
                                 <span>Total Cost:</span>
                                 <h1 id="total" class=""></h1>
+                            </div>
+                            <div class="controls">
+                                <button id="calculate" class="btn btn-large btn-primary">Share</button>
                             </div>
                     </div>
                 </div>
@@ -319,7 +318,16 @@ $venmo = new Venmo($_GET['access_token']);
         
         
         
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         
+          ga('create', 'UA-42611920-1', 'gasbro.com');
+          ga('send', 'pageview');
+        
+        </script>
         <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.8.min.js"></script>
         <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -332,17 +340,7 @@ $venmo = new Venmo($_GET['access_token']);
         <script type="text/javascript" src="js/jquery.history.js"></script>
         <script type="text/javascript" src="js/select2.min.js"></script>
         <script type="text/javascript" src="js/select2.js"></script>
-        <script type="text/javascript" src="js/main.js?v=1"></script>
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        
-          ga('create', 'UA-42611920-1', 'gasbro.com');
-          ga('send', 'pageview');
-        
-        </script>
+        <script type="text/javascript" src="js/main.js?v=1.1"></script>
         <!-- AddThis Welcome BEGIN -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-502407f64d3ce404">
 </script>
