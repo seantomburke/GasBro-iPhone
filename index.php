@@ -33,6 +33,11 @@ $venmo = new Venmo($_GET['access_token']);
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css?version=1.0">
         <link href='//fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
+        <!-- ClickTale Top part -->
+        <script type="text/javascript">
+        var WRInitTime=(new Date()).getTime();
+        </script>
+        <!-- ClickTale end of Top part -->
     </head>
     <body data-spy="scroll" data-target="#navbar">
     <div id="fb-root"></div>
@@ -448,6 +453,26 @@ $venmo = new Venmo($_GET['access_token']);
            
     
 </script>
+
+  
+<!-- ClickTale Bottom part -->
+
+<script type='text/javascript'>
+// The ClickTale Balkan Tracking Code may be programmatically customized using hooks:
+// 
+//   function ClickTalePreRecordingHook() { /* place your customized code here */  }
+//
+// For details about ClickTale hooks, please consult the wiki page http://wiki.clicktale.com/Article/Customizing_code_version_2
+
+document.write(unescape("%3Cscript%20src='"+
+(document.location.protocol=='https:'?
+"https://cdnssl.clicktale.net/www07/ptc/9b68738c-2091-45ed-8f5b-f6045b307ed9.js":
+"http://cdn.clicktale.net/www07/ptc/9b68738c-2091-45ed-8f5b-f6045b307ed9.js")+"'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<!-- ClickTale end of Bottom part -->
+
+
 <!-- AddThis Welcome END -->
     </body>
 </html>
