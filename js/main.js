@@ -82,6 +82,9 @@ function mapCurrentLocation() {
 function getCurrentLocation(position, callback) {
     var pos = new google.maps.LatLng(position.coords.latitude,
     position.coords.longitude);
+    
+    ga('send', 'event', 'Location', 'get Current Location', "latitude", position.coords.latitude);
+    ga('send', 'event', 'Location', 'get Current Location', "longitude", position.coords.longitude);
     //console.log("position.coords.latitude:"+position.coords.latitude);
     //console.log("position.coords.longitude:"+position.coords.longitude);                             
     icon = new google.maps.Marker();
@@ -113,6 +116,7 @@ function handleNoGeolocation(errorFlag) {
 $("input[name='start-location']").focusout(function(event) {
     //event.preventDefault();
     setStart();
+    ga('send', 'event', 'Location', 'setStart', $(this).val());
 });
 
 function setStart() {
