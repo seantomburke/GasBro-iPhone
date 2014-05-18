@@ -59,8 +59,8 @@ function mapCurrentLocation() {
                 $("#current-location").button("reset");
                 getAddress(location, function(result) {
                     $("input[name='start-location']").val(result);
+                    ga('send', 'event', 'Location', 'Get Current Location', result, location.coords.latitude);
                 });
-                ga('send', 'event', 'Location', 'Get Current Location', result, location.coords.latitude);
                 $("input[name='start-location']").addClass("input-primary");
                 $("#current-location-group").addClass("info");
                 $("#current-location").addClass("btn-primary");
