@@ -15,6 +15,8 @@
 #import "GAITracker.h"
 #import "GAILogger.h"
 #import "GAIDictionaryBuilder.h"
+#import <Parse/Parse.h>
+#import <AddressBook/AddressBook.h>
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
@@ -47,6 +49,7 @@ CLLocationManager *locationManager;
 @synthesize gasTotalLabel;
 @synthesize gasPerPersonLabel;
 @synthesize startLocationText;
+@synthesize parseTripId;
 @synthesize endLocationText;
 @synthesize roundtripSwitch;
 
@@ -77,6 +80,7 @@ CLLocationManager *locationManager;
 {
     
     [super viewDidLoad];
+    
     self.topView.opaque = NO;
     self.bottomView.opaque = NO;
     [mapView setDelegate:self];
@@ -118,6 +122,80 @@ CLLocationManager *locationManager;
     [bottomView addGestureRecognizer:nonmaptapbottom];
     
 }
+
+-(IBAction)updateTrip:(id)sender{
+    [self getTrip:parseTripId.text];
+    
+}
+
+-(void)getTrip:(NSString *)tripid{
+    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    [query getObjectWithId:tripid];
+    [query getObjectInBackgroundWithId:tripid block:^(PFObject *tripObject, NSError *error) {
+        startLocationText.text = [tripObject valueForKey:@"start_location"];
+        endLocationText.text = [tripObject valueForKey:@"end_location"];
+        
+        NSString *parseGasType = [tripObject objectForKey:@"gas_type"];
+        gas_index = parseGasType.intValue;
+        
+        
+        NSString *parseMiles = [tripObject objectForKey:@"miles"];
+        miles = parseMiles.floatValue;
+        NSString *parseMPG = [tripObject objectForKey:@"mpg"];
+        mpg = parseMPG.intValue;
+        
+        NSString *parsePeople = [tripObject objectForKey:@"people"];
+        people = parsePeople.intValue;
+        NSString *parseRoundtrip = [tripObject objectForKey:@"roundtrip"];
+        roundtrip = parseRoundtrip.intValue;
+        NSString *parsePrice = [tripObject objectForKey:@"price"];
+        price = parsePrice.floatValue;
+        
+        city = [tripObject valueForKey:@"city"];
+        
+//        NSDictionary *startAddrDict = @{
+//                                      (NSString *) kABPersonAddressStreetKey : startLocationText.text,
+//                                      (NSString *) kABPersonAddressCityKey : city
+//                                      };
+        NSString *parseStartLat = [tripObject objectForKey:@"start_lat"];
+        NSString *parseStartLng = [tripObject objectForKey:@"start_lng"];
+        
+        CLLocationDegrees startLat = parseStartLat.floatValue;
+        CLLocationDegrees startLng = parseStartLng.floatValue;
+        
+        CLLocationCoordinate2D startLocation = CLLocationCoordinate2DMake(startLat, startLng);
+        
+        
+//        NSDictionary *endAddrDict = @{
+//                                        (NSString *) kABPersonAddressStreetKey : endLocationText.text
+//                                        };
+        
+        NSString *parseEndLat = [tripObject objectForKey:@"end_lat"];
+        NSString *parseEndLng = [tripObject objectForKey:@"end_lng"];
+        
+        CLLocationDegrees endLat = parseEndLat.floatValue;
+        CLLocationDegrees endLng = parseEndLng.floatValue;
+        
+        CLLocationCoordinate2D endLocation = CLLocationCoordinate2DMake(endLat, endLng);
+        
+        MKPlacemark *parseStartPlacemarker = [[MKPlacemark alloc] initWithCoordinate:startLocation addressDictionary:nil];
+        MKPlacemark *parseEndPlacemarker = [[MKPlacemark alloc] initWithCoordinate:endLocation addressDictionary:nil];
+        
+        start_placemarker = parseStartPlacemarker;
+        end_placemarker = parseEndPlacemarker;
+        
+        [self updateView:parseTripId.text];
+    }];
+    
+}
+
+
+-(void)updateView:(NSString *)tripId{
+    peopleSlider.value = people;
+    mpgSlider.value = mpg;
+    gas_type_segment.selectedSegmentIndex = gas_index;
+}
+
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
@@ -170,6 +248,7 @@ CLLocationManager *locationManager;
     else
     {
         [self endSearch:textField withError:true];
+        [self hidePanels];
         [textField resignFirstResponder];
     }
     return YES;
@@ -210,10 +289,29 @@ CLLocationManager *locationManager;
         CLGeocoder *startgeocoder = [[CLGeocoder alloc] init];
         [startgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *startplacemarks, NSError *error)
          {
+             
              if (error) {
-                 NSString *title = [NSString stringWithFormat:@"%@ not found", sender.text];
-                 NSString *message = @"Please check for spelling errors and try again";
-                 NSString *button = @"OK";
+                 NSLog(@"%@", error.debugDescription);
+                 NSLog(@"%@", error);
+                 NSString *title;
+                 NSString *message;
+                 NSString *button;
+                 if(error.code == 2)
+                 {
+                     title = [NSString stringWithFormat:@"%@", @"Too many requests"];
+                     message = @"Try waiting a few mintues, Apple blocks multiple map geolocation requests in a short time period.";
+                     button = @"OK";
+                 }
+                 else if(error.code == 8){
+                     title = [NSString stringWithFormat:@"%@ not found", sender.text];
+                     message = @"Please check for spelling errors and try again";
+                     button = @"OK";
+                 }
+                 else{
+                     title = [NSString stringWithFormat:@"%@", error.domain];
+                     message = error.description;
+                     button = @"OK";
+                 }
                  price = 0;
                  gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
                  if(showError)
@@ -310,9 +408,26 @@ CLLocationManager *locationManager;
         [endgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *endplacemarks, NSError *error) {
             if (error && showError) {
                 NSLog(@"%@", error);
-                NSString *title = [NSString stringWithFormat:@"%@ not found", sender.text];
-                NSString *message = @"Please check for spelling errors and try again";
-                NSString *button = @"OK";
+                NSLog(@"%@", error.debugDescription);
+                NSString *title;
+                NSString *message;
+                NSString *button;
+                if(error.code == 2)
+                {
+                    title = [NSString stringWithFormat:@"%@", @"Too many requests"];
+                    message = @"Try waiting a few mintues, Apple blocks multiple map geolocation requests in a short time period.";
+                    button = @"OK";
+                }
+                else if(error.code == 8){
+                    title = [NSString stringWithFormat:@"%@ not found", sender.text];
+                    message = @"Please check for spelling errors and try again";
+                    button = @"OK";
+                }
+                else{
+                    title = [NSString stringWithFormat:@"%@", error.domain];
+                    message = error.description;
+                    button = @"OK";
+                }
                 //_startLocationText.text = @"Network Error";
                 //_price = 0;
                 //_gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f",price];
@@ -664,7 +779,6 @@ CLLocationManager *locationManager;
     miles = miles/1609.34;
     NSLog(@"Miles:%f", miles);
     [self zoomToCenter:mapView withStart:start_placemarker.location.coordinate withEnd:end_placemarker.location.coordinate animated:YES];
-    [self hidePanels];
     [self calculateCost];
 }
 

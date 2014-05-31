@@ -21,6 +21,19 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start Location" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KDq-WV-WTm">
+                                <rect key="frame" x="20" y="157" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" hint="Enter End Location" label="End Location"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="AkP-XS-WAl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-UltraLight" family="Avenir Next Condensed" pointSize="26"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="updateTrip:" destination="vXZ-lx-hvc" eventType="editingDidEnd" id="zDR-T1-uKq"/>
+                                </connections>
+                            </textField>
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Wb-si-GiN">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="252"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -275,12 +288,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nfF-YV-Fr4" firstAttribute="leading" secondItem="iO8-Ee-79T" secondAttribute="leading" id="5lR-Ih-WVa"/>
+                            <constraint firstItem="KDq-WV-WTm" firstAttribute="top" secondItem="5Wb-si-GiN" secondAttribute="bottom" constant="-95" id="6DJ-w7-5gh"/>
                             <constraint firstItem="nfF-YV-Fr4" firstAttribute="top" secondItem="LYv-GA-Tar" secondAttribute="bottom" id="7Pr-14-mcf"/>
                             <constraint firstItem="nfF-YV-Fr4" firstAttribute="bottom" secondItem="iO8-Ee-79T" secondAttribute="bottom" id="9hC-4y-YRc"/>
                             <constraint firstItem="5Wb-si-GiN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="CFR-Zr-ldu"/>
                             <constraint firstAttribute="bottom" secondItem="nfF-YV-Fr4" secondAttribute="bottom" id="EJd-bp-48p"/>
                             <constraint firstItem="5Wb-si-GiN" firstAttribute="top" secondItem="LYv-GA-Tar" secondAttribute="bottom" constant="-20" id="HMm-5a-Ahw"/>
+                            <constraint firstItem="KDq-WV-WTm" firstAttribute="leading" secondItem="nfF-YV-Fr4" secondAttribute="trailing" constant="-300" id="KgB-Oe-XWX"/>
                             <constraint firstItem="iO8-Ee-79T" firstAttribute="leading" secondItem="5Wb-si-GiN" secondAttribute="leading" id="XrE-zR-gtx"/>
+                            <constraint firstItem="KDq-WV-WTm" firstAttribute="top" secondItem="5Wb-si-GiN" secondAttribute="bottom" constant="-95" id="c4Y-Wy-CD7"/>
                             <constraint firstItem="nfF-YV-Fr4" firstAttribute="trailing" secondItem="iO8-Ee-79T" secondAttribute="trailing" id="k63-Do-qgU"/>
                         </constraints>
                     </view>
@@ -298,6 +314,7 @@
                         <outlet property="mapView" destination="nfF-YV-Fr4" id="uAS-Qs-jrM"/>
                         <outlet property="mpgLabel" destination="5rE-Bo-qVA" id="vRR-TK-uaN"/>
                         <outlet property="mpgSlider" destination="X6o-We-onc" id="wNH-Fa-GaW"/>
+                        <outlet property="parseTripId" destination="KDq-WV-WTm" id="UmP-Mg-pY1"/>
                         <outlet property="peopleLabel" destination="k3s-k1-MmW" id="ucb-Di-mhq"/>
                         <outlet property="peopleSlider" destination="oUS-Uc-1tt" id="APD-Tl-Vh4"/>
                         <outlet property="roundtripSwitch" destination="cZa-0y-3pF" id="EVd-AE-k3r"/>

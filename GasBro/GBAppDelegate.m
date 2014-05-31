@@ -9,11 +9,16 @@
 #import "GBAppDelegate.h"
 #import "GAI.h"
 #import "GBCache.h"
+#import <Parse/Parse.h>
 
 @implementation GBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [Parse setApplicationId:@"XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7"
+                  clientKey:@"X4PQqGJePMEIGy9i5ziOUngf9ouzBtxdC30VGf0z"];
+    [PFUser enableAutomaticUser];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     

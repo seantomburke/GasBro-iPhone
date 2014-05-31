@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "421793479.743423"
+            timestampString = "423230737.829505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958">
+            startingLineNumber = "1068"
+            endingLineNumber = "1068">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -57,6 +57,22 @@
             endingLineNumber = "29"
             landmarkName = "@protocol GBAnnotation"
             landmarkType = "2">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GasBro/GBViewController.m"
+            timestampString = "423230737.829505"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "-startSearch:withError:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -15,6 +15,7 @@
 #import "GBEndAnnotation.h"
 #import "GBCurrentLocation.h"
 #import "GAITrackedViewController.h"
+#import <Parse/Parse.h>
 
 @interface GBViewController : GAITrackedViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
 }
@@ -43,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gasTotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gasPerPersonLabel;
 @property (weak, nonatomic) IBOutlet UITextField *startLocationText;
+@property (weak, nonatomic) IBOutlet UITextField *parseTripId;
 @property (weak, nonatomic) IBOutlet UITextField *endLocationText;
 @property (weak, nonatomic) IBOutlet UISwitch *roundtripSwitch;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gas_type_segment;
@@ -69,6 +71,7 @@
 - (IBAction)updateGasType:(id)sender;
 - (IBAction)infoButtonClicked:(id)sender;
 - (IBAction)unwindToMain:(UIStoryboardSegue *)segue;
+- (IBAction)updateTrip:(id)sender;
 
 -(void)saveData;
 -(void)loadData;

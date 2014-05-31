@@ -13,8 +13,6 @@
 		141AF02D17F53AD000E6B058 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 141AF02B17F53AD000E6B058 /* InfoPlist.strings */; };
 		141AF02F17F53AD000E6B058 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF02E17F53AD000E6B058 /* main.m */; };
 		141AF03317F53AD000E6B058 /* GBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF03217F53AD000E6B058 /* GBAppDelegate.m */; };
-		141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03417F53AD000E6B058 /* Main_iPhone.storyboard */; };
-		141AF03917F53AD000E6B058 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03717F53AD000E6B058 /* Main_iPad.storyboard */; };
 		141AF03C17F53AD000E6B058 /* GBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF03B17F53AD000E6B058 /* GBViewController.m */; };
 		141AF04517F53AD000E6B058 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF04417F53AD000E6B058 /* XCTest.framework */; };
 		141AF04617F53AD000E6B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02217F53AD000E6B058 /* Foundation.framework */; };
@@ -22,6 +20,19 @@
 		141AF04F17F53AD100E6B058 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 141AF04D17F53AD100E6B058 /* InfoPlist.strings */; };
 		141AF05117F53AD100E6B058 /* GasBroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AF05017F53AD100E6B058 /* GasBroTests.m */; };
 		141AF05D17F5404200E6B058 /* current.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 141AF05C17F5404200E6B058 /* current.jpg */; };
+		1420709E1939591000864AC9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1420709D1939591000864AC9 /* Parse.framework */; };
+		142070A01939ED1E00864AC9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1420709F1939ED1E00864AC9 /* AudioToolbox.framework */; };
+		142070A21939ED2500864AC9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070A11939ED2500864AC9 /* CFNetwork.framework */; };
+		142070A31939ED2D00864AC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141AF02417F53AD000E6B058 /* CoreGraphics.framework */; };
+		142070A51939ED4C00864AC9 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070A41939ED4C00864AC9 /* MobileCoreServices.framework */; };
+		142070A71939ED5800864AC9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070A61939ED5800864AC9 /* Security.framework */; };
+		142070A91939ED5E00864AC9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070A81939ED5E00864AC9 /* StoreKit.framework */; };
+		142070AB1939EF4100864AC9 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070AA1939EF4100864AC9 /* Twitter.framework */; };
+		142070AD1939F29500864AC9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070AC1939F29500864AC9 /* Social.framework */; };
+		142070AF1939F2AB00864AC9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070AE1939F2AB00864AC9 /* Accounts.framework */; };
+		142070B11939F38700864AC9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142070B01939F38700864AC9 /* FacebookSDK.framework */; };
+		142070B21939F69C00864AC9 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03417F53AD000E6B058 /* Main_iPhone.storyboard */; };
+		142070B31939F6A300864AC9 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141AF03717F53AD000E6B058 /* Main_iPad.storyboard */; };
 		142A75761887E26700B3F4AE /* GBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142A75751887E26700B3F4AE /* GBInfoViewController.m */; };
 		142A75791887F7FA00B3F4AE /* GBGasLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 142A75781887F7FA00B3F4AE /* GBGasLabel.m */; };
 		1441566B18208ABF00ABDED9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1441566A18208ABF00ABDED9 /* MapKit.framework */; };
@@ -98,6 +109,16 @@
 		141AF04E17F53AD100E6B058 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		141AF05017F53AD100E6B058 /* GasBroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GasBroTests.m; sourceTree = "<group>"; };
 		141AF05C17F5404200E6B058 /* current.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = current.jpg; sourceTree = "<group>"; };
+		1420709D1939591000864AC9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		1420709F1939ED1E00864AC9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		142070A11939ED2500864AC9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		142070A41939ED4C00864AC9 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		142070A61939ED5800864AC9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		142070A81939ED5E00864AC9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		142070AA1939EF4100864AC9 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		142070AC1939F29500864AC9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		142070AE1939F2AB00864AC9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		142070B01939F38700864AC9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		142A75741887E26700B3F4AE /* GBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBInfoViewController.h; sourceTree = "<group>"; };
 		142A75751887E26700B3F4AE /* GBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBInfoViewController.m; sourceTree = "<group>"; };
 		142A75771887F7FA00B3F4AE /* GBGasLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBGasLabel.h; sourceTree = "<group>"; };
@@ -168,18 +189,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				142070AF1939F2AB00864AC9 /* Accounts.framework in Frameworks */,
+				142070AD1939F29500864AC9 /* Social.framework in Frameworks */,
+				142070A01939ED1E00864AC9 /* AudioToolbox.framework in Frameworks */,
+				142070A21939ED2500864AC9 /* CFNetwork.framework in Frameworks */,
+				142070A31939ED2D00864AC9 /* CoreGraphics.framework in Frameworks */,
+				1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */,
+				144F69BF1920025A000F81F1 /* libz.dylib in Frameworks */,
+				142070A51939ED4C00864AC9 /* MobileCoreServices.framework in Frameworks */,
+				144F69B0191F6D35000F81F1 /* QuartzCore.framework in Frameworks */,
+				142070A71939ED5800864AC9 /* Security.framework in Frameworks */,
+				142070A91939ED5E00864AC9 /* StoreKit.framework in Frameworks */,
+				1441567B18208B3700ABDED9 /* SystemConfiguration.framework in Frameworks */,
+				142070AB1939EF4100864AC9 /* Twitter.framework in Frameworks */,
 				144F69C419202FA6000F81F1 /* libsqlite3.0.dylib in Frameworks */,
 				144F69C519202FA6000F81F1 /* libsqlite3.dylib in Frameworks */,
 				144F69B8191F8991000F81F1 /* libGoogleAnalyticsServices.a in Frameworks */,
 				144F69C119200261000F81F1 /* AdSupport.framework in Frameworks */,
-				144F69BF1920025A000F81F1 /* libz.dylib in Frameworks */,
-				1441567B18208B3700ABDED9 /* SystemConfiguration.framework in Frameworks */,
-				144F69B0191F6D35000F81F1 /* QuartzCore.framework in Frameworks */,
+				1441567118208AE400ABDED9 /* CoreText.framework in Frameworks */,
+				1420709E1939591000864AC9 /* Parse.framework in Frameworks */,
 				141AF02717F53AD000E6B058 /* UIKit.framework in Frameworks */,
 				141AF02317F53AD000E6B058 /* Foundation.framework in Frameworks */,
-				1441567118208AE400ABDED9 /* CoreText.framework in Frameworks */,
+				142070B11939F38700864AC9 /* FacebookSDK.framework in Frameworks */,
 				1441566F18208ADF00ABDED9 /* CoreData.framework in Frameworks */,
-				1473663817F5410B00F91B27 /* CoreLocation.framework in Frameworks */,
 				1441566D18208ACB00ABDED9 /* AVFoundation.framework in Frameworks */,
 				1441566B18208ABF00ABDED9 /* MapKit.framework in Frameworks */,
 			);
@@ -220,6 +252,16 @@
 		141AF02117F53AD000E6B058 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				142070B01939F38700864AC9 /* FacebookSDK.framework */,
+				142070AE1939F2AB00864AC9 /* Accounts.framework */,
+				142070AC1939F29500864AC9 /* Social.framework */,
+				142070AA1939EF4100864AC9 /* Twitter.framework */,
+				142070A81939ED5E00864AC9 /* StoreKit.framework */,
+				142070A61939ED5800864AC9 /* Security.framework */,
+				142070A41939ED4C00864AC9 /* MobileCoreServices.framework */,
+				142070A11939ED2500864AC9 /* CFNetwork.framework */,
+				1420709F1939ED1E00864AC9 /* AudioToolbox.framework */,
+				1420709D1939591000864AC9 /* Parse.framework */,
 				144F69C219202FA6000F81F1 /* libsqlite3.0.dylib */,
 				144F69C319202FA6000F81F1 /* libsqlite3.dylib */,
 				144F69C019200261000F81F1 /* AdSupport.framework */,
@@ -450,7 +492,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				141AF03917F53AD000E6B058 /* Main_iPad.storyboard in Resources */,
+				142070B31939F6A300864AC9 /* Main_iPad.storyboard in Resources */,
+				142070B21939F69C00864AC9 /* Main_iPhone.storyboard in Resources */,
 				141AF05D17F5404200E6B058 /* current.jpg in Resources */,
 				1473665217F6049D00F91B27 /* Icon-Small-50@2x.png in Resources */,
 				1473664E17F6049D00F91B27 /* Icon-72@2x.png in Resources */,
@@ -460,7 +503,6 @@
 				1473665A17F6049D00F91B27 /* iTunesArtwork@2x in Resources */,
 				1473665317F6049D00F91B27 /* Icon-Small.png in Resources */,
 				1473665817F6049D00F91B27 /* Icon@2x.png in Resources */,
-				141AF03617F53AD000E6B058 /* Main_iPhone.storyboard in Resources */,
 				1473665717F6049D00F91B27 /* Icon.png in Resources */,
 				1473665617F6049D00F91B27 /* Icon-Spotlight-40@2x.png in Resources */,
 				1473665117F6049D00F91B27 /* Icon-Small-50.png in Resources */,
@@ -641,7 +683,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GasBro/GasBro-Prefix.pch";
 				INFOPLIST_FILE = "GasBro/GasBro-Info.plist";
@@ -665,7 +710,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GasBro/GasBro-Prefix.pch";
 				INFOPLIST_FILE = "GasBro/GasBro-Info.plist";
