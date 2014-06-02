@@ -129,23 +129,35 @@ CLLocationManager *locationManager;
 }
 
 -(void)getTrip:(NSString *)tripid{
+    if(![tripid  isEqual: @""])
+    {
     PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
     [query getObjectWithId:tripid];
     [query getObjectInBackgroundWithId:tripid block:^(PFObject *tripObject, NSError *error) {
+        if(error)
+        {
+            [self alert:@"Trip ID not found" withMessage:@"This is an invalid Trip ID, create a new one at gasbro.com" withButton:@"OK"];
+        }
+        else
+        {
         startLocationText.text = [tripObject valueForKey:@"start_location"];
         endLocationText.text = [tripObject valueForKey:@"end_location"];
         
         NSString *parseGasType = [tripObject objectForKey:@"gas_type"];
         gas_index = parseGasType.intValue;
+        gas_type_segment.selectedSegmentIndex = gas_index;
         
         
         NSString *parseMiles = [tripObject objectForKey:@"miles"];
         miles = parseMiles.floatValue;
         NSString *parseMPG = [tripObject objectForKey:@"mpg"];
         mpg = parseMPG.intValue;
+        mpgSlider.value = mpg;
         
         NSString *parsePeople = [tripObject objectForKey:@"people"];
         people = parsePeople.intValue;
+        peopleSlider.value = people;
+            
         NSString *parseRoundtrip = [tripObject objectForKey:@"roundtrip"];
         roundtrip = parseRoundtrip.intValue;
         NSString *parsePrice = [tripObject objectForKey:@"price"];
@@ -153,10 +165,10 @@ CLLocationManager *locationManager;
         
         city = [tripObject valueForKey:@"city"];
         
-//        NSDictionary *startAddrDict = @{
-//                                      (NSString *) kABPersonAddressStreetKey : startLocationText.text,
-//                                      (NSString *) kABPersonAddressCityKey : city
-//                                      };
+        NSDictionary *startAddrDict = @{
+                                      (NSString *) kABPersonAddressStreetKey : startLocationText.text,
+                                      (NSString *) kABPersonAddressCityKey : city
+                                      };
         NSString *parseStartLat = [tripObject objectForKey:@"start_lat"];
         NSString *parseStartLng = [tripObject objectForKey:@"start_lng"];
         
@@ -166,9 +178,9 @@ CLLocationManager *locationManager;
         CLLocationCoordinate2D startLocation = CLLocationCoordinate2DMake(startLat, startLng);
         
         
-//        NSDictionary *endAddrDict = @{
-//                                        (NSString *) kABPersonAddressStreetKey : endLocationText.text
-//                                        };
+        NSDictionary *endAddrDict = @{
+                                        (NSString *) kABPersonAddressStreetKey : endLocationText.text
+                                        };
         
         NSString *parseEndLat = [tripObject objectForKey:@"end_lat"];
         NSString *parseEndLng = [tripObject objectForKey:@"end_lng"];
@@ -178,22 +190,25 @@ CLLocationManager *locationManager;
         
         CLLocationCoordinate2D endLocation = CLLocationCoordinate2DMake(endLat, endLng);
         
-        MKPlacemark *parseStartPlacemarker = [[MKPlacemark alloc] initWithCoordinate:startLocation addressDictionary:nil];
-        MKPlacemark *parseEndPlacemarker = [[MKPlacemark alloc] initWithCoordinate:endLocation addressDictionary:nil];
+        MKPlacemark *parseStartPlacemarker = [[MKPlacemark alloc] initWithCoordinate:startLocation addressDictionary:startAddrDict];
+        MKPlacemark *parseEndPlacemarker = [[MKPlacemark alloc] initWithCoordinate:endLocation addressDictionary:endAddrDict];
         
         start_placemarker = parseStartPlacemarker;
         end_placemarker = parseEndPlacemarker;
         
+        [self calculateCost];
+        
         [self updateView:parseTripId.text];
+        }
     }];
+        
+    }
     
 }
 
 
 -(void)updateView:(NSString *)tripId{
-    peopleSlider.value = people;
-    mpgSlider.value = mpg;
-    gas_type_segment.selectedSegmentIndex = gas_index;
+    
 }
 
 
@@ -245,10 +260,15 @@ CLLocationManager *locationManager;
         [self startSearch:textField withError:true];
         [endLocationText becomeFirstResponder];
     }
-    else
+    else if(textField == endLocationText)
     {
         [self endSearch:textField withError:true];
         [self hidePanels];
+        [textField resignFirstResponder];
+    }
+    else if(textField == parseTripId)
+    {
+        [self getTrip:parseTripId.text];
         [textField resignFirstResponder];
     }
     return YES;
