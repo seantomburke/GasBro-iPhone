@@ -36,7 +36,7 @@
     MKPinAnnotationView *pinView;
     // If an existing pin view was not available, create one.
     pinView = [[MKPinAnnotationView alloc] init];
-    pinView.canShowCallout = YES;
+    //pinView.canShowCallout = YES;
     pinView.animatesDrop = TRUE;
     return pinView;
 }

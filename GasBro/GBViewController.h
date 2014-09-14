@@ -35,6 +35,8 @@
 @property (readwrite) int people;
 @property (readwrite) int mpg;
 @property (readwrite) int roundtrip;
+@property (readwrite) int topHeight;
+@property (readwrite) int bottomHeight;
 
 @property (weak, nonatomic) IBOutlet UILabel *peopleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mpgLabel;

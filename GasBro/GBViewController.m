@@ -81,6 +81,12 @@ CLLocationManager *locationManager;
     
     [super viewDidLoad];
     
+    [self.view setClearsContextBeforeDrawing:false];
+    
+//    for (UIView *t in self.view.subviews) {
+//        [t
+//    }
+    
     self.topView.opaque = NO;
     self.bottomView.opaque = NO;
     [mapView setDelegate:self];
@@ -217,8 +223,8 @@ CLLocationManager *locationManager;
 }
 
 -(void)hidePanels {
-    
     [self dismissKeyboard];
+
     [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"UI"
                     action:@"hidePanels"
@@ -226,18 +232,22 @@ CLLocationManager *locationManager;
                     value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
-                         topView.frame = CGRectMake(0, -100, topView.bounds.size.width, topView.bounds.size.height);
-                         bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height + 100, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
+                         topView.frame = CGRectMake(0, -100, topView.frame.size.width, topView.frame.size.height);
+                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height + 100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          
                          bottomView.alpha = .7;
                          topView.alpha = .7;
                      }];
+    
+    [topView updateConstraints];
+    [bottomView updateConstraints];
 }
 
 
 -(void)showPanels {
     
     [self dismissKeyboard];
+    
     [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"UI"
                     action:@"showPanels"
@@ -245,11 +255,15 @@ CLLocationManager *locationManager;
                     value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
-                         topView.frame = CGRectMake(0, 0, topView.bounds.size.width, topView.bounds.size.height);// its final location
-                         bottomView.frame = CGRectMake(0, self.view.bounds.size.height - bottomView.bounds.size.height, bottomView.bounds.size.width, bottomView.bounds.size.height);// its final location
+                         topView.frame = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);// its final location
+                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          bottomView.alpha = .90;
                          topView.alpha = .90;
                      }];
+    
+    
+    [topView updateConstraints];
+    [bottomView updateConstraints];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -522,6 +536,7 @@ CLLocationManager *locationManager;
 
 - (IBAction)getCurrentLocation:(id)sender {
     
+    [locationManager requestWhenInUseAuthorization];
     [startLocationText setText:@"Locating..."];
     [currentLocationButton setSelected:YES];
     startLocationText.clearsOnBeginEditing = YES;
