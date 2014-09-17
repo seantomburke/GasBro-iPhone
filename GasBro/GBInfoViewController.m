@@ -20,12 +20,10 @@
 @property (strong, nonatomic) UIImage *facebook_image;
 @end
 
-
 @implementation GBInfoViewController
 {
     id<GAITracker> tracker;
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -44,6 +42,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     
     GBCache *shared = [GBCache gbCache];
     _facebook_image = [shared getProfileImage];
@@ -96,15 +95,17 @@
 }
 
 -(void)openSeanLink{
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To www.seantburke.com" value:nil] build]];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To Sean link" value:nil] build]];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
+    //[Appirater forceShowPrompt:YES];
 }
 
 - (IBAction)openSean:(id)sender
 {
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To www.seantburke.com" value:nil] build]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UI" action:@"Page Navigation" label:@"To rate on App Store" value:nil] build]];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.seantburke.com/?r=gasbroios"]];
+    [Appirater forceShowPrompt:YES];
 }
 
 
@@ -118,7 +119,6 @@
     _facebook_image = [[UIImage alloc] initWithData:data];
     [_profile setImage:_facebook_image];
 }
-
 
 
 

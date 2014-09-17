@@ -16,6 +16,7 @@
 #import "GBCurrentLocation.h"
 #import "GAITrackedViewController.h"
 #import <Parse/Parse.h>
+#import <Appirater.h>
 
 @interface GBViewController : GAITrackedViewController <CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate, MKAnnotation>{
 }

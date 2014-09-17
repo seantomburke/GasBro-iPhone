@@ -10,6 +10,7 @@
 #import "GAI.h"
 #import "GBCache.h"
 #import <Parse/Parse.h>
+#import <Appirater.h>
 
 @implementation GBAppDelegate
 
@@ -31,6 +32,21 @@
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-42611920-1"];
     
+    
+    [Appirater appLaunched:YES];
+    [Appirater setAppId:@"798634160"];
+    [Appirater setOpenInAppStore:YES];
+    [Appirater setTimeBeforeReminding:3];
+    [Appirater setSignificantEventsUntilPrompt:10];
+    [Appirater setUsesUntilPrompt:3];
+    [Appirater setUsesAnimation:YES];
+    [Appirater setDebug:YES];
+//    [Appirater setCustomAlertCancelButtonTitle:@"I hate it"];
+//    [Appirater setCustomAlertRateButtonTitle:@"I like it"];
+//    [Appirater setCustomAlertRateLaterButtonTitle:@"Rate later"];
+//    [Appirater setCustomAlertTitle:@"Like this app?"];
+//    [Appirater setCustomAlertMessage:@"Help a brother out"];
+    
     return YES;
 }
 
@@ -51,6 +67,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [Appirater appEnteredForeground:YES];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

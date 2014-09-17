@@ -74,6 +74,8 @@ CLLocationManager *locationManager;
     [super viewWillAppear:animated];
     self.screenName = @"Home Screen";
     tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [self showPanels];
 }
 
 - (void)viewDidLoad
@@ -81,7 +83,7 @@ CLLocationManager *locationManager;
     
     [super viewDidLoad];
     
-    [self.view setClearsContextBeforeDrawing:false];
+    [self.view setClearsContextBeforeDrawing:NO];
     
 //    for (UIView *t in self.view.subviews) {
 //        [t
@@ -236,7 +238,7 @@ CLLocationManager *locationManager;
                          bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height + 100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          
                          bottomView.alpha = .7;
-                         topView.alpha = .7;
+                         topView.alpha = .8;
                      }];
     
     [topView updateConstraints];
@@ -271,12 +273,12 @@ CLLocationManager *locationManager;
     // Any additional checks to ensure you have the correct textField here.
     if(textField == startLocationText)
     {
-        [self startSearch:textField withError:true];
+        [self startSearch:textField withError:YES];
         [endLocationText becomeFirstResponder];
     }
     else if(textField == endLocationText)
     {
-        [self endSearch:textField withError:true];
+        [self endSearch:textField withError:YES];
         [self hidePanels];
         [textField resignFirstResponder];
     }
@@ -326,7 +328,6 @@ CLLocationManager *locationManager;
              
              if (error) {
                  NSLog(@"%@", error.debugDescription);
-                 NSLog(@"%@", error);
                  NSString *title;
                  NSString *message;
                  NSString *button;
@@ -355,7 +356,7 @@ CLLocationManager *locationManager;
                  start_placemarker = [startplacemarks lastObject];
                  if(![start_placemarker.country  isEqual: @"United States"])
                  {
-                     NSLog(@"%@", error);
+                     NSLog(@"%@", error.debugDescription);
                      NSString *title = @"Country Error";
                      NSString *message = @"Gas Bro currently only works in the U.S. Please choose a location within the U.S.";
                      NSString *button = @"OK";
@@ -427,7 +428,7 @@ CLLocationManager *locationManager;
     
 }
 - (IBAction)startSearch:(UITextField *)sender{
-    [self startSearch:sender withError:false];
+    [self startSearch:sender withError:NO];
 }
 
 - (void)endSearch:(UITextField *)sender withError:(BOOL)showError{
@@ -441,7 +442,6 @@ CLLocationManager *locationManager;
         CLGeocoder *endgeocoder = [[CLGeocoder alloc] init];
         [endgeocoder geocodeAddressString:sender.text completionHandler:^(NSArray *endplacemarks, NSError *error) {
             if (error && showError) {
-                NSLog(@"%@", error);
                 NSLog(@"%@", error.debugDescription);
                 NSString *title;
                 NSString *message;
@@ -531,7 +531,7 @@ CLLocationManager *locationManager;
 }
 
 - (IBAction)endSearch:(UITextField *)sender {
-    [self endSearch:sender withError:false];
+    [self endSearch:sender withError:NO];
 }
 
 - (IBAction)getCurrentLocation:(id)sender {
@@ -562,7 +562,7 @@ CLLocationManager *locationManager;
             CLGeocoder *currentgeocoder = [[CLGeocoder alloc] init];
             [currentgeocoder reverseGeocodeLocation:locationManager.location completionHandler:^(NSArray *startplacemarks, NSError *error){
                 if (error) {
-                    NSLog(@"%@", error);
+                    NSLog(@"%@", error.debugDescription);
                     NSString *title = @"Current Location Failed" ;
                     NSString *message = @"Could not find Current Location" ;
                     NSString *button = @"OK";
@@ -739,38 +739,42 @@ CLLocationManager *locationManager;
 
 - (void)calculateCost
 {
-    total = (price*miles*roundtrip)/mpg;
-    cost = total/people;
-    
-    NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", cost];
-    NSString *total_string = [NSString stringWithFormat:@"$%0.2f", total];
-    
-    if([cost_string length] > 6) {
-        // The source string is long enough to grab a substring of.
-        gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.0f", cost];
-    }
-    else {
-        // The source string is already less than fifty characters.
-        gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", cost];
-    }
-    
-    if([total_string length] > 6){
-        gasTotalLabel.text = [NSString stringWithFormat:@"$%0.0f", total];
-    }
-    else{
+    if((price > 0) && (miles > 0))
+    {
+        total = (price*miles*roundtrip)/mpg;
+        cost = total/people;
         
-        gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", total];
-    }
-    [tracker send:[[GAIDictionaryBuilder
+        NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", cost];
+        NSString *total_string = [NSString stringWithFormat:@"$%0.2f", total];
+    
+        if([cost_string length] > 6) {
+            // The source string is too long.
+            gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.0f", cost];
+        }
+        else {
+            // The source string is already less than 6 characters.
+            gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", cost];
+        }
+    
+        if([total_string length] > 6){
+            gasTotalLabel.text = [NSString stringWithFormat:@"$%0.0f", total];
+        }
+        else{
+        
+            gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", total];
+        }
+        [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"Calculations"
                     action:@"Total Cost"
                     label:gasTotalLabel.text
                     value:[NSNumber numberWithFloat:total]] build]];
-    [tracker send:[[GAIDictionaryBuilder
+        [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"Calculations"
                     action:@"Per Person Cost"
                     label:gasPerPersonLabel.text
                     value:[NSNumber numberWithFloat:cost]] build]];
+        [Appirater userDidSignificantEvent:NO];
+    }
 }
 
 - (void)getDirections
@@ -805,10 +809,10 @@ CLLocationManager *locationManager;
          [mapView removeOverlays: [mapView overlays]];
          [mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
         
-        for (MKRouteStep *step in route.steps)
-        {
-            NSLog(@"%@", step.instructions);
-        }
+//        for (MKRouteStep *step in route.steps)
+//        {
+//            NSLog(@"%@", step.instructions);
+//        }
         
     }
     miles = miles/1609.34;
@@ -937,7 +941,7 @@ CLLocationManager *locationManager;
     
     NSArray* gasStations = [json objectForKey:@"stations"]; //2
     
-    NSLog(@"stations: %@", gasStations); //3
+    NSLog(@"stations: %@", gasStations[0]); //3
     
     // 1) Get the first gas station
     if(gasStations == nil || [gasStations count] == 0)
@@ -1028,7 +1032,7 @@ CLLocationManager *locationManager;
     [manager stopUpdatingLocation];
     startLocationText.text = @"Location Error";
     [currentLocationButton setSelected:NO];
-    NSLog(@"didFailWithError: %@", error);
+    NSLog(@"didFailWithError: %@", error.debugDescription);
     NSString *title = @"Location Error" ;
     NSString *message = @"Failed to Get Your Location. Make sure Location services are enabled in Settings>Privacy>Location Services" ;
     NSString *button = @"OK";
@@ -1060,6 +1064,12 @@ CLLocationManager *locationManager;
         gas_index = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
                                    objectForKey:@"gas_index"] intValue];
     }
+}
+
+-(void)viewWillLayoutSubviews{
+    
+    
+    [super viewWillLayoutSubviews];
 }
 
 @end

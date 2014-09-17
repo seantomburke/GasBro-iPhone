@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Appirater.h>
 #import "GAITrackedViewController.h"
 
 @interface GBInfoViewController : GAITrackedViewController <UITextFieldDelegate> {
 }
 @property IBOutlet UIImageView *profile;
-@property IBOutlet UIScrollView *scroll;
 
 - (IBAction) unwindAction:(UIStoryboardSegue *)segue;
 - (IBAction)openSean:(id)sender;
