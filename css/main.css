@@ -1,0 +1,115 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+#map-canvas img {
+	max-width: none;
+}
+
+#map-canvas{
+	margin-top: 10px;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+.navbar-inner{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.jumbotron {
+	position: relative;
+	color: #fff;
+	text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+	background: -moz-linear-gradient(45deg, #000000 0%, #1e5b00 100%), #020031;
+	background: -webkit-gradient(linear, left bottom, right top, from(#000000), to(#1e5b00)), #020031;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353',GradientType=1 );
+	-webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32), inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32), inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32), inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+}
+
+body {
+	position: relative;
+}
+
+.sidebar{
+	
+	margin: 10px 0px 0px 0px;
+}
+
+
+h1, h2, h3, h4, h5, p, span, label, button, input {
+	font-family: 'Lato', sans-serif;
+}
+
+h1, label {
+	font-weight: 400;
+}
+
+h2, span {
+	font-weight: 300;
+}
+
+h3, p {
+	font-weight: 300;
+}
+
+.modal-footer .input-append .btn{
+	margin-left: 0;
+}
+
+.modal-footer .input-prepend .btn{
+	margin-left: 0;
+}
+
+
+body .modal {
+    /* new custom width */
+    
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    
+}
+
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.media {
+	margin: 20px 20px 20px 20px;
+	padding: 20px 20px 20px 20px;
+}
+
+.addthis_default_style {
+    width:300px;
+    float:left;
+    margin: 10px 0 0 0;
+}
+
+
+@media (max-width: 767px){
+
+.media {
+	margin: 0px 10%;
+}
+
+
+.container {
+	margin: 0px 10%;
+	width: 80%;
+}
+
+#start {
+    width: 171px;   
+}
+	
+}
+
+
+
