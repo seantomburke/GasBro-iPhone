@@ -80,7 +80,7 @@ CLLocationManager *locationManager;
 
 - (void)viewDidLoad
 {
-    
+    roundtrip = 1;
     [super viewDidLoad];
     
     [self.view setClearsContextBeforeDrawing:NO];
@@ -101,10 +101,9 @@ CLLocationManager *locationManager;
     gas_type = [defaults objectForKey:@"gasType"];
     mpg = [defaults doubleForKey:@"mpg"];
     
+    [self loadData];
+    
     locationManager = [[CLLocationManager alloc] init];
-    [self peopleSliderChanged:(self)];
-    [self roundtripSwitchChanged:(self)];
-    [self mpgSliderChanged:(self)];
     
     [self setNeedsStatusBarAppearanceUpdate];
     
@@ -279,7 +278,6 @@ CLLocationManager *locationManager;
     else if(textField == endLocationText)
     {
         [self endSearch:textField withError:YES];
-        [self hidePanels];
         [textField resignFirstResponder];
     }
     else if(textField == parseTripId)
@@ -715,6 +713,8 @@ CLLocationManager *locationManager;
                         label:nil
                         value:nil] build]];
         
+        [self saveData];
+        
         dispatch_async(kBgQueue, ^{
             NSData* data = [NSData dataWithContentsOfURL:
                             url];
@@ -735,6 +735,7 @@ CLLocationManager *locationManager;
         });
         
     }
+    
 }
 
 - (void)calculateCost
@@ -743,6 +744,8 @@ CLLocationManager *locationManager;
     {
         total = (price*miles*roundtrip)/mpg;
         cost = total/people;
+        
+        [self saveData];
         
         NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", cost];
         NSString *total_string = [NSString stringWithFormat:@"$%0.2f", total];
@@ -773,7 +776,7 @@ CLLocationManager *locationManager;
                     action:@"Per Person Cost"
                     label:gasPerPersonLabel.text
                     value:[NSNumber numberWithFloat:cost]] build]];
-        [Appirater userDidSignificantEvent:NO];
+        [Appirater userDidSignificantEvent:YES];
     }
 }
 
@@ -818,6 +821,7 @@ CLLocationManager *locationManager;
     miles = miles/1609.34;
     NSLog(@"Miles:%f", miles);
     [self zoomToCenter:mapView withStart:start_placemarker.location.coordinate withEnd:end_placemarker.location.coordinate animated:YES];
+    [self hidePanels];
     [self calculateCost];
 }
 
@@ -1043,27 +1047,53 @@ CLLocationManager *locationManager;
 
 -(void)saveData
 {
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:gas_index forKey:@"gas_index"];
-    [defaults setInteger:people forKey:@"people"];
-    [defaults setInteger:mpg forKey:@"mpg"];
-    [defaults synchronize];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setInteger:gas_index forKey:@"gas_index"];
+    [userDefaults setInteger:roundtrip forKey:@"roundtrip"];
+    [userDefaults setInteger:people forKey:@"people"];
+    [userDefaults setInteger:mpg forKey:@"mpg"];
+    [userDefaults synchronize];
 }
 
 -(void)loadData
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"mpg"])
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if([defaults boolForKey:@"people"])
     {
-        people = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
-                                objectForKey:@"people"] intValue];
-        
-        mpg = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
-                             objectForKey:@"mpg"] intValue];
-        
-        gas_index = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
-                                   objectForKey:@"gas_index"] intValue];
+        people = [(NSNumber *)[defaults objectForKey:@"people"] intValue];
+        peopleSlider.value = people;
     }
+    else{
+        people = 1;
+    }
+    peopleLabel.text = [NSString stringWithFormat:@"%i", people];
+    
+    if([defaults boolForKey:@"mpg"]){
+        mpg = [(NSNumber *)[defaults objectForKey:@"mpg"] intValue];
+        mpgSlider.value = mpg;
+    }
+    else{
+        mpg = 25;
+    }
+    mpgLabel.text = [NSString stringWithFormat:@"%i", mpg];
+    
+    if([defaults boolForKey:@"gas_index"]){
+    gas_index = [defaults integerForKey:@"gas_index"];
+    gas_type_segment.selectedSegmentIndex = gas_index;
+    }
+
+    BOOL rt = [defaults boolForKey:@"roundtrip"];
+    
+    if(rt){
+        roundtrip = [[NSUserDefaults standardUserDefaults] integerForKey:@"roundtrip"];
+    }
+    
+    if(roundtrip== 1) 
+        roundtripSwitch.on = NO;
+    else
+        roundtripSwitch.on = YES;
+    
+    [defaults synchronize];
 }
 
 -(void)viewWillLayoutSubviews{

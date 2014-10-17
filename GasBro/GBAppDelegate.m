@@ -36,11 +36,13 @@
     [Appirater appLaunched:YES];
     [Appirater setAppId:@"798634160"];
     [Appirater setOpenInAppStore:YES];
+    [Appirater setDaysUntilPrompt:2];
     [Appirater setTimeBeforeReminding:3];
     [Appirater setSignificantEventsUntilPrompt:10];
     [Appirater setUsesUntilPrompt:3];
     [Appirater setUsesAnimation:YES];
-    [Appirater setDebug:YES];
+    [Appirater setDebug:NO];
+    
 //    [Appirater setCustomAlertCancelButtonTitle:@"I hate it"];
 //    [Appirater setCustomAlertRateButtonTitle:@"I like it"];
 //    [Appirater setCustomAlertRateLaterButtonTitle:@"Rate later"];

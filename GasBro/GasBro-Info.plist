@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4</string>
+	<string>1.7</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -34,9 +34,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.4</string>
+	<string>1.7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>GasBro will never need full access to your location at all times.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>GasBro uses your location to get current local gas prices, and to calculate your trip distance.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>
@@ -49,10 +53,6 @@
 	<true/>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>GasBro uses your location to get current local gas prices, and to calculate your trip distance.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>GasBro will never need full access to your location at all times.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
