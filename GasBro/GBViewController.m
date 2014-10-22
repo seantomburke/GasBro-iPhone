@@ -824,10 +824,10 @@ CLLocationManager *locationManager;
 - (void)zoomToCenter:(MKMapView *)map withStart:(CLLocationCoordinate2D)start withEnd:(CLLocationCoordinate2D)end animated:(BOOL)animate{
     CLLocationCoordinate2D locationCenter;
     MKCoordinateSpan locationSpan;
-    int border = 2;
+    int border = 3;
     
     locationCenter.longitude = ((start.longitude - end.longitude)/2 + end.longitude);
-    locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude);
+    locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude)*1.0025;
     locationSpan.longitudeDelta = fabsf(start.longitude - end.longitude)*border;
     locationSpan.latitudeDelta = fabsf(start.latitude - end.latitude)*border;
     
