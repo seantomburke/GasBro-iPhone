@@ -62,8 +62,8 @@
     
     if (self.isSelected || self.isHighlighted)
     {
-        baseColor = [UIColor colorWithRed: 0 green: 0.46 blue: 0.827 alpha: 1];
-        baseColor = [UIColor blueColor];
+        baseColor = [UIColor colorWithRed: .1911 green: 0.7467 blue: 0.1098 alpha: 1];
+        //baseColor = [UIColor blueColor];
         //shadow = baseColor;
         
         //shadow = [UIColor blueColor];
