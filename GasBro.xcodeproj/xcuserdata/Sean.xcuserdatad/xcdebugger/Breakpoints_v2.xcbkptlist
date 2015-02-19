@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432605001.76179"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1110"
-            endingLineNumber = "1110">
+            startingLineNumber = "1139"
+            endingLineNumber = "1139">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,11 +66,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432605001.76179"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
             landmarkName = "-startSearch:withError:"
             landmarkType = "5">
          </BreakpointContent>
@@ -82,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432448451.877474"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "-textFieldShouldReturn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -98,11 +98,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432448451.877474"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "-getTrip:"
             landmarkType = "5">
          </BreakpointContent>
@@ -114,11 +114,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432448451.877474"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "-getTrip:"
             landmarkType = "5">
          </BreakpointContent>
@@ -130,12 +130,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432448451.877474"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "-updateTrip:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -146,12 +146,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432448451.877474"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "-getTrip:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -162,12 +162,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "432448451.877474"
+            timestampString = "446067532.122829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "-getTrip:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

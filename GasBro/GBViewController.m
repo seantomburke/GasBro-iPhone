@@ -67,13 +67,22 @@ CLLocationManager *locationManager;
 @synthesize start_annotation;
 @synthesize end_annotation;
 
-
-
+double topPos;
+double topHeight;
+double bottomPos;
+double bottomHeight;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.screenName = @"Home Screen";
     tracker = [[GAI sharedInstance] defaultTracker];
+    
+    
+    
+    topHeight = topView.frame.size.height;
+    topPos = topView.frame.origin.y;
+    bottomHeight = bottomView.frame.size.height;
+    bottomPos = self.view.frame.size.height - bottomHeight;
     
     [self showPanels];
 }
@@ -234,11 +243,11 @@ CLLocationManager *locationManager;
                     value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
-                         topView.frame = CGRectMake(0, -100, topView.frame.size.width, topView.frame.size.height);
-                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height + 100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
+                         topView.bounds = CGRectMake(0, 100, topView.frame.size.width, topView.frame.size.height);// its final location
+                         bottomView.bounds = CGRectMake(0, -100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          
-                         bottomView.alpha = .7;
-                         topView.alpha = .8;
+                         //bottomView.alpha = .7;
+                         //topView.alpha = .8;
                      }];
     
     [topView updateConstraints];
@@ -257,10 +266,10 @@ CLLocationManager *locationManager;
                     value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
-                         topView.frame = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);// its final location
-                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
-                         bottomView.alpha = .90;
-                         topView.alpha = .90;
+                         topView.bounds = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);// its final location
+                         bottomView.bounds = CGRectMake(0, 0, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
+                         //bottomView.alpha = .90;
+                         //topView.alpha = .90;
                      }];
     
     
