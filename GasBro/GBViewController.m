@@ -72,6 +72,10 @@ double topHeight;
 double bottomPos;
 double bottomHeight;
 
+UITapGestureRecognizer *maptap;
+UITapGestureRecognizer *nonmaptaptop;
+UITapGestureRecognizer *nonmaptapbottom;
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.screenName = @"Home Screen";
@@ -120,21 +124,21 @@ double bottomHeight;
     endLocationText.delegate = self;
     startLocationText.delegate = self;
     
-    UITapGestureRecognizer *maptap = [[UITapGestureRecognizer alloc]
+    maptap = [[UITapGestureRecognizer alloc]
                                       initWithTarget:self
                                       action:@selector(hidePanels)];
     
-    [mapView addGestureRecognizer:maptap];
-    
-    UITapGestureRecognizer *nonmaptaptop = [[UITapGestureRecognizer alloc]
+    nonmaptaptop = [[UITapGestureRecognizer alloc]
                                             initWithTarget:self
                                             action:@selector(showPanels)];
     
-    [topView addGestureRecognizer:nonmaptaptop];
-    
-    UITapGestureRecognizer *nonmaptapbottom = [[UITapGestureRecognizer alloc]
+    nonmaptapbottom = [[UITapGestureRecognizer alloc]
                                                initWithTarget:self
                                                action:@selector(showPanels)];
+    
+    [mapView addGestureRecognizer:maptap];
+    
+    [topView addGestureRecognizer:nonmaptaptop];
     
     [bottomView addGestureRecognizer:nonmaptapbottom];
     
@@ -246,12 +250,19 @@ double bottomHeight;
                          topView.bounds = CGRectMake(0, 100, topView.frame.size.width, topView.frame.size.height);// its final location
                          bottomView.bounds = CGRectMake(0, -100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          
+//                         topView.frame = CGRectMake(0, -100, topView.frame.size.width, topView.frame.size.height);
+//                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width + 100, bottomView.frame.size.height - 100);
+//                         
                          //bottomView.alpha = .7;
                          //topView.alpha = .8;
                      }];
     
     [topView updateConstraints];
     [bottomView updateConstraints];
+    [topView removeGestureRecognizer:nonmaptaptop];
+    [bottomView removeGestureRecognizer:nonmaptapbottom];
+    [topView addGestureRecognizer:nonmaptaptop];
+    [bottomView addGestureRecognizer:nonmaptapbottom];
 }
 
 
@@ -268,13 +279,21 @@ double bottomHeight;
                      animations:^{
                          topView.bounds = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);// its final location
                          bottomView.bounds = CGRectMake(0, 0, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
-                         //bottomView.alpha = .90;
+                         
+                         
+//                         topView.frame = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);
+//                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width, bottomView.frame.size.height);
+//                         //bottomView.alpha = .90;
                          //topView.alpha = .90;
                      }];
     
     
     [topView updateConstraints];
     [bottomView updateConstraints];
+    [topView removeGestureRecognizer:nonmaptaptop];
+    [bottomView removeGestureRecognizer:nonmaptapbottom];
+    [topView addGestureRecognizer:nonmaptaptop];
+    [bottomView addGestureRecognizer:nonmaptapbottom];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -428,7 +447,9 @@ double bottomHeight;
                       [start_annotation setTitle:@"Start Location"];
                       [start_annotation setSubtitle:addr];
                       [mapView addAnnotation:start_annotation];
-                      [mapView selectAnnotation:start_annotation animated:YES];
+                     //center map
+                     [mapView selectAnnotation:start_annotation animated:YES];
+                     [self zoomToCenter:mapView withStart:start_annotation.coordinate withEnd:start_annotation.coordinate animated:YES];
                      [self calculateGas];
                  }
              }
@@ -551,7 +572,7 @@ double bottomHeight;
     startLocationText.clearsOnBeginEditing = YES;
     mapView.showsUserLocation = YES;
     [mapView setShowsUserLocation:YES];
-    [mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    //[mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     dispatch_async(kBgQueue, ^{
         locationManager.delegate = self;
@@ -620,6 +641,9 @@ double bottomHeight;
                                     value:nil] build]];
                     
                     [mapView selectAnnotation:mapView.userLocation animated:YES];
+                    
+                    [self zoomToCenter:mapView withStart:mapView.userLocation.coordinate withEnd:mapView.userLocation.coordinate animated:YES];
+                    
                 }
             }];
         }
@@ -833,10 +857,10 @@ double bottomHeight;
 - (void)zoomToCenter:(MKMapView *)map withStart:(CLLocationCoordinate2D)start withEnd:(CLLocationCoordinate2D)end animated:(BOOL)animate{
     CLLocationCoordinate2D locationCenter;
     MKCoordinateSpan locationSpan;
-    int border = 3;
+    int border = 4.5;
     
     locationCenter.longitude = ((start.longitude - end.longitude)/2 + end.longitude);
-    locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude)*1.0025;
+    locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude) + .0008;
     locationSpan.longitudeDelta = fabsf(start.longitude - end.longitude)*border;
     locationSpan.latitudeDelta = fabsf(start.latitude - end.latitude)*border;
     
@@ -1080,5 +1104,4 @@ double bottomHeight;
     
     [super viewWillLayoutSubviews];
 }
-
 @end

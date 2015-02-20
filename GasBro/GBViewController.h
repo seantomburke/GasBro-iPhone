@@ -59,6 +59,7 @@
 @property (readwrite) IBOutlet UIView *topView;
 @property (readwrite) IBOutlet UIView *bottomView;
 @property (readwrite) IBOutlet MKMapView *mapView;
+@property (readwrite) IBOutlet UIGestureRecognizer *panOnGasPrice;
 
 @property (readonly) GBInfoViewController *infoView;
 @property (readwrite, strong, nonatomic) GBCache *cache;
@@ -66,6 +67,7 @@
 @property (readwrite, strong) GBEndAnnotation *end_annotation;
 
 
+- (IBAction)panOnGasPriceAction:(id)sender;
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
