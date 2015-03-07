@@ -71,13 +71,14 @@ double topPos;
 double topHeight;
 double bottomPos;
 double bottomHeight;
+int counter;
 
 UITapGestureRecognizer *maptap;
 UITapGestureRecognizer *nonmaptaptop;
 UITapGestureRecognizer *nonmaptapbottom;
+UIPanGestureRecognizer *panGestureRecognizer;
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     self.screenName = @"Home Screen";
     tracker = [[GAI sharedInstance] defaultTracker];
     
@@ -88,19 +89,17 @@ UITapGestureRecognizer *nonmaptapbottom;
     bottomHeight = bottomView.frame.size.height;
     bottomPos = self.view.frame.size.height - bottomHeight;
     
-    [self showPanels];
+    [self loadData];
 }
 
 - (void)viewDidLoad
 {
-    
-    [super viewDidLoad];
-    
+    gasPriceLabel.userInteractionEnabled = YES;
     [self.view setClearsContextBeforeDrawing:NO];
     
-//    for (UIView *t in self.view.subviews) {
-//        [t
-//    }
+    for (UIView *t in self.view.subviews) {
+        t.userInteractionEnabled = YES;
+    }
     
     self.topView.opaque = NO;
     self.bottomView.opaque = NO;
@@ -114,6 +113,8 @@ UITapGestureRecognizer *nonmaptapbottom;
     gas_type = [defaults objectForKey:@"gasType"];
     mpg = [defaults doubleForKey:@"mpg"];
     
+    [self loadData];
+    
     locationManager = [[CLLocationManager alloc] init];
     [self peopleSliderChanged:(self)];
     [self roundtripSwitchChanged:(self)];
@@ -125,117 +126,34 @@ UITapGestureRecognizer *nonmaptapbottom;
     startLocationText.delegate = self;
     
     maptap = [[UITapGestureRecognizer alloc]
-                                      initWithTarget:self
-                                      action:@selector(hidePanels)];
+              initWithTarget:self
+              action:@selector(mapHandler:)];
     
     nonmaptaptop = [[UITapGestureRecognizer alloc]
-                                            initWithTarget:self
-                                            action:@selector(showPanels)];
+                    initWithTarget:self
+                    action:@selector(topHandler:)];
     
     nonmaptapbottom = [[UITapGestureRecognizer alloc]
-                                               initWithTarget:self
-                                               action:@selector(showPanels)];
+                       initWithTarget:self
+                       action:@selector(bottomHandler:)];
+    
+    
+    panGestureRecognizer = [[UIPanGestureRecognizer alloc]
+                            initWithTarget:self
+                            action:@selector(moveViewWithGestureRecognizer:)];
     
     [mapView addGestureRecognizer:maptap];
     
     [topView addGestureRecognizer:nonmaptaptop];
     
     [bottomView addGestureRecognizer:nonmaptapbottom];
-    
+    [gasPriceLabel addGestureRecognizer:panGestureRecognizer];
 }
 
--(IBAction)updateTrip:(id)sender{
-    [self getTrip:parseTripId.text];
-    
+-(void)viewDidLayoutSubviews{
+    [super viewDidLoad];
 }
 
--(void)getTrip:(NSString *)tripid{
-    if(![tripid  isEqual: @""])
-    {
-    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
-    [query getObjectWithId:tripid];
-    [query getObjectInBackgroundWithId:tripid block:^(PFObject *tripObject, NSError *error) {
-        if(error)
-        {
-            [self alert:@"Trip ID not found" withMessage:@"This is an invalid Trip ID, create a new one at gasbro.com" withButton:@"OK"];
-        }
-        else
-        {
-        startLocationText.text = [tripObject valueForKey:@"start_location"];
-        endLocationText.text = [tripObject valueForKey:@"end_location"];
-        
-        NSString *parseGasType = [tripObject objectForKey:@"gas_type"];
-        gas_index = parseGasType.intValue;
-        gas_type_segment.selectedSegmentIndex = gas_index;
-        
-        
-        NSString *parseMiles = [tripObject objectForKey:@"miles"];
-        miles = parseMiles.floatValue;
-        NSString *parseMPG = [tripObject objectForKey:@"mpg"];
-        mpg = parseMPG.intValue;
-        mpgSlider.value = mpg;
-        
-        NSString *parsePeople = [tripObject objectForKey:@"people"];
-        people = parsePeople.intValue;
-        peopleSlider.value = people;
-            
-        NSString *parseRoundtrip = [tripObject objectForKey:@"roundtrip"];
-        roundtrip = parseRoundtrip.intValue;
-        NSString *parsePrice = [tripObject objectForKey:@"price"];
-        price = parsePrice.floatValue;
-        
-        city = [tripObject valueForKey:@"city"];
-        
-        NSDictionary *startAddrDict = @{
-                                      (NSString *) kABPersonAddressStreetKey : startLocationText.text,
-                                      (NSString *) kABPersonAddressCityKey : city
-                                      };
-        NSString *parseStartLat = [tripObject objectForKey:@"start_lat"];
-        NSString *parseStartLng = [tripObject objectForKey:@"start_lng"];
-        
-        CLLocationDegrees startLat = parseStartLat.floatValue;
-        CLLocationDegrees startLng = parseStartLng.floatValue;
-        
-        CLLocationCoordinate2D startLocation = CLLocationCoordinate2DMake(startLat, startLng);
-        
-        
-        NSDictionary *endAddrDict = @{
-                                        (NSString *) kABPersonAddressStreetKey : endLocationText.text
-                                        };
-        
-        NSString *parseEndLat = [tripObject objectForKey:@"end_lat"];
-        NSString *parseEndLng = [tripObject objectForKey:@"end_lng"];
-        
-        CLLocationDegrees endLat = parseEndLat.floatValue;
-        CLLocationDegrees endLng = parseEndLng.floatValue;
-        
-        CLLocationCoordinate2D endLocation = CLLocationCoordinate2DMake(endLat, endLng);
-        
-        MKPlacemark *parseStartPlacemarker = [[MKPlacemark alloc] initWithCoordinate:startLocation addressDictionary:startAddrDict];
-        MKPlacemark *parseEndPlacemarker = [[MKPlacemark alloc] initWithCoordinate:endLocation addressDictionary:endAddrDict];
-        
-        start_placemarker = parseStartPlacemarker;
-        end_placemarker = parseEndPlacemarker;
-        
-        [self calculateCost];
-        
-        [self updateView:parseTripId.text];
-        }
-    }];
-        
-    }
-    
-}
-
-
--(void)updateView:(NSString *)tripId{
-    
-}
-
-
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
-}
 
 -(void)hidePanels {
     [self dismissKeyboard];
@@ -247,28 +165,24 @@ UITapGestureRecognizer *nonmaptapbottom;
                     value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
-                         topView.bounds = CGRectMake(0, 100, topView.frame.size.width, topView.frame.size.height);// its final location
-                         bottomView.bounds = CGRectMake(0, -100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
+                         topView.frame = CGRectMake(0, -100, topView.frame.size.width, topView.frame.size.height);// its final location
+                         bottomView.frame = CGRectMake(0, bottomPos+100, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          
 //                         topView.frame = CGRectMake(0, -100, topView.frame.size.width, topView.frame.size.height);
 //                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width + 100, bottomView.frame.size.height - 100);
 //                         
                          //bottomView.alpha = .7;
                          //topView.alpha = .8;
+                         [self.view layoutIfNeeded];
                      }];
-    
-    [topView updateConstraints];
-    [bottomView updateConstraints];
-    [topView removeGestureRecognizer:nonmaptaptop];
-    [bottomView removeGestureRecognizer:nonmaptapbottom];
-    [topView addGestureRecognizer:nonmaptaptop];
-    [bottomView addGestureRecognizer:nonmaptapbottom];
 }
 
 
+
 -(void)showPanels {
-    
     [self dismissKeyboard];
+    counter++;
+    NSLog(@"%i", counter);
     
     [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"UI"
@@ -277,24 +191,63 @@ UITapGestureRecognizer *nonmaptapbottom;
                     value:nil] build]];
     [UIView animateWithDuration:.25
                      animations:^{
-                         topView.bounds = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);// its final location
-                         bottomView.bounds = CGRectMake(0, 0, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
+                         topView.frame = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);// its final location
+                         bottomView.frame = CGRectMake(0, bottomPos, bottomView.frame.size.width, bottomView.frame.size.height);// its final location
                          
                          
-//                         topView.frame = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);
-//                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width, bottomView.frame.size.height);
-//                         //bottomView.alpha = .90;
+                         //                         topView.frame = CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height);
+                         //                         bottomView.frame = CGRectMake(0, self.view.frame.size.height - bottomView.frame.size.height, bottomView.frame.size.width, bottomView.frame.size.height);
+                         //                         //bottomView.alpha = .90;
                          //topView.alpha = .90;
+                         [self.view layoutIfNeeded];
                      }];
-    
-    
-    [topView updateConstraints];
-    [bottomView updateConstraints];
-    [topView removeGestureRecognizer:nonmaptaptop];
-    [bottomView removeGestureRecognizer:nonmaptapbottom];
-    [topView addGestureRecognizer:nonmaptaptop];
-    [bottomView addGestureRecognizer:nonmaptapbottom];
 }
+
+
+-(void)topHandler:(UITapGestureRecognizer *)tapGestureRecognizer{
+    CGPoint point = [tapGestureRecognizer locationInView:gasPriceLabel];
+    NSLog(@"top tapped: %f, %f",point.x, point.y);
+    [self showPanels];
+}
+
+-(void)bottomHandler:(UITapGestureRecognizer *)tapGestureRecognizer{
+    CGPoint location = [tapGestureRecognizer locationInView:topView];
+    NSLog(@"bottom tapped: %f, %f",location.x, location.y);
+    [self showPanels];
+}
+
+-(void)mapHandler:(UITapGestureRecognizer *)tapGestureRecognizer{
+    CGPoint location = [tapGestureRecognizer locationInView:topView];
+    NSLog(@"map tapped: %f, %f",location.x, location.y);
+    [self hidePanels];
+}
+
+-(void)moveViewWithGestureRecognizer:(UIPanGestureRecognizer *)panGestureRecognizer{
+    //CGPoint touchLocation = [panGestureRecognizer locationInView:self.view];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    
+    price -= velocity.y*.0001;
+    
+    price = roundf(price*100.0)/100.0;
+    
+    if(price < .01){
+        price = 0;
+        
+    }
+    gasPriceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
+    [self calculateCost];
+    
+}
+
+-(void)updateView:(NSString *)tripId{
+    
+}
+
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -772,14 +725,15 @@ UITapGestureRecognizer *nonmaptapbottom;
 
 - (void)calculateCost
 {
-    if((price > 0) && (miles > 0))
+    
+    if(mpg > 0)
     {
         total = (price*miles*roundtrip)/mpg;
         cost = total/people;
         
         NSString *cost_string = [NSString stringWithFormat:@"$%0.2f", cost];
         NSString *total_string = [NSString stringWithFormat:@"$%0.2f", total];
-    
+        
         if([cost_string length] > 6) {
             // The source string is too long.
             gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.0f", cost];
@@ -788,14 +742,18 @@ UITapGestureRecognizer *nonmaptapbottom;
             // The source string is already less than 6 characters.
             gasPerPersonLabel.text = [NSString stringWithFormat:@"$%0.2f", cost];
         }
-    
+        
         if([total_string length] > 6){
             gasTotalLabel.text = [NSString stringWithFormat:@"$%0.0f", total];
         }
         else{
-        
+            
             gasTotalLabel.text = [NSString stringWithFormat:@"$%0.2f", total];
         }
+    }
+    
+    if((price > 0) && (miles > 0))
+    {
         [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"Calculations"
                     action:@"Total Cost"
@@ -860,7 +818,7 @@ UITapGestureRecognizer *nonmaptapbottom;
     int border = 4.5;
     
     locationCenter.longitude = ((start.longitude - end.longitude)/2 + end.longitude);
-    locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude) + .0008;
+    locationCenter.latitude = ((start.latitude - end.latitude)/2 + end.latitude) + .0002;
     locationSpan.longitudeDelta = fabsf(start.longitude - end.longitude)*border;
     locationSpan.latitudeDelta = fabsf(start.latitude - end.latitude)*border;
     
@@ -1081,27 +1039,127 @@ UITapGestureRecognizer *nonmaptapbottom;
     [defaults setInteger:gas_index forKey:@"gas_index"];
     [defaults setInteger:people forKey:@"people"];
     [defaults setInteger:mpg forKey:@"mpg"];
-    [defaults synchronize];
+    
+    NSLog(@"Saving data: %f", [defaults doubleForKey:@"gas_index"]);
 }
 
 -(void)loadData
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"mpg"])
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"Loading data: %@", [defaults boolForKey:@"gas_index"]?@"YES":@"NO");
+    if ([defaults boolForKey:@"mpg"])
     {
-        people = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
-                                objectForKey:@"people"] intValue];
+        people = [defaults doubleForKey:@"people"];
+        mpg = [defaults doubleForKey:@"mpg"];
+        gas_index = [defaults doubleForKey:@"gas_index"];
+        NSLog(@"people: %i, %f", people, [defaults doubleForKey:@"people"]);
+        NSLog(@"mpg: %i, %f", mpg, [defaults doubleForKey:@"mpg"]);
+        NSLog(@"gas_index: %ld, %f", (long)gas_index, [defaults doubleForKey:@"gas_index"]);
         
-        mpg = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
-                             objectForKey:@"mpg"] intValue];
-        
-        gas_index = [(NSNumber *)[[NSUserDefaults standardUserDefaults]
-                                   objectForKey:@"gas_index"] intValue];
+        gas_type_segment.selectedSegmentIndex = gas_index;
+        mpgSlider.value = mpg;
+        peopleSlider.value = people;
     }
 }
 
+-(IBAction)updateTrip:(id)sender{
+    [self getTrip:parseTripId.text];
+    
+}
+
+-(void)getTrip:(NSString *)tripid{
+    if(![tripid  isEqual: @""])
+    {
+        PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+        [query getObjectWithId:tripid];
+        [query getObjectInBackgroundWithId:tripid block:^(PFObject *tripObject, NSError *error) {
+            if(error)
+            {
+                [self alert:@"Trip ID not found" withMessage:@"This is an invalid Trip ID, create a new one at gasbro.com" withButton:@"OK"];
+            }
+            else
+            {
+                startLocationText.text = [tripObject valueForKey:@"start_location"];
+                endLocationText.text = [tripObject valueForKey:@"end_location"];
+                
+                NSString *parseGasType = [tripObject objectForKey:@"gas_type"];
+                gas_index = parseGasType.intValue;
+                gas_type_segment.selectedSegmentIndex = gas_index;
+                
+                
+                NSString *parseMiles = [tripObject objectForKey:@"miles"];
+                miles = parseMiles.floatValue;
+                NSString *parseMPG = [tripObject objectForKey:@"mpg"];
+                mpg = parseMPG.intValue;
+                mpgSlider.value = mpg;
+                
+                NSString *parsePeople = [tripObject objectForKey:@"people"];
+                people = parsePeople.intValue;
+                peopleSlider.value = people;
+                
+                NSString *parseRoundtrip = [tripObject objectForKey:@"roundtrip"];
+                roundtrip = parseRoundtrip.intValue;
+                NSString *parsePrice = [tripObject objectForKey:@"price"];
+                price = parsePrice.floatValue;
+                
+                city = [tripObject valueForKey:@"city"];
+                
+                NSDictionary *startAddrDict = @{
+                                                (NSString *) kABPersonAddressStreetKey : startLocationText.text,
+                                                (NSString *) kABPersonAddressCityKey : city
+                                                };
+                NSString *parseStartLat = [tripObject objectForKey:@"start_lat"];
+                NSString *parseStartLng = [tripObject objectForKey:@"start_lng"];
+                
+                CLLocationDegrees startLat = parseStartLat.floatValue;
+                CLLocationDegrees startLng = parseStartLng.floatValue;
+                
+                CLLocationCoordinate2D startLocation = CLLocationCoordinate2DMake(startLat, startLng);
+                
+                
+                NSDictionary *endAddrDict = @{
+                                              (NSString *) kABPersonAddressStreetKey : endLocationText.text
+                                              };
+                
+                NSString *parseEndLat = [tripObject objectForKey:@"end_lat"];
+                NSString *parseEndLng = [tripObject objectForKey:@"end_lng"];
+                
+                CLLocationDegrees endLat = parseEndLat.floatValue;
+                CLLocationDegrees endLng = parseEndLng.floatValue;
+                
+                CLLocationCoordinate2D endLocation = CLLocationCoordinate2DMake(endLat, endLng);
+                
+                MKPlacemark *parseStartPlacemarker = [[MKPlacemark alloc] initWithCoordinate:startLocation addressDictionary:startAddrDict];
+                MKPlacemark *parseEndPlacemarker = [[MKPlacemark alloc] initWithCoordinate:endLocation addressDictionary:endAddrDict];
+                
+                start_placemarker = parseStartPlacemarker;
+                end_placemarker = parseEndPlacemarker;
+                
+                [self calculateCost];
+                
+                [self updateView:parseTripId.text];
+            }
+        }];
+        
+    }
+    
+}
+
 -(void)viewWillLayoutSubviews{
-    
-    
     [super viewWillLayoutSubviews];
 }
+
+- (IBAction)panOnGasPriceAction:(id)sender{
+    NSLog(@"Pan Action");
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [self saveData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [self saveData];
+}
+
+
 @end

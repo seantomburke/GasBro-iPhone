@@ -55,11 +55,11 @@
 @property (weak, nonatomic) IBOutlet GBCurrentLocation *currentLocationButton;
 @property (strong, nonatomic, readwrite) MKMapItem *end_mapitem;
 @property (strong, nonatomic, readwrite) MKMapItem *start_mapitem;
+@property (strong, nonatomic) IBOutlet UIGestureRecognizer *panOnGasPrice;
 
 @property (readwrite) IBOutlet UIView *topView;
 @property (readwrite) IBOutlet UIView *bottomView;
 @property (readwrite) IBOutlet MKMapView *mapView;
-@property (readwrite) IBOutlet UIGestureRecognizer *panOnGasPrice;
 
 @property (readonly) GBInfoViewController *infoView;
 @property (readwrite, strong, nonatomic) GBCache *cache;
@@ -78,9 +78,11 @@
 - (IBAction)unwindToMain:(UIStoryboardSegue *)segue;
 - (IBAction)updateTrip:(id)sender;
 
+
 -(void)saveData;
 -(void)loadData;
 -(void)calculateGas;
 -(void)calculateCost;
+-(void)moveViewWithGestureRecognizer:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
