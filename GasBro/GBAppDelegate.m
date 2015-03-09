@@ -10,15 +10,29 @@
 #import "GAI.h"
 #import "GBCache.h"
 #import <Parse/Parse.h>
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <Appirater.h>
 
 @implementation GBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+//    #ifdef DEBUG
+//    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
+//    #endif
+    
+    [Parse enableLocalDatastore];
+    [ParseCrashReporting enable];
+    
     [Parse setApplicationId:@"XaOZLlEYM0Iu49oTedAm1gqQM895vkV66F8RNSL7"
                   clientKey:@"X4PQqGJePMEIGy9i5ziOUngf9ouzBtxdC30VGf0z"];
+    
     [PFUser enableAutomaticUser];
+    
+    [[PFUser currentUser] incrementKey:@"appOpened"];
+    [[PFUser currentUser] setObject:@"iPhone" forKey:@"Device"];
+    [[PFUser currentUser] saveInBackground];
+    
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
@@ -41,6 +55,7 @@
     [Appirater setUsesUntilPrompt:3];
     [Appirater setUsesAnimation:YES];
     [Appirater setDebug:NO];
+    
 //    [Appirater setCustomAlertCancelButtonTitle:@"I hate it"];
 //    [Appirater setCustomAlertRateButtonTitle:@"I like it"];
 //    [Appirater setCustomAlertRateLaterButtonTitle:@"Rate later"];
