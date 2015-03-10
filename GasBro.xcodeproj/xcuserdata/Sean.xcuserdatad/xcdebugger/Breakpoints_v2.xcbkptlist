@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GasBro/GBViewController.m"
-            timestampString = "447629435.15327"
+            timestampString = "447708285.564933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1301"
-            endingLineNumber = "1301"
+            startingLineNumber = "1310"
+            endingLineNumber = "1310"
             landmarkName = "@implementation GBViewController"
             landmarkType = "3">
          </BreakpointContent>

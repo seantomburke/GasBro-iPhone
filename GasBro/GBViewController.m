@@ -222,6 +222,16 @@ UIPanGestureRecognizer *panGestureRecognizer;
 
 -(void)moveViewWithGestureRecognizer:(UIPanGestureRecognizer *)panGestureRecognizer{
     //CGPoint touchLocation = [panGestureRecognizer locationInView:self.view];
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
+        gasPriceLabel.textColor = [UIColor colorWithRed: 0 green: 0.627 blue: 0.176 alpha:1];
+    }
+    else if (panGestureRecognizer.state == UIGestureRecognizerStateCancelled ||
+             panGestureRecognizer.state == UIGestureRecognizerStateFailed ||
+             panGestureRecognizer.state == UIGestureRecognizerStateEnded){
+        gasPriceLabel.textColor = [UIColor blackColor];
+    }
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
     
     price -= velocity.y*.0001;
@@ -761,7 +771,6 @@ UIPanGestureRecognizer *panGestureRecognizer;
                         label:gasPerPersonLabel.text
                         value:[NSNumber numberWithFloat:cost]] build]];
         [Appirater userDidSignificantEvent:NO];
-        [Appirater tryToShowPrompt];
         [[PFUser currentUser] incrementKey:@"calculatedCost"];
         [[PFUser currentUser] saveInBackground];
     }

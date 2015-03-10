@@ -72,7 +72,6 @@
 - (IBAction)peopleSliderChanged:(id)sender;
 - (IBAction)mpgSliderChanged:(id)sender;
 - (IBAction)roundtripSwitchChanged:(id)sender;
-- (IBAction)startSearch:(id)sender;
 - (IBAction)updateGasType:(id)sender;
 - (IBAction)infoButtonClicked:(id)sender;
 - (IBAction)unwindToMain:(UIStoryboardSegue *)segue;
